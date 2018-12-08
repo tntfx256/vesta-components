@@ -12,7 +12,7 @@ export interface IPaginationState {
     page: number;
 }
 
-export default class Pagination extends PureComponent<IPaginationProps, IPaginationState> {
+export class Pagination extends PureComponent<IPaginationProps, IPaginationState> {
 
     constructor(props: IPaginationProps) {
         super(props);

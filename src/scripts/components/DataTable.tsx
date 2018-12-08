@@ -1,7 +1,7 @@
 import { IRequest } from "@vesta/core";
 import React, { Component } from "react";
 import { IBaseComponentProps } from "../BaseComponent";
-import Pagination from "./Pagination";
+import { Pagination } from "./Pagination";
 
 export interface IColumn<T> {
     name?: string;
@@ -38,7 +38,7 @@ export class DataTable<T> extends Component<IDataTableProps<T>, IDataTableState>
         const rows = this.createRows();
         const queryOption = this.props.queryOption;
         const pagination = this.props.pagination ? (
-            <Pagination totalRecords={queryOption.total} currentPage={queryOption.page || 1} onChange={this.onPaginationChange}
+            <Pagination totalRecords={queryOption.total} currentPage={queryOption.page || 1} fetch={this.onPaginationChange}
                 recordsPerPage={queryOption.limit || 20} />) : null;
         return (
             <div>

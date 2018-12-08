@@ -2,9 +2,8 @@ import { Culture } from "@vesta/core";
 import React, { ChangeEvent, Component, KeyboardEvent } from "react";
 import { IBaseComponentProps } from "../BaseComponent";
 import { IFile } from "../FileSystem";
+import { KeyCode } from "../KeyCode";
 import { Icon } from "./Icon";
-
-export enum KeyCode { Enter = 13 }
 
 export type IFileSelectCallback = (path: string) => void;
 

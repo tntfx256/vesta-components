@@ -1,15 +1,16 @@
 {
   "name": "@vesta/components",
   "version": "0.1.0",
-  "description": "",
-  "main": "index.js",
+  "description": "vesta react components",
+  "license": "Apache-2.0",
+  "author": "hbtb <bishehsary@gmail.com>",
+  "contributors": [
+    "javadkh2 <khalilian.javad@gmail.com>"
+  ],
   "scripts": {
     "start": "gulp",
-    "deploy": "gulp deploy"
+    "deploy": "gulp publish"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
   "dependencies": {
     "@vesta/core": "^2.0.6",
     "gulp-util": "^3.0.8",
