@@ -10,7 +10,9 @@ export interface IDialogProps extends IBaseComponentProps {
     modalClassName?: string;
 }
 
-export class Dialog extends PureComponent<IDialogProps, null> {
+interface IDialogState { }
+
+export class Dialog extends PureComponent<IDialogProps, IDialogState> {
 
     public render() {
         const { show, className, modalClassName } = this.props;

@@ -3,13 +3,11 @@
 @import 'misc/variables';
 @import 'misc/mixins';
 @import 'misc/animation';
-@import 'fonts/material';
+// @import 'fonts/material';
 // <vesta:scssFont/>
 @import 'elements/button';
 @import 'elements/form';
 // <vesta:scssElement/>
-@import 'components/page';
-@import 'components/root';
 @import 'components/form/autocomplete';
 @import 'components/form/datetime-input';
 @import 'components/form/file-input';

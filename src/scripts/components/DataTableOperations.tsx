@@ -1,15 +1,15 @@
 import { Culture } from "@vesta/core";
-import React, { PureComponent } from "react";
+import React, { MouseEvent, PureComponent } from "react";
 import { Link } from "react-router-dom";
-import { IAccess } from "../../service/AuthService";
 import { IBaseComponentProps } from "../BaseComponent";
 import { Icon } from "./Icon";
 import { MessageBox, MessageBoxBtn, MessageBoxBtnGroup } from "./MessageBox";
 
 export interface IDataTableOperationsProps extends IBaseComponentProps {
+    hasEditAccess?: boolean;
+    hasDeleteAccess?: boolean;
     path: string;
     id: number;
-    access: IAccess;
     onDelete: (id: number) => void;
 }
 
@@ -26,11 +26,11 @@ export class DataTableOperations extends PureComponent<IDataTableOperationsProps
     }
 
     public render() {
-        const { path, access, id } = this.props;
+        const { path, hasDeleteAccess, hasEditAccess, id } = this.props;
         const { showConfirmBox } = this.state;
-        const editLink = access.edit ?
+        const editLink = hasEditAccess ?
             <Link to={`/${path}/edit/${id}`} className="edit-btn"><Icon name="mode_edit" /></Link> : null;
-        const delLink = access.del ?
+        const delLink = hasDeleteAccess ?
             <span className="del-btn" onClick={this.onDelete}><Icon name="delete" /></span> : null;
 
         return (
@@ -46,7 +46,7 @@ export class DataTableOperations extends PureComponent<IDataTableOperationsProps
         );
     }
 
-    private onDelete = (e) => {
+    private onDelete = (e: MouseEvent<HTMLSpanElement>) => {
         e.preventDefault();
         this.setState({ showConfirmBox: true });
     }

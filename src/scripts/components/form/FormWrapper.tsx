@@ -7,10 +7,11 @@ export interface IFromControlProps {
     error?: string;
     label?: string;
     name: string;
-    onChange?: ChangeEventHandler;
+    hint?: string;
     readonly?: boolean;
     required?: boolean;
-    value?: any;
+    value: any;
+    onChange: ChangeEventHandler;
 }
 
 export interface IFormOption {

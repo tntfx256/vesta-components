@@ -30,8 +30,8 @@ export class Preloader extends PureComponent<IPreloaderProps, IPreloaderState> {
     }
 
     private static counter = 0;
-    private waitMessage;
-    private inProgressMessage;
+    private waitMessage = "";
+    private inProgressMessage = "";
     // private show;
 
     constructor(props: IPreloaderProps) {
@@ -53,7 +53,7 @@ export class Preloader extends PureComponent<IPreloaderProps, IPreloaderState> {
         const { title = this.waitMessage, message = this.inProgressMessage } = this.props;
 
         return (
-            <Dialog show={this.show} modalClassName="preloader-modal">
+            <Dialog show={this.show || false} modalClassName="preloader-modal">
                 <div className="preloader">
                     <div className="pl-wrapper">
                         <div className="pl-circular" />

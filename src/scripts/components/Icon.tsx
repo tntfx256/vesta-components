@@ -1,5 +1,5 @@
 import React, { MouseEvent } from "react";
-import { IBaseComponentProps } from "./BaseComponent";
+import { IBaseComponentProps } from "../BaseComponent";
 
 export interface IconProps extends IBaseComponentProps {
     name: string;

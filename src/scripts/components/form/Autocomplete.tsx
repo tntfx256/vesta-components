@@ -1,4 +1,4 @@
-import React, { Component, ChangeEvent } from "react";
+import React, { ChangeEvent, Component, KeyboardEvent } from "react";
 import { IBaseComponentProps } from "../../BaseComponent";
 import { KeyCode } from "../../KeyCode";
 import { IFromControlProps } from "./FormWrapper";
@@ -92,20 +92,18 @@ export class Autocomplete extends Component<IAutocompleteProps, IAutocompleteSta
             });
     }
 
-    private onItemDelete = (e) => {
-        const index = e.currentTarget.getAttribute("data-index");
+    private onItemDelete = (index: number) => () => {
         if (index >= 0) {
             this.selectedItems.splice(index, 1);
         }
         this.forceUpdate();
     }
 
-    private onItemSelect = (e) => {
-        const index = e.currentTarget.getAttribute("data-index");
+    private onItemSelect = (index: number) => () => {
         this.selectItemByIndex(index);
     }
 
-    private onKeyDown = (e) => {
+    private onKeyDown = (e: KeyboardEvent) => {
         const { showDropDown, items } = this.state;
         const itemsCount = items.length;
         if (!itemsCount || !showDropDown) { return null; }
@@ -141,8 +139,7 @@ export class Autocomplete extends Component<IAutocompleteProps, IAutocompleteSta
         if (!items.length || !showDropDown) { return null; }
         const menuItems = (items || []).map((item, index) => {
             const className = index === menuIndex ? "has-hover" : "";
-            return <a className={`list-item ${className}`} onClick={this.onItemSelect}
-                key={index} data-index={index}>{item[titleKey]}</a>;
+            return <a className={`list-item ${className}`} onClick={this.onItemSelect(index)} key={index}>{item[titleKey as string]}</a>;
         });
         return (
             <div className="list-wrapper form-control">
@@ -158,7 +155,7 @@ export class Autocomplete extends Component<IAutocompleteProps, IAutocompleteSta
         const selectedItems = [];
         for (let i = 0, il = this.selectedItems.length; i < il; ++i) {
             selectedItems.push((
-                <span key={i} data-index={i} onClick={this.onItemDelete}>{this.selectedItems[i][titleKey]}</span>
+                <span key={i} onClick={this.onItemDelete(i)}>{this.selectedItems[i][titleKey as string]}</span>
             ));
         }
         return <div className="selected-items">{selectedItems}</div>;
@@ -184,7 +181,9 @@ export class Autocomplete extends Component<IAutocompleteProps, IAutocompleteSta
             }
         }
         this.hasStateChanged = true;
-        onChange(name, multi ? this.selectedItems.map((item) => item[valueKey as string]) : selectedValue);
+        if (onChange) {
+            onChange(name, multi ? this.selectedItems.map((item) => item[valueKey as string]) : selectedValue);
+        }
         this.setState({ term: multi ? "" : term, menuIndex: -1, showDropDown: false });
     }
 }

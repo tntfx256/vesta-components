@@ -1,4 +1,4 @@
-import React, { ComponentType, PureComponent } from "react";
+import React, { ComponentType, MouseEvent, PureComponent } from "react";
 import { RouteComponentProps, withRouter } from "react-router";
 import { Burger } from "./Burger";
 
@@ -10,10 +10,10 @@ interface INavbarProps extends RouteComponentProps<INavbarParams> {
     title?: string;
     className?: string;
     backLink?: string;
-    backAction?: (e) => void;
     showBurger?: boolean;
     hide?: boolean;
     mainButtonType?: NavBarMainButtonType;
+    backAction?: (e: MouseEvent<HTMLElement>) => void;
 }
 
 class Navbar extends PureComponent<INavbarProps, null> {
@@ -40,7 +40,7 @@ class Navbar extends PureComponent<INavbarProps, null> {
         );
     }
 
-    private goBack = (e) => {
+    private goBack = (e: MouseEvent<HTMLElement>) => {
         if (e) {
             e.stopPropagation();
         }

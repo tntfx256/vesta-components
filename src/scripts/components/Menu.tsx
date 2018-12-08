@@ -1,12 +1,17 @@
-import React, { MouseEvent, PureComponent } from "react";
+import React, { MouseEvent, PureComponent, ReactNode } from "react";
 import { NavLink } from "react-router-dom";
-import { IRouteItem } from "../../config/route";
 import { IBaseComponentProps } from "../BaseComponent";
 import { Icon } from "./Icon";
 
-export interface IMenuItem extends IRouteItem {
-    id?: string;
+export interface IMenuItem {
+    abstract?: boolean;
+    children: IMenuItem[];
     disabled?: boolean;
+    hidden?: boolean;
+    icon?: string;
+    id?: string;
+    link?: string;
+    title: string;
 }
 
 interface IMenuProps extends IBaseComponentProps {
@@ -16,7 +21,9 @@ interface IMenuProps extends IBaseComponentProps {
     onItemSelect?: (id?: string) => void;
 }
 
-export class Menu extends PureComponent<IMenuProps, null> {
+interface IMenuState { }
+
+export class Menu extends PureComponent<IMenuProps, IMenuState> {
     public static defaultProps = { horizontal: false };
     private keyCounter = 1;
 
@@ -32,15 +39,15 @@ export class Menu extends PureComponent<IMenuProps, null> {
         );
     }
 
-    private renderMenuItems(routeItems: IRouteItem[], prefix: string) {
+    private renderMenuItems(routeItems: IMenuItem[], prefix: string): ReactNode[] {
         // const { onClick } = this.props;
-        let links = [];
+        let links: ReactNode[] = [];
         const routeCount = routeItems.length;
         for (let i = 0, il = routeCount; i < il; ++i) {
             const item: IMenuItem = routeItems[i];
             if (!item.abstract && !item.hidden) {
                 const basePath = prefix ? `/${prefix}` : "";
-                const icon = <Icon name={item.icon} />;
+                const icon = <Icon name={item.icon as string} />;
                 const className = `menu-item ${item.disabled ? "disabled" : ""}`;
                 const itemComponent = item.link ?
                     (<NavLink to={`${basePath}/${item.link}`} activeClassName="active">
@@ -53,7 +60,7 @@ export class Menu extends PureComponent<IMenuProps, null> {
                     </li>);
             }
             if (item.children) {
-                links = links.concat(this.renderMenuItems(item.children, item.link));
+                links = links.concat(this.renderMenuItems(item.children, item.link || ""));
             }
         }
         return links;
@@ -65,7 +72,7 @@ export class Menu extends PureComponent<IMenuProps, null> {
         const id = e.currentTarget.getAttribute("data-id");
         const { onItemSelect } = this.props;
         if (onItemSelect) {
-            onItemSelect(id);
+            onItemSelect(id || "");
         }
         this.forceUpdate();
     }

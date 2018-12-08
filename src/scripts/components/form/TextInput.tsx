@@ -5,7 +5,7 @@ import { IFromControlProps } from "./FormWrapper";
 export interface ITextInputProps extends IBaseComponentProps, IFromControlProps {
     dir?: "ltr" | "rtl";
     type?: string;
-    value?: string;
+    value: string;
 }
 
 export function TextInput(props: ITextInputProps) {

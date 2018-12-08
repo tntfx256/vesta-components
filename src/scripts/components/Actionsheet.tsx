@@ -1,33 +1,33 @@
 import React, { PureComponent } from "react";
 import ReactCSSTransitionGroup from "react-addons-css-transition-group";
-import { Config } from "../../service/Config";
 import { IBaseComponentProps } from "../BaseComponent";
 
 export interface IActionsheetItem {
-    onClick: () => void;
     title: string;
     value?: string;
+    onClick: () => void;
 }
 
 interface IActionsheetProps extends IBaseComponentProps {
     actions: IActionsheetItem[];
+    enterDuration?: number;
+    leaveDuration?: number;
     show: boolean;
 }
 
 export class Actionsheet extends PureComponent<IActionsheetProps, null> {
-    private transTime = Config.getConfig().transition;
 
     constructor(props: IActionsheetProps) {
         super(props);
     }
 
     public render() {
-        const { enter, leave } = this.transTime;
+        const { enterDuration = 100, leaveDuration = 100 } = this.props;
         const actionsList = this.renderActionsList();
 
         return (
             <ReactCSSTransitionGroup transitionName="actionsheet"
-                transitionEnterTimeout={enter / 2} transitionLeaveTimeout={leave / 2}>
+                transitionEnterTimeout={enterDuration / 2} transitionLeaveTimeout={leaveDuration / 2}>
                 {actionsList}
             </ReactCSSTransitionGroup>
         );

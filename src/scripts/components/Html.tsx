@@ -10,8 +10,8 @@ export class Html extends PureComponent<IHtmlProps, null> {
 
     public componentDidMount() {
         const { lang, dir } = this.props;
-        document.documentElement.setAttribute("lang", lang);
-        document.documentElement.setAttribute("dir", dir);
+        (document.documentElement as HTMLElement).setAttribute("lang", lang);
+        (document.documentElement as HTMLElement).setAttribute("dir", dir);
     }
 
     public render() {

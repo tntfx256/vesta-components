@@ -1,28 +1,30 @@
-import React, { PureComponent } from "react";
+import React, { MouseEvent, PureComponent } from "react";
 import ReactCSSTransitionGroup from "react-addons-css-transition-group";
-import { Config } from "../../service/Config";
 import { IBaseComponentProps } from "../BaseComponent";
 
+
 interface IModalProps extends IBaseComponentProps {
+    enterDuration?: number;
+    leaveDuration?: number;
     show: boolean;
     name?: string;
     className?: string;
-    onClick?: (e) => void;
+    onClick?: (e: MouseEvent<HTMLDivElement>) => void;
 }
 
-export class Modal extends PureComponent<IModalProps, null> {
+interface IModalState { }
+
+export class Modal extends PureComponent<IModalProps, IModalState> {
     public static count = 0;
     // because of this property, this component can not be stateless
     private isOpen = false;
-    private transTime = Config.getConfig().transition;
 
     public componentWillUnmount() {
         this.updateStatus(false);
     }
 
     public render() {
-        const { name, show, children, className = "" } = this.props;
-        const { enter, leave } = this.transTime;
+        const { name, show, children, className = "", enterDuration = 100, leaveDuration = 100 } = this.props;
         this.updateStatus(show);
         const content = show ?
             <div className={`modal ${className}`} onClick={this.onModalClicked}>
@@ -30,8 +32,8 @@ export class Modal extends PureComponent<IModalProps, null> {
             </div> : null;
 
         return (
-            <ReactCSSTransitionGroup transitionName={name || "modal"} transitionEnterTimeout={enter}
-                transitionLeaveTimeout={leave}>
+            <ReactCSSTransitionGroup transitionName={name || "modal"} transitionEnterTimeout={enterDuration}
+                transitionLeaveTimeout={leaveDuration}>
                 {content}
             </ReactCSSTransitionGroup>
         );
@@ -50,13 +52,13 @@ export class Modal extends PureComponent<IModalProps, null> {
             }
         }
         if (Modal.count == 1) {
-            document.documentElement.classList.add("modal-open");
+            (document.documentElement as HTMLElement).classList.add("modal-open");
         } else if (!Modal.count) {
-            document.documentElement.classList.remove("modal-open");
+            (document.documentElement as HTMLElement).classList.remove("modal-open");
         }
     }
 
-    private onModalClicked = (e) => {
+    private onModalClicked = (e: MouseEvent<HTMLDivElement>) => {
         const { onClick } = this.props;
         if (onClick) {
             e.stopPropagation();

@@ -1,5 +1,5 @@
 import { Culture } from "@vesta/core";
-import React, { PureComponent } from "react";
+import React, { ChangeEvent, PureComponent } from "react";
 import { IBaseComponentProps } from "../../BaseComponent";
 import { DatePicker } from "../DatePicker";
 import { Modal } from "../Modal";
@@ -7,7 +7,7 @@ import { IFromControlProps } from "./FormWrapper";
 
 interface IDateTimeInputProps extends IBaseComponentProps, IFromControlProps {
     hasTime?: boolean;
-    value?: number;
+    value: number;
 }
 
 interface IDateTimeInputState {
@@ -29,12 +29,12 @@ export class DateTimeInput extends PureComponent<IDateTimeInputProps, IDateTimeI
     public componentWillReceiveProps(newProps: IDateTimeInputProps) {
         const { value } = this.props;
         if (newProps.value !== value) {
-            this.setState({ value: this.format(newProps.value) });
+            this.setState({ value: this.format(newProps.value as number) });
         }
     }
 
     public render() {
-        const { name, label, error, hasTime, placeholder } = this.props;
+        const { name, label, error, hasTime } = this.props;
         const { value, showPicker } = this.state;
 
         const picker = showPicker ? (
@@ -44,9 +44,9 @@ export class DateTimeInput extends PureComponent<IDateTimeInputProps, IDateTimeI
 
         return (
             <div className={`form-group date-time-input${error ? " has-error" : ""}`}>
-                {placeholder ? null : <label htmlFor={name}>{label}</label>}
-                <input className="form-control" name={name} id={name} placeholder={placeholder ? label : null}
-                    value={value} onChange={this.onInputChange} readOnly={true} onClick={this.showPicker} />
+                <label htmlFor={name}>{label}</label>
+                <input className="form-control" name={name} id={name} value={value}
+                    onChange={this.onInputChange} readOnly={true} onClick={this.showPicker} />
                 <p className="form-error">{error || ""}</p>
                 {picker}
             </div>
@@ -66,7 +66,7 @@ export class DateTimeInput extends PureComponent<IDateTimeInputProps, IDateTimeI
         this.setState({ showPicker: false });
     }
 
-    private onChange = (value) => {
+    private onChange = (value: string) => {
         const { name, onChange, hasTime } = this.props;
         // dateTime validation, also sets the correct values
         const timestamp = this.dateTime.validate(value, hasTime) ? this.dateTime.getTime() : 0;
@@ -76,7 +76,7 @@ export class DateTimeInput extends PureComponent<IDateTimeInputProps, IDateTimeI
         this.setState({ value, showPicker: false });
     }
 
-    private onInputChange = (e) => {
+    private onInputChange = (e: ChangeEvent<HTMLInputElement>) => {
         const value = e.target.value;
         this.onChange(value);
     }

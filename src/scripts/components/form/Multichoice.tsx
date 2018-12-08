@@ -1,5 +1,5 @@
 import { Culture } from "@vesta/core";
-import React, { PureComponent } from "react";
+import React, { PureComponent, ChangeEvent } from "react";
 import { IBaseComponentProps } from "../../BaseComponent";
 import { IFromControlProps } from "./FormWrapper";
 
@@ -7,7 +7,7 @@ interface IMultichoiceProps extends IBaseComponentProps, IFromControlProps {
     options: Array<{}>;
     showSelectAll?: boolean;
     titleKey?: string;
-    value?: any[];
+    value: any[];
     valueKey?: string;
 }
 
@@ -34,9 +34,9 @@ export class Multichoice extends PureComponent<IMultichoiceProps, null> {
         );
     }
 
-    private onChange = (e) => {
-        const { name, value, valueKey, options } = this.props;
-        let selectedValues = [].concat(value || []);
+    private onChange = (e: ChangeEvent<HTMLInputElement>) => {
+        const { name, value: [], valueKey, options } = this.props;
+        let selectedValues = [].concat(value);
         const checked = e.currentTarget.checked;
         const isSelectAll = e.currentTarget.hasAttribute("data-select-all");
         const index = e.currentTarget.value;

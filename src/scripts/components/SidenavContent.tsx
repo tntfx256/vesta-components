@@ -1,59 +1,54 @@
 import { Culture, Dispatcher } from "@vesta/core";
 import React, { PureComponent } from "react";
 import { Link } from "react-router-dom";
-import { IUser } from "../../cmn/models/User";
-import { getFileUrl } from "../../util/Util";
 import { IBaseComponentProps } from "../BaseComponent";
 import { Avatar } from "./Avatar";
+import { IFormOption } from "./form/FormWrapper";
 import { Select } from "./form/Select";
 import { Icon } from "./Icon";
 import { IMenuItem, Menu } from "./Menu";
 
+interface IAvatarInfo {
+    id?: number;
+    image?: string;
+    name?: string;
+}
+
+interface ILocaleOption extends IFormOption {
+    locale: string;
+}
+
 interface ISidenavContentProps extends IBaseComponentProps {
     menuItems: IMenuItem[];
     name: string;
-    user: IUser;
+    avatar?: IAvatarInfo;
+    showLocaleSwitch?: boolean;
+    locales?: ILocaleOption[];
 }
 
 interface ISidenavContentState {
-    locale: number;
+    locale: string;
 }
 
 export class SidenavContent extends PureComponent<ISidenavContentProps, ISidenavContentState> {
     private dispatch = Dispatcher.getInstance().dispatch;
-    private localeOptions: any[];
     private tr = Culture.getDictionary().translate;
 
     public constructor(props: ISidenavContentProps) {
         super(props);
-        const locale = Culture.getLocale().code;
-        this.state = { locale: locale === "fa-IR" ? 0 : 1 };
-        this.localeOptions = [
-            { id: 0, locale: "fa-IR", title: this.tr("persian") },
-            { id: 1, locale: "en-US", title: this.tr("english") },
-        ];
+        this.state = { locale: Culture.getLocale().code };
     }
 
     public render() {
-        const { user = {}, menuItems } = this.props;
-        const { locale } = this.state;
-        const editLink = user && user.id ?
-            <Link to="/profile" onClick={this.closeSidenav}><Icon name="settings" /></Link> : null;
-        let userImage: string = "";
-        if (user.image) {
-            userImage = getFileUrl(`user/${user.image}`);
-        }
+        const { menuItems } = this.props;
+        const avatar = this.renderAvatar();
+        const localeSwitch = this.renderLocaleSwitch();
 
         return (
             <div className="sidenav-content">
                 <header>
-                    <Avatar src={userImage} defaultSrc="img/icons/192x192.png" />
-                    <div className="name-wrapper">
-                        <h4>{user.username}</h4>
-                        {editLink}
-                        <Select name="lng" label={this.tr("locale")} value={locale} placeholder={true}
-                            options={this.localeOptions} onChange={this.onLocaleChange} />
-                    </div>
+                    {avatar}
+                    {localeSwitch}
                 </header>
                 <main>
                     <Menu name="nav" items={menuItems} onItemSelect={this.closeSidenav} />
@@ -68,8 +63,36 @@ export class SidenavContent extends PureComponent<ISidenavContentProps, ISidenav
     }
 
     private onLocaleChange = (name: string, value: number) => {
-        const locale = this.localeOptions[value].locale;
+        const locale = (this.props.locales as ILocaleOption[])[value].locale;
         Culture.setDefault(locale);
         (window as any).loadLocale(locale, true);
+    }
+
+    private renderAvatar() {
+        const { avatar } = this.props;
+
+        if (!avatar) { return null; }
+        const editLink = avatar.id ?
+            <Link to="/profile" onClick={this.closeSidenav}><Icon name="settings" /></Link> : null;
+
+        return (
+            <>
+                <Avatar src={avatar.image || ""} defaultSrc="img/icons/192x192.png" />
+                <div className="name-wrapper">
+                    <h4>{avatar.name}</h4>
+                    {editLink}
+                </div>
+            </>
+        )
+    }
+
+    renderLocaleSwitch() {
+        if (!this.props.showLocaleSwitch) { return null; }
+
+        const { locale } = this.state;
+        return (
+            <Select name="lng" label={this.tr("locale")} value={locale}
+                options={this.props.locales as any} onChange={this.onLocaleChange} />
+        );
     }
 }

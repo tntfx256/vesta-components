@@ -1,11 +1,11 @@
-import React, { PureComponent } from "react";
+import React, { ChangeEvent, FormEvent, PureComponent } from "react";
 import { IBaseComponentProps } from "../BaseComponent";
 
 export interface IPaginationProps extends IBaseComponentProps {
     recordsPerPage: number;
     currentPage: number;
     totalRecords?: number;
-    fetch: (page: number, recordsPerPage: number) => void;
+    onChange: (page: number, recordsPerPage: number) => void;
 }
 
 export interface IPaginationState {
@@ -27,24 +27,24 @@ export default class Pagination extends PureComponent<IPaginationProps, IPaginat
 
         return (
             <div className="pagination btn-group">
-                <button className="btn" onClick={this.gotoPage} value={1} key={key++}
+                <button className="btn" onClick={this.gotoPage(1)} key={key++}
                     disabled={currentPage == 1}>&lt;&lt;</button>
-                <button className="btn" onClick={this.gotoPage} value={currentPage - 1} key={key++}
+                <button className="btn" onClick={this.gotoPage(currentPage - 1)} key={key++}
                     disabled={currentPage == 1}>&lt;</button>
                 <form onSubmit={this.onSubmit}>
                     <input className="btn" type="number" value={this.state.page} key={key++} onChange={this.onChange} />
                 </form>
-                <button className="btn" onClick={this.gotoPage} value={currentPage + 1} key={key++}
+                <button className="btn" onClick={this.gotoPage(currentPage + 1)} key={key++}
                     disabled={currentPage == totalPages}>&gt;</button>
-                <button className="btn" onClick={this.gotoPage} value={totalPages} key={key}
+                <button className="btn" onClick={this.gotoPage(totalPages)} key={key}
                     disabled={currentPage == totalPages}>&gt;&gt;</button>
             </div>
         );
     }
 
-    private onChange = (e) => {
+    private onChange = (e: ChangeEvent<HTMLInputElement>) => {
         let page = +e.target.value;
-        const totalPages = this.totalPages(this.props.totalRecords, this.props.recordsPerPage);
+        const totalPages = this.totalPages(this.props.totalRecords || 0, this.props.recordsPerPage);
 
         if (page > totalPages) {
             page = totalPages;
@@ -57,14 +57,16 @@ export default class Pagination extends PureComponent<IPaginationProps, IPaginat
         }
     }
 
-    private gotoPage = (e) => {
-        this.setState({ page: e.target.value });
-        this.props.fetch(e.target.value, this.props.recordsPerPage);
+    private gotoPage = (page: number) => () => {
+        this.setState({ page }, () => {
+            this.props.onChange(page, this.props.recordsPerPage);
+        });
+
     }
 
-    private onSubmit = (e) => {
+    private onSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        this.props.fetch(this.state.page, this.props.recordsPerPage);
+        this.props.onChange(this.state.page, this.props.recordsPerPage);
     }
 
     private totalPages(totalRecords: number, recordsPerPage: number) {
