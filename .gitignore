@@ -1,0 +1,8 @@
+.DS_Store
+.idea
+.vscode
+node_modules
+npm-debug.log
+/src/app/config/variantConfig.ts
+/vesta/web/www
+/vesta/tmp
