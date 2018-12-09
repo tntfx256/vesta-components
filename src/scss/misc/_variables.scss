@@ -65,6 +65,8 @@ $color-success: #3db366 !default;
 $color-error: #f15b44 !default;
 $color-info: $blue !default;
 $color-warning: #fdc600 !default;
+$color-bg-primary: $white;
+$color-bg-primary-text: $black;
 $color-list: $color-primary $color-success $color-error $color-warning $color-info !default;
 $color-classes: primary success error warning info !default;
 

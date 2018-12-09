@@ -14,8 +14,8 @@ export function Icon(props: IconProps) {
     className += props.className ? ` ${props.className}` : ""
 
     return Icon.useClassName ?
-        <span className={`${className} icon-${name}`} onClick={props.onClick} /> :
-        <span className={className} onClick={props.onClick}>{name}</span>;
+        <span className={`${className} icon-${props.name}`} onClick={props.onClick} /> :
+        <span className={className} onClick={props.onClick}>{props.name}</span>;
 }
 
 Icon.useClassName = true;
