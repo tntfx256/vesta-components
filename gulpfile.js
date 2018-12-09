@@ -23,7 +23,7 @@ const tasks = pkgr.createTasks();
 
 module.exports = {
     default: gulp.series(tasks.default, compileSass, watch),
-    publish: gulp.series(tasks.publish, compileSass)
+    publish: gulp.series(tasks.deploy, compileSass, tasks.publish)
 }
 
 function compileSass() {
