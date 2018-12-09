@@ -51,8 +51,8 @@ export class FileInput extends PureComponent<IFileInputProps, IFileInputState> {
         if (value) {
             if (multiple) {
                 for (let i = 0, il = (value as string[]).length; i < il; ++i) {
-                    files.push(value[i]);
-                    filesSrc.push(value[i]);
+                    files.push((value as string[])[i]);
+                    filesSrc.push((value as string[])[i]);
                 }
             } else {
                 files.push(value as string);
@@ -79,7 +79,7 @@ export class FileInput extends PureComponent<IFileInputProps, IFileInputState> {
         this.hasStateChanged = true;
 
         if (multiple) {
-            const newFilesList = [].concat(files);
+            const newFilesList = [...files];
             for (let i = 0, il = filesList.length; i < il; ++i) {
                 newFilesList.push(filesList[i]);
             }
@@ -100,23 +100,22 @@ export class FileInput extends PureComponent<IFileInputProps, IFileInputState> {
             const reader = new FileReader();
             reader.addEventListener("load", (e: any) => {
                 filesSrc[index] = e.target.result;
-                this.setState({ filesSrc: [].concat(filesSrc) });
+                this.setState({ filesSrc: [...filesSrc] });
             });
             reader.readAsDataURL(file);
         } else {
             filesSrc[index] = `data:${file.type}`;
             // should be async
-            setTimeout(() => this.setState({ filesSrc: [].concat(filesSrc) }), 10);
+            setTimeout(() => this.setState({ filesSrc: [...filesSrc] }), 10);
         }
     }
 
-    private removeFile = (e) => {
+    private removeFile = (index: number) => () => {
         const { files, filesSrc } = this.state;
-        const index = +e.currentTarget.getAttribute("data-index");
         this.hasStateChanged = true;
         files.splice(index, 1);
         filesSrc.splice(index, 1);
-        this.setState({ files: [].concat(files), filesSrc: [].concat(filesSrc) }, this.onChangePropagate);
+        this.setState({ files: [...files], filesSrc: [...filesSrc] }, this.onChangePropagate);
     }
 
     private renderThumbnails() {
@@ -156,7 +155,7 @@ export class FileInput extends PureComponent<IFileInputProps, IFileInputState> {
             thumbnails.push(
                 <div className={`file-wrapper ${fileType}`} key={i}>
                     {wrapper}
-                    <span className="file-del" data-index={i} onClick={this.removeFile}>X</span>
+                    <span className="file-del" onClick={this.removeFile(i)}>X</span>
                 </div>);
         }
         return (

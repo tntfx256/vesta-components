@@ -1,11 +1,11 @@
 import { IRequest } from "@vesta/core";
-import React, { Component } from "react";
+import React, { Component, ReactNode } from "react";
 import { IBaseComponentProps } from "../BaseComponent";
 import { Pagination } from "./Pagination";
 
 export interface IColumn<T> {
     name?: string;
-    render?: (record: T) => any;
+    render?: (record: T) => ReactNode;
     title?: string;
 }
 
@@ -38,7 +38,7 @@ export class DataTable<T> extends Component<IDataTableProps<T>, IDataTableState>
         const rows = this.createRows();
         const queryOption = this.props.queryOption;
         const pagination = this.props.pagination ? (
-            <Pagination totalRecords={queryOption.total} currentPage={queryOption.page || 1} fetch={this.onPaginationChange}
+            <Pagination totalRecords={queryOption.total} currentPage={queryOption.page || 1} onChange={this.onPaginationChange}
                 recordsPerPage={queryOption.limit || 20} />) : null;
         return (
             <div>
@@ -62,7 +62,7 @@ export class DataTable<T> extends Component<IDataTableProps<T>, IDataTableState>
 
     private createRows() {
         const rows = this.props.records || [];
-        return rows.map((r: T, i) => {
+        return rows.map((r, i) => {
             const cells = this.props.columns.map((c, j) => (<td key={j + 1}>{c.render ? c.render(r) : r[c.name]}</td>));
             return <tr key={i + 1}>{cells}</tr>;
         });

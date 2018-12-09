@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ChangeEvent } from "react";
 import { IBaseComponentProps } from "../../BaseComponent";
 import { IFromControlProps } from "./FormWrapper";
 
@@ -24,7 +24,7 @@ export function TextInput(props: ITextInputProps) {
         </div>
     );
 
-    function onChange(e) {
+    function onChange(e: ChangeEvent<HTMLInputElement>) {
         if (props.onChange && !props.readonly) {
             props.onChange(props.name, e.target.value);
         }

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ChangeEvent } from "react";
 import { IBaseComponentProps } from "../../BaseComponent";
 import { IFromControlProps } from "./FormWrapper";
 
@@ -14,7 +14,7 @@ export function Select(props: ISelectProps) {
     // finding index of selected value
     const selectedIndex = getSelectedIndex();
 
-    const optionsList = (props.options || []).map((o, i) => (<option key={i} value={i}>{o[props.titleKey]}</option>));
+    const optionsList = (props.options || []).map((o, i) => (<option key={i} value={i}>{o[props.titleKey as string]}</option>));
     optionsList.splice(0, 0, <option key={-1} value={-1}>&nbsp;</option>);
 
     let className = `form-group select-input ${props.error ? "has-error" : ""}`;
@@ -34,10 +34,10 @@ export function Select(props: ISelectProps) {
     function getSelectedIndex() {
         const { value, options, valueKey } = props;
         // value might be a number or an object
-        const realValue = value && value[valueKey] || value;
+        const realValue = value && value[valueKey as string] || value;
         // finding index of selected value
         for (let i = options.length; i--;) {
-            if (realValue == options[i][valueKey]) {
+            if (realValue == options[i][valueKey as string]) {
                 return i;
             }
         }
@@ -45,11 +45,11 @@ export function Select(props: ISelectProps) {
         return undefined;
     }
 
-    function onChange(e) {
-        const index = e.target.value;
+    function onChange(e: ChangeEvent<HTMLSelectElement>) {
+        const index = +e.target.value;
         const item = props.options[index];
         if (onChange && !props.readonly) {
-            props.onChange(props.name, item ? item[props.valueKey] : null);
+            props.onChange(props.name, item ? item[props.valueKey as string] : null);
         }
     }
 }

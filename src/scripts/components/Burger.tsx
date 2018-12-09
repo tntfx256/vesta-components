@@ -1,11 +1,11 @@
 import { Dispatcher } from "@vesta/core";
-import React, { PureComponent, MouseEvent } from "react";
+import React, { MouseEvent, PureComponent } from "react";
 import { IBaseComponentProps } from "../BaseComponent";
 
 export interface IBurgerProps extends IBaseComponentProps {
     event?: string;
     className?: string;
-    onClick?: (e) => void;
+    onClick?: (e: MouseEvent<HTMLElement>) => void;
 }
 
 export interface IBurgerState {

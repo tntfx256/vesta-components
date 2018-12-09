@@ -12,9 +12,9 @@ export class CrudMenu extends PureComponent<ICrudMenuProps, null> {
 
     public render() {
         let key = 1;
-        const { insertAccess, path } = this.props;
+        const { hasAddAccess, path } = this.props;
         const links = [<li key={key++}><Link to={`/${path}`}><Icon name="list" /></Link></li>];
-        if (insertAccess) {
+        if (hasAddAccess) {
             links.push(<li key={key}><Link to={`/${path}/add`}><Icon name="add" /></Link></li>);
         }
         return (

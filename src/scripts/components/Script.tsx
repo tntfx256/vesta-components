@@ -1,4 +1,3 @@
-import React, { PureComponent } from "react";
 import { IBaseComponentProps } from "../BaseComponent";
 
 export interface IScriptProps extends IBaseComponentProps {
@@ -7,16 +6,14 @@ export interface IScriptProps extends IBaseComponentProps {
     error?: () => void;
 }
 
-export class Script extends PureComponent<IScriptProps, null> {
 
-    public render() {
-        const { src, error, success } = this.props;
-        if (!src) { return null; }
-        const head = (document.documentElement as HTMLElement).querySelector("head");
-        const script = document.createElement("script");
-        script.setAttribute("src", src);
-        script.addEventListener("load", success);
-        head.appendChild(script);
-        return null;
-    }
+export function Script(props: IScriptProps) {
+    if (!props.src) { return null; }
+    const head = (document.documentElement as HTMLElement).querySelector("head") as HTMLHeadElement;
+    const script = document.createElement("script");
+    script.setAttribute("src", props.src);
+    script.addEventListener("load", props.success);
+    head.appendChild(script);
+
+    return null;
 }

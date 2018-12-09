@@ -55,4 +55,4 @@ class Navbar extends PureComponent<INavbarProps, null> {
     }
 }
 
-export default withRouter(Navbar as ComponentType<INavbarProps>);
+export default withRouter(Navbar as any as ComponentType<INavbarProps>);

@@ -1,10 +1,10 @@
 import { Culture } from "@vesta/core";
-import React, { PureComponent, ChangeEvent } from "react";
+import React, { ChangeEvent, PureComponent } from "react";
 import { IBaseComponentProps } from "../../BaseComponent";
 import { IFromControlProps } from "./FormWrapper";
 
 interface IMultichoiceProps extends IBaseComponentProps, IFromControlProps {
-    options: Array<{}>;
+    options: any[];
     showSelectAll?: boolean;
     titleKey?: string;
     value: any[];
@@ -35,23 +35,23 @@ export class Multichoice extends PureComponent<IMultichoiceProps, null> {
     }
 
     private onChange = (e: ChangeEvent<HTMLInputElement>) => {
-        const { name, value: [], valueKey, options } = this.props;
-        let selectedValues = [].concat(value);
+        const { name, value = [], valueKey, options } = this.props;
+        let selectedValues = [...value];
         const checked = e.currentTarget.checked;
         const isSelectAll = e.currentTarget.hasAttribute("data-select-all");
-        const index = e.currentTarget.value;
-        const thisItem = options[isSelectAll ? null : index];
+        const index = +e.currentTarget.value;
+        const thisItem = options[isSelectAll ? -1 : index];
 
         if (checked) {
             if (isSelectAll) {
                 // select all checkbox is checked
-                selectedValues = options.map((option) => option[valueKey]);
+                selectedValues = options.map((option) => option[valueKey as string]);
             } else {
-                selectedValues.push(thisItem[valueKey]);
+                selectedValues.push(thisItem[valueKey as string]);
             }
         } else {
             // finding index of selected checkbox's value
-            const selectedIndex = thisItem ? selectedValues.indexOf(thisItem[valueKey]) : -1;
+            const selectedIndex = thisItem ? selectedValues.indexOf(thisItem[valueKey as string]) : -1;
             if (selectedIndex >= 0) {
                 selectedValues.splice(selectedIndex, 1);
             } else {
@@ -67,7 +67,7 @@ export class Multichoice extends PureComponent<IMultichoiceProps, null> {
         const { options, name, value, titleKey, valueKey, showSelectAll } = this.props;
         let isAllSelected = true;
         const choices = (options || []).map((o, i) => {
-            const checked = !!(value && value.indexOf(o[valueKey]) >= 0);
+            const checked = !!(value && value.indexOf(o[valueKey as string]) >= 0);
             if (!checked) {
                 isAllSelected = false;
             }
@@ -75,7 +75,7 @@ export class Multichoice extends PureComponent<IMultichoiceProps, null> {
                 <li key={i}>
                     <label>
                         <input name={name} type="checkbox" value={i} checked={checked}
-                            onChange={this.onChange} /> {o[titleKey]}
+                            onChange={this.onChange} /> {o[titleKey as string]}
                     </label>
                 </li>);
         });
