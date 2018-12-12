@@ -2,7 +2,14 @@ import { Culture, DateTime } from "@vesta/core";
 import React, { ChangeEvent, Component } from "react";
 import { IBaseComponentProps } from "../BaseComponent";
 
+export interface IDatepickerText{
+    select: string;
+    clear: string;
+    cancel: string;
+}
+
 export interface IDatePickerProps extends IBaseComponentProps {
+    dateTime: DateTime;
     hasTime?: boolean;
     onAbort: () => void;
     onChange: (value: string) => void;

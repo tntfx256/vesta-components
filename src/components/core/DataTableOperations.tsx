@@ -1,4 +1,3 @@
-import { Culture } from "@vesta/core";
 import React, { MouseEvent, PureComponent } from "react";
 import { Link } from "react-router-dom";
 import { IBaseComponentProps } from "../BaseComponent";
@@ -11,6 +10,8 @@ export interface IDataTableOperationsProps extends IBaseComponentProps {
     path: string;
     id: number;
     onDelete: (id: number) => void;
+    deleteTitle: string;
+    deleteMessage: string;
 }
 
 export interface IDataTableOperationsState {
@@ -18,7 +19,6 @@ export interface IDataTableOperationsState {
 }
 
 export class DataTableOperations extends PureComponent<IDataTableOperationsProps, IDataTableOperationsState> {
-    private tr = Culture.getDictionary().translate;
 
     constructor(props: IDataTableOperationsProps) {
         super(props);
@@ -39,8 +39,8 @@ export class DataTableOperations extends PureComponent<IDataTableOperationsProps
                 {editLink}
                 {delLink}
                 <MessageBox show={showConfirmBox} btnGroup={MessageBoxBtnGroup.YesNo} onAction={this.onAction}
-                    title={this.tr("title_record_delete")}>
-                    <p>{this.tr("msg_delete_confirm")}</p>
+                    title={this.props.deleteTitle}>
+                    <p>{this.props.deleteMessage}</p>
                 </MessageBox>
             </span>
         );

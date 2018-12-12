@@ -1,6 +1,7 @@
 import { HalfLight, ITheme, Lightblue, transparentize } from "@vesta/theme";
+import { StyleCreator, Styles } from "react-jss";
 
-export const actionsheetStyle = (theme: ITheme) => {
+export const actionsheetStyle: StyleCreator<string, ITheme> = (theme: ITheme): Styles => {
     const transitionEnterDuration = theme.timing.Default;
     const transitionLeaveDuration = Math.floor(2 * theme.timing.Default / 3);
     const transitionEffect = "ease-in-out";
@@ -22,16 +23,18 @@ export const actionsheetStyle = (theme: ITheme) => {
         },
         list: {
             background: bgColor,
-            borderRadius: `${theme.size.borderRadius} ${theme.size.borderRadius} 0 0`,
+            borderRadius: `${theme.size.borderRadius}px ${theme.size.borderRadius}px 0 0`,
             bottom: 0,
             left: offset,
             position: "fixed",
             right: offset,
             textAlign: "center",
             zIndex: theme.zIndex.Actionsheet,
+            listStyle: "none",
+            padding: 0,
 
-            "& li ": {
-                borderBottom: `1px solid ${theme.color.Border}`,
+            "& li": {
+                borderBottom: `1px solid ${theme.color.Bordser}`,
                 cursor: "pointer",
                 padding: itemPadding,
             }

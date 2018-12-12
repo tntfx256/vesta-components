@@ -1,9 +1,7 @@
-import { Dispatcher } from "@vesta/core";
 import React, { MouseEvent, PureComponent } from "react";
 import { IBaseComponentProps } from "../BaseComponent";
 
 export interface IBurgerProps extends IBaseComponentProps {
-    event?: string;
     className?: string;
     onClick?: (e: MouseEvent<HTMLElement>) => void;
 }
@@ -12,7 +10,6 @@ export interface IBurgerState {
 }
 
 export class Burger extends PureComponent<IBurgerProps, IBurgerState> {
-    private dispatch = Dispatcher.getInstance().dispatch;
 
     public render() {
         const { className = "" } = this.props;
@@ -27,10 +24,7 @@ export class Burger extends PureComponent<IBurgerProps, IBurgerState> {
     }
 
     private onClick = (e: MouseEvent<HTMLElement>) => {
-        const { event, onClick } = this.props;
-        if (event) {
-            return this.dispatch(event, {});
-        }
+        const { onClick } = this.props;
         if (onClick) {
             onClick(e);
         }

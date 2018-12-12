@@ -1,6 +1,6 @@
 import React from "react";
 import ReactCSSTransitionGroup from "react-addons-css-transition-group";
-import withStyle from "react-jss";
+import injectSheet from "react-jss";
 import { IBaseComponentProps } from "../BaseComponent";
 import { actionsheetStyle } from "./Actionsheet.style";
 
@@ -38,7 +38,7 @@ function Actionsheet(props: IActionsheetProps) {
 
         return (
             <div className={props.classes}>
-                <div className={props.classes.backdrop}>&nbsp;</div>
+                <div className={props.classes.backdrop}/>
                 <ul className={props.classes.list}>{items}</ul>
             </div>
         );
@@ -51,4 +51,4 @@ function Actionsheet(props: IActionsheetProps) {
     }
 }
 
-export default withStyle(actionsheetStyle as any)(Actionsheet);
+export default injectSheet(actionsheetStyle)(Actionsheet);
