@@ -1,4 +1,3 @@
-import { Culture } from "@vesta/core";
 import React, { ChangeEvent, PureComponent } from "react";
 import { IBaseComponentProps } from "../../BaseComponent";
 import { IFromControlProps } from "./FormWrapper";
@@ -15,12 +14,9 @@ interface IMultichoiceState { }
 
 export class Multichoice extends PureComponent<IMultichoiceProps, IMultichoiceState> {
     public static defaultProps = { valueKey: "id", titleKey: "title" };
-    private selectAllText: string;
 
     constructor(props: IMultichoiceProps) {
         super(props);
-        const tr = Culture.getDictionary().translate;
-        this.selectAllText = tr("select_all");
     }
 
     public render() {
@@ -87,7 +83,7 @@ export class Multichoice extends PureComponent<IMultichoiceProps, IMultichoiceSt
                 <li key={-1} className="select-all-choice">
                     <label>
                         <input name={name} type="checkbox" checked={isAllSelected} data-select-all={true}
-                            onChange={this.onChange} /> {this.selectAllText}
+                            onChange={this.onChange} />
                     </label>
                 </li>
             ));

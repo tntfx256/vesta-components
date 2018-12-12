@@ -1,6 +1,5 @@
 const { Indexer, Packager } = require("@vesta/devmaid");
-const gulp = require("gulp")
-const { readFileSync, writeFileSync } = require("fs");
+const gulp = require("gulp");
 
 let pkgr = new Packager({
     root: __dirname,
@@ -13,26 +12,12 @@ let pkgr = new Packager({
 const tasks = pkgr.createTasks();
 
 module.exports = {
-    default: gulp.series(indexer, addWithRoutes,tasks.default, watch),
-    publish: gulp.series(indexer, addWithRoutes, tasks.deploy, tasks.publish)
-}
-
-function addWithRoutes() {
-    // const indexFile = `${__dirname}/src/components/index.ts`;
-    // let indexContent = readFileSync(indexFile, { encoding: "utf8" });
-    // indexContent = indexContent.replace(`export { NavbarMainButtonType } from "./core/Navbar";`,
-    //     `export { default as Navbar, NavbarMainButtonType } from "./core/Navbar";`);
-    // writeFileSync(indexFile, indexContent);
-    return Promise.resolve();
+    default: gulp.series(indexer, tasks.default),
+    publish: gulp.series(indexer, tasks.deploy, tasks.publish)
 }
 
 function indexer() {
     const indexer = new Indexer("src/components");
     indexer.generate();
-    return Promise.resolve();
-}
-
-function watch() {
-    gulp.watch(`src/scss/**/*.scss`, indexer);
     return Promise.resolve();
 }

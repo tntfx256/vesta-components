@@ -1,14 +1,12 @@
-import { Culture } from "@vesta/core";
 import React, { ChangeEvent, Component, KeyboardEvent } from "react";
 import { IBaseComponentProps } from "../BaseComponent";
+import { tr } from "../Dictionary";
 import { IFile } from "../FileSystem";
 import { KeyCode } from "../KeyCode";
 import { Icon } from "./Icon";
 
-export type IFileSelectCallback = (path: string) => void;
-
 export interface IFileManagerProps extends IBaseComponentProps {
-    onFileSelect: IFileSelectCallback;
+    onFileSelect: (path: string) => void;
     onChangeDirectory: (path: string) => Promise<IFile[]>;
     onDelete: (file: IFile) => Promise<string>;
     onNewFolder: (file: IFile) => Promise<string>;
@@ -25,7 +23,6 @@ export interface IFileManagerState {
 }
 
 export class FileManager extends Component<IFileManagerProps, IFileManagerState> {
-    private tr = Culture.getDictionary().translate;
     private baseDirectory = "file-manager";
 
     constructor(props: IFileManagerProps) {
@@ -55,8 +52,8 @@ export class FileManager extends Component<IFileManagerProps, IFileManagerState>
                     <table>
                         <thead>
                             <tr>
-                                <th>{this.tr("fld_name")}</th>
-                                <th>{this.tr("operations")}</th>
+                                <th>{tr("name")}</th>
+                                <th>{tr("operations")}</th>
                             </tr>
                         </thead>
                         {filesList}

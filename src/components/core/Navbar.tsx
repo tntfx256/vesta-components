@@ -1,4 +1,4 @@
-import React, { MouseEvent, ComponentType } from "react";
+import React, { ComponentType, MouseEvent } from "react";
 import { withRouter } from "react-router";
 import { IBaseComponentWithRouteProps } from "../BaseComponent";
 import { Burger } from "./Burger";
@@ -22,7 +22,7 @@ function Navbar(props: INavbarProps) {
         btnClassName = "close-btn";
     }
     const navBtn = (props.showBurger || location.pathname == "/") && !props.backLink && !props.backAction ?
-        <Burger className="nav-btn" event="main-sidenav-toggle" /> :
+        <Burger className="nav-btn" /> :
         <Burger className={`nav-btn ${btnClassName}`} onClick={goBack} />;
 
     return (

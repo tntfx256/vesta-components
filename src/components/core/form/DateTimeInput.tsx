@@ -1,4 +1,4 @@
-import { Culture } from "@vesta/core";
+import { DateTime, IDateTime } from "@vesta/locale";
 import React, { ChangeEvent, PureComponent } from "react";
 import { IBaseComponentProps } from "../../BaseComponent";
 import { DatePicker } from "../DatePicker";
@@ -6,24 +6,26 @@ import { Modal } from "../Modal";
 import { IFromControlProps } from "./FormWrapper";
 
 interface IDateTimeInputProps extends IBaseComponentProps, IFromControlProps {
+    DateTime: IDateTime;
     hasTime?: boolean;
     value: number;
 }
 
 interface IDateTimeInputState {
-    showPicker?: boolean;
+    showPicker: boolean;
     value: string;
 }
 
 export class DateTimeInput extends PureComponent<IDateTimeInputProps, IDateTimeInputState> {
-    private dateTime = Culture.getDateTimeInstance();
+    private dateTime: DateTime;
     private dateTimeFormat: string;
 
     constructor(props: IDateTimeInputProps) {
         super(props);
-        const locale = Culture.getLocale();
+        this.dateTime = new props.DateTime();
+        const locale = this.dateTime.locale;
         this.dateTimeFormat = this.props.hasTime ? locale.defaultDateTimeFormat : locale.defaultDateFormat;
-        this.state = { value: props.value ? this.format(props.value) : "" };
+        this.state = { showPicker: false, value: props.value ? this.format(props.value) : "" };
     }
 
     public componentWillReceiveProps(newProps: IDateTimeInputProps) {
@@ -34,13 +36,14 @@ export class DateTimeInput extends PureComponent<IDateTimeInputProps, IDateTimeI
     }
 
     public render() {
-        const { name, label, error, hasTime } = this.props;
+        const { DateTime, name, label, error, hasTime } = this.props;
         const { value, showPicker } = this.state;
 
-        const picker = showPicker ? (
-            <Modal show={true} name="modal-zoom">
-                <DatePicker value={value} onChange={this.onChange} onAbort={this.hidePicker} hasTime={hasTime} />
-            </Modal>) : <Modal show={false} name="modal-zoom" />;
+        const picker = (
+            <Modal show={!!showPicker} name="modal-zoom">
+                <DatePicker DateTime={DateTime} value={value} onChange={this.onChange}
+                    onAbort={this.hidePicker} hasTime={hasTime} />
+            </Modal>);
 
         return (
             <div className={`form-group date-time-input${error ? " has-error" : ""}`}>

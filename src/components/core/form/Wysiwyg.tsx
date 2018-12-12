@@ -1,11 +1,10 @@
-import { Culture } from "@vesta/core";
 import React, { Component, createRef, RefObject } from "react";
 import { IBaseComponentProps } from "../../BaseComponent";
+import { IFile } from "../../FileSystem";
 import { Dialog } from "../Dialog";
 import { FileManager } from "../FileManager";
 import { Icon } from "../Icon";
 import { IFromControlProps } from "./FormWrapper";
-import { IFile } from "../../FileSystem";
 
 interface IToolbarAction {
     command: string;
@@ -31,7 +30,6 @@ export class Wysiwyg extends Component<IWysiwygProps, IWysiwygState> {
     private content = "";
     private editor: RefObject<HTMLDivElement> = createRef();
     private toolbarActions: IToolbarAction[] = [];
-    private tr = Culture.getDictionary().translate;
 
     constructor(props: IWysiwygProps) {
         super(props);
@@ -106,7 +104,7 @@ export class Wysiwyg extends Component<IWysiwygProps, IWysiwygState> {
         const { showFileManager } = this.state;
         if (!showFileManager) { return <Dialog show={false} />; }
         return (
-            <Dialog show={true} title={this.tr("filemanager")} className="file-manager-dialog"
+            <Dialog show={true} className="file-manager-dialog"
                 onClose={this.hideFileManager}>
                 <FileManager onFileSelect={this.onFileSelect} onChangeDirectory={onChangeDirectory}
                     onDelete={onDelete} onNewFolder={onNewFolder} onRename={onRename} onUpload={onUpload} />

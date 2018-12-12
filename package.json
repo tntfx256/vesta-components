@@ -2,12 +2,10 @@
   "name": "components",
   "version": "0.1.0",
   "scripts": {
-    "dev:component": "gulp",
-    "deploy:component": "gulp run deploy",
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "start": "gulp",
+    "deploy": "gulp run deploy",
+    "demo": "react-scripts start",
+    "test": "react-scripts test"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -31,14 +29,14 @@
     "typescript": "^3.2.2"
   },
   "devDependencies": {
-    "@types/react-addons-css-transition-group": "^15.0.5",
-    "@types/react-jss": "^8.6.0",
-    "@types/react-router": "^4.4.2",
-    "@types/react-router-dom": "^4.3.1",
     "@types/jest": "^23.3.10",
     "@types/node": "^10.12.12",
     "@types/react": "^16.7.13",
+    "@types/react-addons-css-transition-group": "^15.0.5",
     "@types/react-dom": "^16.0.11",
+    "@types/react-jss": "^8.6.0",
+    "@types/react-router": "^4.4.2",
+    "@types/react-router-dom": "^4.3.1",
     "@vesta/core": "^2.0.8",
     "@vesta/devmaid": "^0.4.5",
     "gulp": "^4.0.0"

@@ -34,7 +34,7 @@ export const actionsheetStyle: StyleCreator<string, ITheme> = (theme: ITheme): S
             padding: 0,
 
             "& li": {
-                borderBottom: `1px solid ${theme.color.Bordser}`,
+                borderBottom: `1px solid ${theme.color.Border}`,
                 cursor: "pointer",
                 padding: itemPadding,
             }
