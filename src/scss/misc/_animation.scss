@@ -1,9 +1,0 @@
-@keyframes rotate {
-    from {
-        @include rotate(0);
-    }
-
-    to {
-        @include rotate(360deg);
-    }
-}

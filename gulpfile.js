@@ -1,19 +1,10 @@
 const { Indexer, Packager } = require("@vesta/devmaid");
 const gulp = require("gulp")
-// const eliminator = require("./resources/gulp/plugins/eliminator");
-const sass = require("gulp-sass");
-const sourcemaps = require("gulp-sourcemaps");
-const postCss = require("gulp-postcss");
-const autoPrefixer = require("autoprefixer");
-const csswring = require("csswring");
-const mqpacker = require("css-mqpacker");
-
-const indexer = new Indexer("src/scripts");
-indexer.generate();
+const { readFileSync, writeFileSync } = require("fs");
 
 let pkgr = new Packager({
     root: __dirname,
-    src: "src/scripts",
+    src: "src/components",
     targets: ["es6"],
     files: [".npmignore", "LICENSE", "README.md"],
     publish: "--access=public",
@@ -22,29 +13,26 @@ let pkgr = new Packager({
 const tasks = pkgr.createTasks();
 
 module.exports = {
-    default: gulp.series(tasks.default, compileSass, watch),
-    publish: gulp.series(tasks.deploy, compileSass, tasks.publish)
+    default: gulp.series(indexer, addWithRoutes,tasks.default, watch),
+    publish: gulp.series(indexer, addWithRoutes, tasks.deploy, tasks.publish)
 }
 
-function compileSass() {
-    const browsersToSupport = [
-        "last 4 version",
-        "iOS >= 7",
-        "Android >= 4",
-        "Explorer >= 10",
-        "ExplorerMobile >= 11"
-    ];
+function addWithRoutes() {
+    // const indexFile = `${__dirname}/src/components/index.ts`;
+    // let indexContent = readFileSync(indexFile, { encoding: "utf8" });
+    // indexContent = indexContent.replace(`export { NavbarMainButtonType } from "./core/Navbar";`,
+    //     `export { default as Navbar, NavbarMainButtonType } from "./core/Navbar";`);
+    // writeFileSync(indexFile, indexContent);
+    return Promise.resolve();
+}
 
-    return gulp.src(["src/scss/components-ltr.scss", "src/scss/components-rtl.scss"])
-        .pipe(sourcemaps.init())
-        // .pipe(eliminator(setting))
-        .pipe(sass())
-        .pipe(postCss([autoPrefixer({ browsers: browsersToSupport }), mqpacker, csswring]))
-        .pipe(sourcemaps.write("./"))
-        .pipe(gulp.dest(`vesta/es6/css`));
+function indexer() {
+    const indexer = new Indexer("src/components");
+    indexer.generate();
+    return Promise.resolve();
 }
 
 function watch() {
-    gulp.watch(`src/scss/**/*.scss`, compileSass);
+    gulp.watch(`src/scss/**/*.scss`, indexer);
     return Promise.resolve();
 }
