@@ -12,6 +12,8 @@
     "declaration": true,
     "isolatedModules": true,
     "noEmit": true,
+    "strict": false,
+    "allowJs": true
   },
   "include": [
     "src/components"
