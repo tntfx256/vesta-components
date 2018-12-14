@@ -1,5 +1,7 @@
 import { Dispatcher } from "@vesta/core";
 import React, { PureComponent } from "react";
+import { MessageType } from "../../cmn/enum/MessageType";
+import { IToastData } from "../../service/NotificationService";
 import { IBaseComponentProps } from "../BaseComponent";
 
 export interface IToastMessageProps extends IBaseComponentProps {
@@ -7,21 +9,21 @@ export interface IToastMessageProps extends IBaseComponentProps {
 
 export interface IToastMessageState {
     message: string;
-    type: "info" | "warning" | "error";
+    type: MessageType;
 }
 
 export class ToastMessage extends PureComponent<IToastMessageProps, IToastMessageState> {
 
-    private timer: any;
+    private timer;
     private delay = 2000;
 
     constructor(props: IToastMessageProps) {
         super(props);
-        this.state = { message: "", type: "info" };
+        this.state = { message: null, type: null };
     }
 
     public componentDidMount() {
-        Dispatcher.getInstance().register<any>("toast", (payload) => {
+        Dispatcher.getInstance().register<IToastData>("toast", (payload) => {
             this.setState({ message: payload.message, type: payload.type });
             return false;
         });
@@ -32,7 +34,7 @@ export class ToastMessage extends PureComponent<IToastMessageProps, IToastMessag
         if (message) {
             clearTimeout(this.timer);
             this.timer = setTimeout(() => {
-                this.setState({ message: "" });
+                this.setState({ message: null });
             }, this.delay);
             return <div className="toast-wrapper">{message}</div>;
         }
@@ -41,6 +43,17 @@ export class ToastMessage extends PureComponent<IToastMessageProps, IToastMessag
 
     private getToast() {
         let className = "info";
+        switch (this.state.type) {
+            case MessageType.Warning:
+                className = "warning";
+                break;
+            case MessageType.Error:
+                className = "error";
+                break;
+            case MessageType.Success:
+                className = "success";
+                break;
+        }
         className = `toast type-${className}`;
         return <div className={className}>{this.state.message}</div>;
     }

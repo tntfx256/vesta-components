@@ -1,15 +1,14 @@
-import React, { MouseEvent, PureComponent } from "react";
+import React, { PureComponent } from "react";
 import { IBaseComponentProps } from "../BaseComponent";
 
 export interface IAvatarProps extends IBaseComponentProps {
     src: string;
     defaultSrc?: string;
-    onClick?: (e: MouseEvent) => void;
+    onClick?: (e) => void;
 }
 
-interface IAvatarState { }
-
-export class Avatar extends PureComponent<IAvatarProps, IAvatarState> {
+export class Avatar extends PureComponent<IAvatarProps, null> {
+    private wrapper;
     private loadDefault = false;
     private faileCount = 0;
 
@@ -25,21 +24,21 @@ export class Avatar extends PureComponent<IAvatarProps, IAvatarState> {
             <div className="avatar-holder" />;
 
         return (
-            <div className="avatar" onClick={this.onClick}>
+            <div className="avatar" ref={(el) => this.wrapper = el} onClick={this.onClick}>
                 {avatar}
                 {this.props.children}
             </div>
         );
     }
 
-    private imageLoadError = () => {
+    private imageLoadError = (e) => {
         ++this.faileCount;
         if (this.faileCount > 3) { return; }
         this.loadDefault = true;
         this.forceUpdate();
     }
 
-    private onClick = (e: MouseEvent<HTMLDivElement>) => {
+    private onClick = (e) => {
         const { onClick } = this.props;
         if (onClick) {
             onClick(e);

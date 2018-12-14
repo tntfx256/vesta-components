@@ -1,11 +1,12 @@
 import { IRequest } from "@vesta/core";
-import React, { Component, ReactNode } from "react";
+import React, { Component } from "react";
+import { shallowClone } from "../../util/Util";
 import { IBaseComponentProps } from "../BaseComponent";
-import { Pagination } from "./Pagination";
+import Pagination from "./Pagination";
 
 export interface IColumn<T> {
     name?: string;
-    render?: (record: T) => ReactNode;
+    render?: (record: T) => any;
     title?: string;
 }
 
@@ -15,12 +16,12 @@ export interface IDataTableQueryOption<T> extends IRequest<T> {
 
 interface IDataTableProps<T> extends IBaseComponentProps {
     columns: Array<IColumn<T>>;
+    fetch?: (option: IDataTableQueryOption<T>) => void;
     pagination?: boolean;
-    queryOption: IDataTableQueryOption<T>;
+    queryOption?: IDataTableQueryOption<T>;
     records: T[];
     selectable?: boolean;
     showIndex?: boolean;
-    onQuery?: (option: IDataTableQueryOption<T>) => void;
 }
 
 interface IDataTableState {
@@ -38,8 +39,8 @@ export class DataTable<T> extends Component<IDataTableProps<T>, IDataTableState>
         const rows = this.createRows();
         const queryOption = this.props.queryOption;
         const pagination = this.props.pagination ? (
-            <Pagination totalRecords={queryOption.total} currentPage={queryOption.page || 1} onChange={this.onPaginationChange}
-                recordsPerPage={queryOption.limit || 20} />) : null;
+            <Pagination totalRecords={queryOption.total} currentPage={queryOption.page} fetch={this.onPaginationChange}
+                recordsPerPage={queryOption.limit} />) : null;
         return (
             <div>
                 <div className="data-table">
@@ -63,24 +64,15 @@ export class DataTable<T> extends Component<IDataTableProps<T>, IDataTableState>
     private createRows() {
         const rows = this.props.records || [];
         return rows.map((r, i) => {
-            const cells = this.props.columns.map((c, j) => (
-                <td key={j}>{c.render ? c.render(r) : (r as any)[c.name as string]}</td>
-            ));
-            return <tr key={i}>{cells}</tr>;
+            const cells = this.props.columns.map((c, j) => (<td key={j + 1}>{c.render ? c.render(r) : r[c.name]}</td>));
+            return <tr key={i + 1}>{cells}</tr>;
         });
     }
 
     private onPaginationChange = (page: number, recordsPerPage: number) => {
-        const { onQuery } = this.props;
-        const queryOption = this.clone<IRequest<T>>(this.props.queryOption);
+        const queryOption = shallowClone<IRequest<T>>(this.props.queryOption);
         queryOption.page = +page;
         queryOption.limit = recordsPerPage;
-        if (onQuery) {
-            onQuery(queryOption as IDataTableQueryOption<T>);
-        }
-    }
-
-    private clone<T>(object: any) {
-        return JSON.parse(JSON.stringify(object)) as T;
+        this.props.fetch(queryOption);
     }
 }

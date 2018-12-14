@@ -1,22 +1,21 @@
 import React, { PureComponent } from "react";
 import { Link } from "react-router-dom";
+import { IAccess } from "../../service/AuthService";
 import { IBaseComponentProps } from "../BaseComponent";
 import { Icon } from "./Icon";
 
 export interface ICrudMenuProps extends IBaseComponentProps {
     path: string;
-    hasAddAccess?: boolean;
+    access?: IAccess;
 }
 
-interface ICrudMenuState { }
-
-export class CrudMenu extends PureComponent<ICrudMenuProps, ICrudMenuState> {
+export class CrudMenu extends PureComponent<ICrudMenuProps, null> {
 
     public render() {
         let key = 1;
-        const { hasAddAccess, path } = this.props;
+        const { access, path } = this.props;
         const links = [<li key={key++}><Link to={`/${path}`}><Icon name="list" /></Link></li>];
-        if (hasAddAccess) {
+        if (access && access.add) {
             links.push(<li key={key}><Link to={`/${path}/add`}><Icon name="add" /></Link></li>);
         }
         return (

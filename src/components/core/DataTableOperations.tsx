@@ -1,17 +1,16 @@
-import React, { MouseEvent, PureComponent } from "react";
+import { Culture } from "@vesta/core";
+import React, { PureComponent } from "react";
 import { Link } from "react-router-dom";
+import { IAccess } from "../../service/AuthService";
 import { IBaseComponentProps } from "../BaseComponent";
 import { Icon } from "./Icon";
 import { MessageBox, MessageBoxBtn, MessageBoxBtnGroup } from "./MessageBox";
 
 export interface IDataTableOperationsProps extends IBaseComponentProps {
-    hasEditAccess?: boolean;
-    hasDeleteAccess?: boolean;
     path: string;
     id: number;
+    access: IAccess;
     onDelete: (id: number) => void;
-    deleteTitle: string;
-    deleteMessage: string;
 }
 
 export interface IDataTableOperationsState {
@@ -19,6 +18,7 @@ export interface IDataTableOperationsState {
 }
 
 export class DataTableOperations extends PureComponent<IDataTableOperationsProps, IDataTableOperationsState> {
+    private tr = Culture.getDictionary().translate;
 
     constructor(props: IDataTableOperationsProps) {
         super(props);
@@ -26,11 +26,11 @@ export class DataTableOperations extends PureComponent<IDataTableOperationsProps
     }
 
     public render() {
-        const { path, hasDeleteAccess, hasEditAccess, id } = this.props;
+        const { path, access, id } = this.props;
         const { showConfirmBox } = this.state;
-        const editLink = hasEditAccess ?
+        const editLink = access.edit ?
             <Link to={`/${path}/edit/${id}`} className="edit-btn"><Icon name="mode_edit" /></Link> : null;
-        const delLink = hasDeleteAccess ?
+        const delLink = access.del ?
             <span className="del-btn" onClick={this.onDelete}><Icon name="delete" /></span> : null;
 
         return (
@@ -39,14 +39,14 @@ export class DataTableOperations extends PureComponent<IDataTableOperationsProps
                 {editLink}
                 {delLink}
                 <MessageBox show={showConfirmBox} btnGroup={MessageBoxBtnGroup.YesNo} onAction={this.onAction}
-                    title={this.props.deleteTitle}>
-                    <p>{this.props.deleteMessage}</p>
+                    title={this.tr("title_record_delete")}>
+                    <p>{this.tr("msg_delete_confirm")}</p>
                 </MessageBox>
             </span>
         );
     }
 
-    private onDelete = (e: MouseEvent<HTMLSpanElement>) => {
+    private onDelete = (e) => {
         e.preventDefault();
         this.setState({ showConfirmBox: true });
     }

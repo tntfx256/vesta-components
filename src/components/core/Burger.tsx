@@ -1,14 +1,18 @@
-import React, { MouseEvent, PureComponent } from "react";
+import { Dispatcher } from "@vesta/core";
+import React, { PureComponent } from "react";
 import { IBaseComponentProps } from "../BaseComponent";
 
 export interface IBurgerProps extends IBaseComponentProps {
-    onClick?: (e: MouseEvent<HTMLElement>) => void;
+    event?: string;
+    className?: string;
+    onClick?: (e) => void;
 }
 
 export interface IBurgerState {
 }
 
 export class Burger extends PureComponent<IBurgerProps, IBurgerState> {
+    private dispatch = Dispatcher.getInstance().dispatch;
 
     public render() {
         const { className = "" } = this.props;
@@ -22,8 +26,11 @@ export class Burger extends PureComponent<IBurgerProps, IBurgerState> {
         );
     }
 
-    private onClick = (e: MouseEvent<HTMLElement>) => {
-        const { onClick } = this.props;
+    private onClick = (e) => {
+        const { event, onClick } = this.props;
+        if (event) {
+            return this.dispatch(event, {});
+        }
         if (onClick) {
             onClick(e);
         }

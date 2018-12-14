@@ -1,6 +1,6 @@
-import React, { Component, createRef, RefObject } from "react";
+import { Culture } from '@vesta/core';
+import React, { Component, createRef, RefObject, ChangeEvent } from "react";
 import { IBaseComponentProps } from "../../BaseComponent";
-import { IFile } from "../../FileSystem";
 import { Dialog } from "../Dialog";
 import { FileManager } from "../FileManager";
 import { Icon } from "../Icon";
@@ -12,14 +12,7 @@ interface IToolbarAction {
 }
 
 export interface IWysiwygProps extends IBaseComponentProps, IFromControlProps {
-    value: string;
-    getFileUrl: (fileName: string) => string;
-    // file manager props
-    onChangeDirectory: (path: string) => Promise<IFile[]>;
-    onDelete: (file: IFile) => Promise<string>;
-    onNewFolder: (file: IFile) => Promise<string>;
-    onRename: (file: IFile, newName: string) => Promise<string>;
-    onUpload: (file: File, path: string) => Promise<string>;
+    value?: string;
 }
 
 export interface IWysiwygState {
@@ -30,11 +23,12 @@ export class Wysiwyg extends Component<IWysiwygProps, IWysiwygState> {
     private content = "";
     private editor: RefObject<HTMLDivElement> = createRef();
     private toolbarActions: IToolbarAction[] = [];
+    private tr = Culture.getDictionary().translate;
 
     constructor(props: IWysiwygProps) {
         super(props);
         this.state = {};
-        this.content = props.value;
+        this.content = props.value as string;
         this.toolbarActions = [
             { command: "undo", icon: "undo" },
             { command: "redo", icon: "redo" },
@@ -49,7 +43,7 @@ export class Wysiwyg extends Component<IWysiwygProps, IWysiwygState> {
 
     public componentWillReceiveProps(nextProps: IWysiwygProps) {
         if (nextProps.value !== this.content) {
-            this.content = nextProps.value;
+            this.content = nextProps.value as string;
             this.forceUpdate();
         }
     }
@@ -75,46 +69,45 @@ export class Wysiwyg extends Component<IWysiwygProps, IWysiwygState> {
         this.setState({ showFileManager: false });
     }
 
-    private onChange = () => {
+    private onChange = (e: ChangeEvent<HTMLDivElement>) => {
         const { name, onChange } = this.props;
-        const value = (this.editor.current as HTMLDivElement).innerHTML;
+        const value = e.currentTarget.innerHTML;
         this.content = value;
-        onChange(name, value);
+        onChange && onChange(name, value);
     }
 
     private onFileSelect = (file: string) => {
-        const url = this.props.getFileUrl(file);
-        (this.editor.current as HTMLDivElement).focus();
-        setTimeout(() => document.execCommand("insertImage", false, url), 50);
+        // const url = getFileUrl(file);
+        this.editor.current.focus();
+        setTimeout(() => document.execCommand("insertImage", false, file), 50);
         this.setState({ showFileManager: false });
     }
 
-    private onToolbarAction = (command: string) => () => {
+    private onToolbarAction = (e) => {
+        const command = e.currentTarget.getAttribute("data-command");
         switch (command) {
             case "image":
                 this.setState({ showFileManager: true });
                 break;
             default:
-                document.execCommand(command, false);
+                document.execCommand(command, false, null);
         }
     }
 
     private renderFileManager() {
-        const { onChangeDirectory, onDelete, onNewFolder, onRename, onUpload } = this.props;
         const { showFileManager } = this.state;
         if (!showFileManager) { return <Dialog show={false} />; }
         return (
-            <Dialog show={true} className="file-manager-dialog"
+            <Dialog show={true} title={this.tr("filemanager")} className="file-manager-dialog"
                 onClose={this.hideFileManager}>
-                <FileManager onFileSelect={this.onFileSelect} onChangeDirectory={onChangeDirectory}
-                    onDelete={onDelete} onNewFolder={onNewFolder} onRename={onRename} onUpload={onUpload} />
+                <FileManager onFileSelect={this.onFileSelect} />
             </Dialog>
         );
     }
 
     private renderToolbar() {
         const actions = this.toolbarActions.map(({ command, icon }, i) => (
-            <a key={i} className="btn" onClick={this.onToolbarAction(command)}><Icon name={icon} /></a>
+            <a key={i} className="btn" data-command={command} onClick={this.onToolbarAction}><Icon name={icon} /></a>
         ));
         return <div className="toolbar">{actions}</div>;
     }

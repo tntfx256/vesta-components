@@ -1,3 +1,4 @@
+import * as React from "react";
 import { PureComponent } from "react";
 
 export interface IHtmlProps {
@@ -5,14 +6,12 @@ export interface IHtmlProps {
     dir: string;
 }
 
-interface IHtmlState { }
-
-export class Html extends PureComponent<IHtmlProps, IHtmlState> {
+export class Html extends PureComponent<IHtmlProps, null> {
 
     public componentDidMount() {
         const { lang, dir } = this.props;
-        (document.documentElement as HTMLElement).setAttribute("lang", lang);
-        (document.documentElement as HTMLElement).setAttribute("dir", dir);
+        document.documentElement.setAttribute("lang", lang);
+        document.documentElement.setAttribute("dir", dir);
     }
 
     public render() {

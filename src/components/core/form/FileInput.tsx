@@ -1,12 +1,12 @@
 import { Mime } from "@vesta/core";
-import React, { ChangeEvent, PureComponent } from "react";
+import React, { PureComponent } from "react";
 import { IBaseComponentProps } from "../../BaseComponent";
 import { IFromControlProps } from "./FormWrapper";
 
 interface IFileInputProps extends IBaseComponentProps, IFromControlProps {
     accept?: string;
     multiple?: boolean;
-    value: string | File | Array<string | File>;
+    value?: string | File | Array<string | File>;
 }
 
 interface IFileInputState {
@@ -30,14 +30,16 @@ export class FileInput extends PureComponent<IFileInputProps, IFileInputState> {
     }
 
     public render() {
-        const { name, label, error, multiple, accept = "*/*" } = this.props;
+        const { name, label, error, multiple, placeholder, accept = "*/*" } = this.props;
         const thumbnails = this.renderThumbnails();
 
         return (
             <div className={`form-group file-input ${error ? "has-error" : ""}`}>
-                <label htmlFor={name}>{label}</label>
+                {placeholder ? null : <label htmlFor={name}>{label}</label>}
                 <div className="form-control">
-                    <input name={name} type="file" onChange={this.onChange} multiple={multiple} accept={accept} />
+                    {placeholder ? <label htmlFor={name}>{label}</label> : null}
+                    <input name={name} type="file" onChange={this.onChange} multiple={multiple}
+                        placeholder={placeholder ? label : ""} accept={accept} />
                     <p className="form-error">{error || ""}</p>
                     {thumbnails}
                 </div>
@@ -51,8 +53,8 @@ export class FileInput extends PureComponent<IFileInputProps, IFileInputState> {
         if (value) {
             if (multiple) {
                 for (let i = 0, il = (value as string[]).length; i < il; ++i) {
-                    files.push((value as string[])[i]);
-                    filesSrc.push((value as string[])[i]);
+                    files.push(value[i]);
+                    filesSrc.push(value[i]);
                 }
             } else {
                 files.push(value as string);
@@ -72,20 +74,17 @@ export class FileInput extends PureComponent<IFileInputProps, IFileInputState> {
         }
     }
 
-    private onChange = (e: ChangeEvent<HTMLInputElement>) => {
+    private onChange = (e) => {
         const { multiple } = this.props;
-        const { files } = this.state;
-        const filesList = e.target.files as FileList;
         this.hasStateChanged = true;
-
         if (multiple) {
-            const newFilesList = [...files];
-            for (let i = 0, il = filesList.length; i < il; ++i) {
-                newFilesList.push(filesList[i]);
+            const files = [].concat(this.state.files);
+            for (let i = 0, il = e.target.files.length; i < il; ++i) {
+                files.push(e.target.files[i]);
             }
-            return this.setState({ files: newFilesList }, this.onChangePropagate);
+            return this.setState({ files }, this.onChangePropagate);
         }
-        this.setState({ files: [filesList[0]], filesSrc: [] }, this.onChangePropagate);
+        this.setState({ files: [e.target.files[0]], filesSrc: [] }, this.onChangePropagate);
     }
 
     private onChangePropagate = () => {
@@ -100,22 +99,23 @@ export class FileInput extends PureComponent<IFileInputProps, IFileInputState> {
             const reader = new FileReader();
             reader.addEventListener("load", (e: any) => {
                 filesSrc[index] = e.target.result;
-                this.setState({ filesSrc: [...filesSrc] });
+                this.setState({ filesSrc: [].concat(filesSrc) });
             });
             reader.readAsDataURL(file);
         } else {
             filesSrc[index] = `data:${file.type}`;
             // should be async
-            setTimeout(() => this.setState({ filesSrc: [...filesSrc] }), 10);
+            setTimeout(() => this.setState({ filesSrc: [].concat(filesSrc) }), 10);
         }
     }
 
-    private removeFile = (index: number) => () => {
+    private removeFile = (e) => {
         const { files, filesSrc } = this.state;
+        const index = +e.currentTarget.getAttribute("data-index");
         this.hasStateChanged = true;
         files.splice(index, 1);
         filesSrc.splice(index, 1);
-        this.setState({ files: [...files], filesSrc: [...filesSrc] }, this.onChangePropagate);
+        this.setState({ files: [].concat(files), filesSrc: [].concat(filesSrc) }, this.onChangePropagate);
     }
 
     private renderThumbnails() {
@@ -155,7 +155,7 @@ export class FileInput extends PureComponent<IFileInputProps, IFileInputState> {
             thumbnails.push(
                 <div className={`file-wrapper ${fileType}`} key={i}>
                     {wrapper}
-                    <span className="file-del" onClick={this.removeFile(i)}>X</span>
+                    <span className="file-del" data-index={i} onClick={this.removeFile}>X</span>
                 </div>);
         }
         return (

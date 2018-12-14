@@ -1,20 +1,19 @@
 {
   "compilerOptions": {
     "target": "es6",
-    "allowJs": true,
     "skipLibCheck": false,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
-    "strict": true,
     "forceConsistentCasingInFileNames": true,
     "module": "esnext",
     "moduleResolution": "node",
     "resolveJsonModule": true,
+    "jsx": "preserve",
+    "declaration": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "preserve"
   },
   "include": [
-    "src"
+    "src/components"
   ]
 }

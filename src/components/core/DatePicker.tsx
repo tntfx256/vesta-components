@@ -1,10 +1,9 @@
-import { DateTime, IDateTime } from "@vesta/locale";
-import React, { ChangeEvent, Component } from "react";
+import { Culture } from "@vesta/core";
+import { DateTime } from "@vesta/locale";
+import React, { Component } from "react";
 import { IBaseComponentProps } from "../BaseComponent";
-import { tr } from "../Dictionary";
 
 export interface IDatePickerProps extends IBaseComponentProps {
-    DateTime: IDateTime;
     hasTime?: boolean;
     onAbort: () => void;
     onChange: (value: string) => void;
@@ -15,15 +14,17 @@ export interface IDatePickerState {
 }
 
 export class DatePicker extends Component<IDatePickerProps, IDatePickerState> {
-    private dateTime: DateTime;
+    private dateTime: DateTime = Culture.getDateTimeInstance();
     private dateTimeFormat: string;
+    private format;
     private monthNames: string[] = [];
-    private selectedDateTime: DateTime;
+    private selectedDateTime = Culture.getDateTimeInstance();
+    // the datePicker should render the month in which the selected date exist
+    private tr = Culture.getDictionary().translate;
+    private weekDayNames: string[] = [];
 
     constructor(props: IDatePickerProps) {
         super(props);
-        this.dateTime = new props.DateTime();
-        this.selectedDateTime = new props.DateTime();
         const locale = this.dateTime.locale;
         this.dateTimeFormat = props.hasTime ? locale.defaultDateTimeFormat : locale.defaultDateFormat;
         // dateTime validation, also sets the correct values
@@ -33,8 +34,8 @@ export class DatePicker extends Component<IDatePickerProps, IDatePickerState> {
             this.selectedDateTime.setTime(this.dateTime.getTime());
         }
         this.state = {};
-        // this.format = locale.defaultDateFormat;
-        // this.weekDayNames = locale.weekDays;
+        this.format = locale.defaultDateFormat;
+        this.weekDayNames = locale.weekDays;
         this.monthNames = locale.monthNames;
     }
 
@@ -58,11 +59,11 @@ export class DatePicker extends Component<IDatePickerProps, IDatePickerState> {
                     {time}
                     <div className="btn-group">
                         <button type="button" className="btn btn-primary"
-                            onClick={this.onSubmit}>{tr("select")}</button>
+                            onClick={this.onSubmit}>{this.tr("select")}</button>
                         <button type="button" className="btn btn-outline"
-                            onClick={onAbort}>{tr("cancel")}</button>
+                            onClick={onAbort}>{this.tr("cancel")}</button>
                         <button type="button" className="btn btn-outline"
-                            onClick={this.onClear}>{tr("clear")}</button>
+                            onClick={this.onClear}>{this.tr("clear")}</button>
                     </div>
                 </div>
             </div>
@@ -96,21 +97,21 @@ export class DatePicker extends Component<IDatePickerProps, IDatePickerState> {
         // tslint
     }
 
-    private onDaySelect = (date: number) => () => {
+    private onDaySelect = (e) => {
         // this.dateTime holds the current month & year
-        this.dateTime.setDate(date);
+        this.dateTime.setDate(+e.currentTarget.textContent);
         this.selectedDateTime.setTime(this.dateTime.getTime());
         this.forceUpdate();
     }
 
-    private onHourSelect = (e: ChangeEvent<HTMLSelectElement>) => {
+    private onHourSelect = (e) => {
         const hour = +e.target.value;
         // this.dateTime.setHours(hour);
         this.selectedDateTime.setHours(hour);
         this.forceUpdate();
     }
 
-    private onMinSelect = (e: ChangeEvent<HTMLSelectElement>) => {
+    private onMinSelect = (e) => {
         const minute = +e.target.value;
         // this.dateTime.setMinutes(minute);
         this.selectedDateTime.setMinutes(minute);
@@ -154,7 +155,7 @@ export class DatePicker extends Component<IDatePickerProps, IDatePickerState> {
     }
 
     private renderWeekDays() {
-        const tmpDate = new this.props.DateTime();
+        const tmpDate = Culture.getDateTimeInstance();
         const isThisMonth = tmpDate.getFullYear() === this.dateTime.getFullYear() &&
             tmpDate.getMonth() === this.dateTime.getMonth();
         const today = tmpDate.getDate();
@@ -178,7 +179,7 @@ export class DatePicker extends Component<IDatePickerProps, IDatePickerState> {
         for (let i = 1; i <= daysInMonth; i++) {
             let className = isThisMonth && i == today ? "today" : "";
             className = `${className} ${isSelectedMonth && i == selectedDay ? "selected" : ""}`;
-            row.push(<td key={colCounter} className={className} onClick={this.onDaySelect(i)}><i>{i}</i></td>);
+            row.push(<td key={colCounter} className={className} onClick={this.onDaySelect}><i>{i}</i></td>);
             ++colCounter;
             if (colCounter % 7 == 0) {
                 rows.push(<tr key={rowCounter++}>{row}</tr>);
@@ -211,12 +212,12 @@ export class DatePicker extends Component<IDatePickerProps, IDatePickerState> {
         return (
             <div className="time-select">
                 <div className="hour-select">
-                    <label>{tr("hour")}</label>
+                    <label>{this.tr("hour")}</label>
                     <select className="form-control" value={hour} onChange={this.onHourSelect}>{hourSelect}</select>
                 </div>
                 <div className="min-select">
                     <select className="form-control" value={minute} onChange={this.onMinSelect}>{minSelect}</select>
-                    <label>{tr("minute")}</label>
+                    <label>{this.tr("minute")}</label>
                 </div>
             </div>
         );

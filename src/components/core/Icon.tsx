@@ -1,22 +1,21 @@
-import React, { MouseEvent } from "react";
+import React, { PureComponent } from "react";
 import { IBaseComponentProps } from "../BaseComponent";
 
 export interface IconProps extends IBaseComponentProps {
+    className?: string;
     name: string;
+    onClick?: (e) => void;
     size?: string;
-    onClick?: (e: MouseEvent) => void;
 }
 
-export function Icon(props: IconProps) {
+export class Icon extends PureComponent<IconProps, null> {
 
-    let className = "icon";
-    className += props.size ? ` size-${props.size}` : "";
-    className += props.className ? ` ${props.className}` : ""
+    public render() {
+        const { name, size, onClick, className = "" } = this.props;
+        const sizeClass = size ? `size-${size}` : "";
 
-    return Icon.useClassName ?
-        <span className={`${className} icon-${props.name}`} onClick={props.onClick} /> :
-        <span className={className} onClick={props.onClick}>{props.name}</span>;
+        return (
+            <span className={`icon ${sizeClass} ${className}`} onClick={onClick}>{name}</span>
+        );
+    }
 }
-
-Icon.useClassName = true;
-

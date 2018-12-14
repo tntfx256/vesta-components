@@ -1,43 +1,43 @@
-import React, { ChangeEvent } from "react";
+import React, { PureComponent } from "react";
 import { IBaseComponentProps } from "../../BaseComponent";
 import { IFromControlProps } from "./FormWrapper";
 
 interface ISelectProps extends IBaseComponentProps, IFromControlProps {
-    options: any[];
+    options: Array<{}>;
     titleKey?: string;
     valueKey?: string;
 }
 
-export function Select(props: ISelectProps) {
-    (Select as any).defaultProps = { valueKey: "id", titleKey: "title" };
+export class Select extends PureComponent<ISelectProps, null> {
+    public static defaultProps = { valueKey: "id", titleKey: "title" };
 
-    // finding index of selected value
-    const selectedIndex = getSelectedIndex();
+    public render() {
+        const { label, name, options, error, placeholder, titleKey, readonly } = this.props;
+        // finding index of selected value
+        const selectedIndex = this.getSelectedIndex();
 
-    const optionsList = (props.options || []).map((o, i) => (<option key={i} value={i}>{o[props.titleKey as string]}</option>));
-    optionsList.splice(0, 0, <option key={-1} value={-1}>&nbsp;</option>);
+        const optionsList = (options || []).map((o, i) => (<option key={i} value={i}>{o[titleKey]}</option>));
+        optionsList.splice(0, 0, <option key={-1} value={-1}>{placeholder ? label : ""}</option>);
 
-    let className = `form-group select-input ${props.error ? "has-error" : ""}`;
-    className += props.value !== -1 ? " dirty" : null;
+        return (
+            <div className={`form-group select-input ${error ? "has-error" : ""}`}>
+                {placeholder ? null : <label htmlFor={name}>{label}</label>}
+                <select className="form-control" name={name} id={name} value={selectedIndex}
+                    onChange={this.onChange} disabled={readonly}>
+                    {optionsList}
+                </select>
+                <p className="form-error">{error || ""}</p>
+            </div>
+        );
+    }
 
-    return (
-        <div className={className}>
-            <label htmlFor={name}>{props.label}</label>
-            <select className="form-control" name={name} id={name} value={selectedIndex}
-                onChange={onChange} disabled={props.readonly}>
-                {optionsList}
-            </select>
-            <p className="form-error">{props.error || ""}</p>
-        </div>
-    );
-
-    function getSelectedIndex() {
-        const { value, options, valueKey } = props;
+    private getSelectedIndex() {
+        const { value, options, valueKey } = this.props;
         // value might be a number or an object
-        const realValue = value && value[valueKey as string] || value;
+        const realValue = value && value[valueKey] || value;
         // finding index of selected value
         for (let i = options.length; i--;) {
-            if (realValue == options[i][valueKey as string]) {
+            if (realValue == options[i][valueKey]) {
                 return i;
             }
         }
@@ -45,11 +45,12 @@ export function Select(props: ISelectProps) {
         return undefined;
     }
 
-    function onChange(e: ChangeEvent<HTMLSelectElement>) {
-        const index = +e.target.value;
-        const item = props.options[index];
-        if (onChange && !props.readonly) {
-            props.onChange(props.name, item ? item[props.valueKey as string] : null);
+    private onChange = (e) => {
+        const { name, onChange, options, valueKey, readonly } = this.props;
+        const index = e.target.value;
+        const item = options[index];
+        if (onChange && !readonly) {
+            onChange(name, item ? item[valueKey] : null);
         }
     }
 }

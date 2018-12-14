@@ -1,52 +1,80 @@
-import React, { ComponentType, MouseEvent } from "react";
-import { withRouter } from "react-router";
-import { IBaseComponentWithRouteProps } from "../BaseComponent";
+import { isAndroid, isCordova } from "@vesta/core/Platform";
+import React, { ComponentType, PureComponent } from "react";
+import { RouteComponentProps, withRouter } from "react-router";
+import { DevicePlugin } from "../../plugin/DevicePlugin";
 import { Burger } from "./Burger";
 
-export enum NavbarMainButtonType { Burger = 1, Back, Close }
+export enum NavBarMainButtonType { Burger = 1, Back, Close }
 
-interface INavbarProps extends IBaseComponentWithRouteProps<any> {
+interface INavbarParams { }
+
+interface INavbarProps extends RouteComponentProps<INavbarParams> {
     title?: string;
+    className?: string;
     backLink?: string;
+    backAction?: (e) => void;
     showBurger?: boolean;
     hide?: boolean;
-    mainButtonType?: NavbarMainButtonType;
-    backAction?: (e: MouseEvent<HTMLElement>) => void;
+    mainButtonType?: NavBarMainButtonType;
 }
 
-function Navbar(props: INavbarProps) {
+class Navbar extends PureComponent<INavbarProps, null> {
 
-    if (props.hide) { return null; }
-    let btnClassName = "back-btn";
-    if (props.mainButtonType == NavbarMainButtonType.Close) {
-        btnClassName = "close-btn";
+    private pathToExitApps = ["/"];
+    private hasBackBtn = isCordova() && isAndroid();
+
+    public componentDidMount() {
+        if (this.hasBackBtn) {
+            DevicePlugin.getInstance().registerBackButtonHandler(this.goBack);
+        }
     }
-    const navBtn = (props.showBurger || location.pathname == "/") && !props.backLink && !props.backAction ?
-        <Burger className="nav-btn" /> :
-        <Burger className={`nav-btn ${btnClassName}`} onClick={goBack} />;
 
-    return (
-        <div className={`navbar ${props.className}`}>
-            {navBtn}
-            <p className="nav-title">{props.title || ""}</p>
-            <div className="navbar-btn-group">
-                {props.children}
+    public componentWillUnmount() {
+        if (this.hasBackBtn) {
+            DevicePlugin.getInstance().unregisterBackButtonHandler(this.goBack);
+        }
+    }
+
+    public render() {
+        const { title, className, backLink, showBurger, hide, backAction, mainButtonType } = this.props;
+        if (hide) { return null; }
+        let btnClassName = "back-btn";
+        if (mainButtonType == NavBarMainButtonType.Close) {
+            btnClassName = "close-btn";
+        }
+        const navBtn = (showBurger || location.pathname == "/") && !backLink && !backAction ?
+            <Burger className="nav-btn" event="main-sidenav-toggle" /> :
+            <Burger className={`nav-btn ${btnClassName}`} onClick={this.goBack} />;
+
+        return (
+            <div className={`navbar ${className}`}>
+                {navBtn}
+                <p className="nav-title">{title || ""}</p>
+                <div className="navbar-btn-group">
+                    {this.props.children}
+                </div>
             </div>
-        </div>
-    );
+        );
+    }
 
-    function goBack(e: MouseEvent<HTMLElement>) {
+    private goBack = (e) => {
         if (e) {
             e.stopPropagation();
         }
-        const { backAction } = props;
+        const { backAction } = this.props;
         if (backAction) {
             return backAction(e);
         }
-        if (props.backLink) { return props.history.replace(props.backLink); }
-        if (history.length) { return props.history.goBack(); }
-        props.history.replace("/");
+        const { history, backLink } = this.props;
+        if (backLink) { return history.replace(backLink); }
+        if (this.hasBackBtn) {
+            if (this.pathToExitApps.indexOf(this.props.location.pathname) >= 0) {
+                return (navigator as any).app.exitApp();
+            }
+        }
+        if (history.length) { return history.goBack(); }
+        history.replace("/");
     }
 }
 
-export default withRouter<any>(Navbar as ComponentType<INavbarProps>);
+export default withRouter(Navbar as ComponentType<INavbarProps>);

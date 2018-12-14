@@ -1,54 +1,49 @@
-import React from "react";
+import React, { PureComponent } from "react";
 import ReactCSSTransitionGroup from "react-addons-css-transition-group";
-import injectSheet from "react-jss";
+import { Config } from "../../service/Config";
 import { IBaseComponentProps } from "../BaseComponent";
-import { actionsheetStyle } from "./Actionsheet.style";
 
 export interface IActionsheetItem {
+    onClick: () => void;
     title: string;
-    value?: number;
+    value?: string;
 }
 
-export interface IActionsheetProps extends IBaseComponentProps {
+interface IActionsheetProps extends IBaseComponentProps {
     actions: IActionsheetItem[];
-    enterDuration?: number;
-    leaveDuration?: number;
     show: boolean;
-    onSelect: (item: IActionsheetItem) => void;
 }
 
-function Actionsheet(props: IActionsheetProps) {
+export class Actionsheet extends PureComponent<IActionsheetProps, null> {
+    private transTime = Config.getConfig().transition;
 
-    const { enterDuration = 100, leaveDuration = 100 } = props;
-    const actionsList = renderActionsList();
+    constructor(props: IActionsheetProps) {
+        super(props);
+    }
 
-    return (
-        <ReactCSSTransitionGroup transitionName="actionsheet"
-            transitionEnterTimeout={enterDuration / 2} transitionLeaveTimeout={leaveDuration / 2}>
-            {actionsList}
-        </ReactCSSTransitionGroup>
-    );
-
-
-    function renderActionsList() {
-        if (!props.show) { return null; }
-        const items = props.actions.map((item, index) => (
-            <li onClick={onItemClick(item)} data-value={item.value} key={index}>{item.title}</li>
-        ));
+    public render() {
+        const { enter, leave } = this.transTime;
+        const actionsList = this.renderActionsList();
 
         return (
-            <div className={props.classes}>
-                <div className={props.classes.backdrop}/>
-                <ul className={props.classes.list}>{items}</ul>
-            </div>
+            <ReactCSSTransitionGroup transitionName="actionsheet"
+                transitionEnterTimeout={enter / 2} transitionLeaveTimeout={leave / 2}>
+                {actionsList}
+            </ReactCSSTransitionGroup>
         );
     }
 
-    function onItemClick(item: IActionsheetItem) {
-        return () => {
-            props.onSelect(item);
-        }
+    private renderActionsList() {
+        if (!this.props.show) { return null; }
+        const items = this.props.actions.map((item, index) => (
+            <li onClick={item.onClick} data-value={item.value} key={index}>{item.title}</li>
+        ));
+
+        return (
+            <div className="actionsheet-component">
+                <div className="actionsheet-backdrop">&nbsp;</div>
+                <ul className="action-list">{items}</ul>
+            </div>
+        );
     }
 }
-
-export default injectSheet(actionsheetStyle)(Actionsheet);

@@ -1,55 +1,52 @@
-import { DateTime, IDateTime } from "@vesta/locale";
-import React, { ChangeEvent, PureComponent } from "react";
+import { Culture } from "@vesta/core";
+import React, { PureComponent } from "react";
 import { IBaseComponentProps } from "../../BaseComponent";
 import { DatePicker } from "../DatePicker";
 import { Modal } from "../Modal";
 import { IFromControlProps } from "./FormWrapper";
 
 interface IDateTimeInputProps extends IBaseComponentProps, IFromControlProps {
-    DateTime: IDateTime;
     hasTime?: boolean;
-    value: number;
+    value?: number;
 }
 
 interface IDateTimeInputState {
-    showPicker: boolean;
+    showPicker?: boolean;
     value: string;
 }
 
 export class DateTimeInput extends PureComponent<IDateTimeInputProps, IDateTimeInputState> {
-    private dateTime: DateTime;
+    private dateTime = Culture.getDateTimeInstance();
     private dateTimeFormat: string;
 
     constructor(props: IDateTimeInputProps) {
         super(props);
-        this.dateTime = new props.DateTime();
-        const locale = this.dateTime.locale;
+        const locale = Culture.getLocale();
         this.dateTimeFormat = this.props.hasTime ? locale.defaultDateTimeFormat : locale.defaultDateFormat;
-        this.state = { showPicker: false, value: props.value ? this.format(props.value) : "" };
+        this.state = { value: props.value ? this.format(props.value) : "" };
     }
 
     public componentWillReceiveProps(newProps: IDateTimeInputProps) {
         const { value } = this.props;
         if (newProps.value !== value) {
-            this.setState({ value: this.format(newProps.value as number) });
+            this.setState({ value: this.format(newProps.value) });
         }
     }
 
     public render() {
-        const { DateTime, name, label, error, hasTime } = this.props;
+        const { name, label, error, hasTime, placeholder } = this.props;
         const { value, showPicker } = this.state;
 
-        const picker = (
-            <Modal show={!!showPicker} name="modal-zoom">
-                <DatePicker DateTime={DateTime} value={value} onChange={this.onChange}
-                    onAbort={this.hidePicker} hasTime={hasTime} />
-            </Modal>);
+        const picker = showPicker ? (
+            <Modal show={true} name="modal-zoom">
+                <DatePicker value={value} onChange={this.onChange} onAbort={this.hidePicker} hasTime={hasTime} />
+            </Modal>) : <Modal show={false} name="modal-zoom" />;
 
         return (
             <div className={`form-group date-time-input${error ? " has-error" : ""}`}>
-                <label htmlFor={name}>{label}</label>
-                <input className="form-control" name={name} id={name} value={value}
-                    onChange={this.onInputChange} readOnly={true} onClick={this.showPicker} />
+                {placeholder ? null : <label htmlFor={name}>{label}</label>}
+                <input className="form-control" name={name} id={name} placeholder={placeholder ? label : null}
+                    value={value} onChange={this.onInputChange} readOnly={true} onClick={this.showPicker} />
                 <p className="form-error">{error || ""}</p>
                 {picker}
             </div>
@@ -69,7 +66,7 @@ export class DateTimeInput extends PureComponent<IDateTimeInputProps, IDateTimeI
         this.setState({ showPicker: false });
     }
 
-    private onChange = (value: string) => {
+    private onChange = (value) => {
         const { name, onChange, hasTime } = this.props;
         // dateTime validation, also sets the correct values
         const timestamp = this.dateTime.validate(value, hasTime) ? this.dateTime.getTime() : 0;
@@ -79,7 +76,7 @@ export class DateTimeInput extends PureComponent<IDateTimeInputProps, IDateTimeI
         this.setState({ value, showPicker: false });
     }
 
-    private onInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+    private onInputChange = (e) => {
         const value = e.target.value;
         this.onChange(value);
     }

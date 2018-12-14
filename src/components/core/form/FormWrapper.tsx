@@ -1,4 +1,4 @@
-import React, { FormEvent, PureComponent } from "react";
+import React, { PureComponent } from "react";
 import { IBaseComponentProps } from "../../BaseComponent";
 
 export type ChangeEventHandler = (name: string, value: any) => void;
@@ -6,12 +6,11 @@ export type ChangeEventHandler = (name: string, value: any) => void;
 export interface IFromControlProps {
     error?: string;
     label?: string;
-    name: string;
-    hint?: string;
+    name?: string;
+    onChange?: ChangeEventHandler;
+    placeholder?: boolean;
     readonly?: boolean;
-    required?: boolean;
-    value: any;
-    onChange: ChangeEventHandler;
+    value?: any;
 }
 
 export interface IFormOption {
@@ -21,12 +20,10 @@ export interface IFormOption {
 
 interface IFormWrapperProps extends IBaseComponentProps {
     name?: string;
-    onSubmit?: (e: FormEvent<HTMLFormElement>) => void;
+    onSubmit?: (e: Event) => void;
 }
 
-interface IFormWrapperState { }
-
-export class FormWrapper extends PureComponent<IFormWrapperProps, IFormWrapperState> {
+export class FormWrapper extends PureComponent<IFormWrapperProps, null> {
 
     public render() {
         return (
@@ -38,7 +35,7 @@ export class FormWrapper extends PureComponent<IFormWrapperProps, IFormWrapperSt
         );
     }
 
-    private onSubmit = (e: FormEvent<HTMLFormElement>) => {
+    private onSubmit = (e) => {
         const { onSubmit } = this.props;
         e.preventDefault();
         if (onSubmit) {
