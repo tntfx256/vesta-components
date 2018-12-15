@@ -8,9 +8,9 @@ const autoPrefixer = require("autoprefixer");
 const csswring = require("csswring");
 const mqpacker = require("css-mqpacker");
 
-const  pkgr = new Packager({
+const pkgr = new Packager({
     root: __dirname,
-    src: "src/components",
+    src: "src",
     targets: ["es6"],
     files: [".npmignore", "LICENSE", "README.md"],
     publish: "--access=public",
@@ -21,11 +21,11 @@ const tasks = pkgr.createTasks();
 module.exports = {
     default: gulp.series(indexer, tasks.default, compileSass, watch),
     publish: gulp.series(indexer, tasks.deploy, compileSass, tasks.publish),
-    sass: compileSass, watch
+    sass: gulp.series(compileSass, watch)
 }
 
 function indexer() {
-    const indexer = new Indexer("src/components");
+    const indexer = new Indexer("src");
     indexer.generate();
     return Promise.resolve();
 }
@@ -39,18 +39,18 @@ function compileSass() {
         "ExplorerMobile >= 11"
     ];
 
-    return gulp.src(["src/scss/components-ltr.scss", "src/scss/components-rtl.scss"])
+    return gulp.src(["src/index-ltr.scss", "src/index-rtl.scss"])
         .pipe(sourcemaps.init())
         // .pipe(eliminator(setting))
         .pipe(sass())
         .pipe(postCss([autoPrefixer({ browsers: browsersToSupport }), mqpacker, csswring]))
         .pipe(sourcemaps.write("./"))
         .pipe(gulp.dest(`vesta/es6/css`))
-        .pipe(gulp.dest(`public/css`));
+        .pipe(gulp.dest(`__test__/public/css`));
 }
 
 function watch() {
-    gulp.watch(`src/scss/**/*.scss`, compileSass);
+    // gulp.watch(`src/scss/**/*.scss`, compileSass);
     gulp.watch(`src/components/**/*.tsx?`, indexer);
     return Promise.resolve();
 }
