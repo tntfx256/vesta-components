@@ -1,3 +1,10 @@
-export function Demo(){
-    return <h1>Demo</h1>;
+import React from "react";
+import { FormDemo } from "./components/FormDemo";
+
+export function Demo() {
+    return (
+        <div>
+            <FormDemo />
+        </div>
+    );
 }

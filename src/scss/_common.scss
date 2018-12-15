@@ -3,11 +3,7 @@
 @import 'misc/variables';
 @import 'misc/mixins';
 @import 'misc/animation';
-// @import 'fonts/material';
 // <vesta:scssFont/>
-@import 'elements/button';
-@import 'elements/form';
-// <vesta:scssElement/>
 @import 'components/form/autocomplete';
 @import 'components/form/datetime-input';
 @import 'components/form/file-input';
@@ -18,10 +14,12 @@
 @import 'components/form/text-input';
 @import 'components/form/form-wrapper';
 @import 'components/form/wysiwyg';
+
 @import 'components/actionsheet';
 @import 'components/alert';
 @import 'components/avatar';
 @import 'components/burger';
+@import 'components/button';
 @import 'components/crud-menu';
 @import 'components/data-table';
 @import 'components/data-table-operations';
@@ -30,6 +28,7 @@
 @import 'components/dropdown';
 @import 'components/file-manager';
 @import 'components/floating-btn';
+@import 'components/grid';
 @import 'components/icon';
 @import 'components/menu';
 @import 'components/message-box';

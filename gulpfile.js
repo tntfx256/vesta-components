@@ -8,10 +8,7 @@ const autoPrefixer = require("autoprefixer");
 const csswring = require("csswring");
 const mqpacker = require("css-mqpacker");
 
-const indexer = new Indexer("src/components");
-indexer.generate();
-
-let pkgr = new Packager({
+const  pkgr = new Packager({
     root: __dirname,
     src: "src/components",
     targets: ["es6"],
@@ -22,8 +19,15 @@ let pkgr = new Packager({
 const tasks = pkgr.createTasks();
 
 module.exports = {
-    default: gulp.series(tasks.default, compileSass, watch),
-    publish: gulp.series(tasks.deploy, compileSass, tasks.publish)
+    default: gulp.series(indexer, tasks.default, compileSass, watch),
+    publish: gulp.series(indexer, tasks.deploy, compileSass, tasks.publish),
+    sass: compileSass, watch
+}
+
+function indexer() {
+    const indexer = new Indexer("src/components");
+    indexer.generate();
+    return Promise.resolve();
 }
 
 function compileSass() {
@@ -41,10 +45,12 @@ function compileSass() {
         .pipe(sass())
         .pipe(postCss([autoPrefixer({ browsers: browsersToSupport }), mqpacker, csswring]))
         .pipe(sourcemaps.write("./"))
-        .pipe(gulp.dest(`vesta/es6/css`));
+        .pipe(gulp.dest(`vesta/es6/css`))
+        .pipe(gulp.dest(`public/css`));
 }
 
 function watch() {
     gulp.watch(`src/scss/**/*.scss`, compileSass);
+    gulp.watch(`src/components/**/*.tsx?`, indexer);
     return Promise.resolve();
 }

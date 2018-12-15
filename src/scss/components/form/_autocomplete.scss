@@ -1,4 +1,8 @@
-//$autocomplete-list-top-offset: 2 * ($form-group-margin + $form-group-padding) + $form-control-height + 2 * ($form-control-padding);
+$form-control-height: 36px;
+$form-control-bg: $white;
+$form-control-padding: 7px;
+$form-control-border-radius: $border-radius;
+//
 $autocomplete-list-top-offset: $form-control-height;
 $autocomplete-clear-btn-size: 24px;
 

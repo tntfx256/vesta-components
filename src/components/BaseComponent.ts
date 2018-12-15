@@ -1,15 +1,20 @@
-import { History, Location } from "history";
+import { ITheme } from "@vesta/theme";
 import { ReactNode } from "react";
-import { match } from "react-router"
 
 export interface IBaseComponentProps {
+    theme?: ITheme;
     children?: ReactNode;
     classes?: any;
     className?: string;
 }
 
-export interface IBaseComponentWithRouteProps<T> extends IBaseComponentProps {
-    history: History;
-    location: Location;
-    match: match<T>;
+// export interface IBaseComponentWithRouteProps<T> extends IBaseComponentProps {
+//     history: History;
+//     location: Location;
+//     match: match<T>;
+// }
+
+export interface IWithTransition {
+    enter?: number;
+    leave?: null;
 }
