@@ -3,7 +3,7 @@ import { IBaseComponentProps } from "../BaseComponent";
 import { tr } from "../Config";
 import { Dialog } from "./Dialog";
 
-export interface IPreloaderProps extends IBaseComponentProps {
+interface IPreloaderProps extends IBaseComponentProps {
     title?: string;
     message?: string;
     show?: boolean;

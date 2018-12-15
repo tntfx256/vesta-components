@@ -13,7 +13,9 @@ interface IActionsheetProps extends IBaseComponentProps, IWithTransition {
     show: boolean;
 }
 
-export class Actionsheet extends PureComponent<IActionsheetProps, null> {
+interface IEmptyState { }
+
+export class Actionsheet extends PureComponent<IActionsheetProps, IEmptyState> {
 
     constructor(props: IActionsheetProps) {
         super(props);

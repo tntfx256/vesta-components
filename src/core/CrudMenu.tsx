@@ -3,12 +3,14 @@ import { Link } from "react-router-dom";
 import { IBaseComponentProps } from "../BaseComponent";
 import { Icon } from "./Icon";
 
-export interface ICrudMenuProps extends IBaseComponentProps {
+interface ICrudMenuProps extends IBaseComponentProps {
     path: string;
     hasInsertAccess?: boolean;
 }
 
-export class CrudMenu extends PureComponent<ICrudMenuProps, null> {
+interface IEmptyState { }
+
+export class CrudMenu extends PureComponent<ICrudMenuProps, IEmptyState> {
 
     public render() {
         let key = 1;

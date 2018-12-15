@@ -2,7 +2,7 @@ import React, { EventHandler, PureComponent, ReactChild } from "react";
 import { IBaseComponentProps } from "../BaseComponent";
 import { Modal } from "./Modal";
 
-export interface IDialogProps extends IBaseComponentProps {
+interface IDialogProps extends IBaseComponentProps {
     title?: string;
     show: boolean;
     onClose?: EventHandler<any>;
@@ -10,7 +10,9 @@ export interface IDialogProps extends IBaseComponentProps {
     modalClassName?: string;
 }
 
-export class Dialog extends PureComponent<IDialogProps, null> {
+interface IEmptyState { }
+
+export class Dialog extends PureComponent<IDialogProps, IEmptyState> {
 
     public render() {
         const { show, className, modalClassName } = this.props;

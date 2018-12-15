@@ -9,7 +9,9 @@ interface ISelectProps extends IBaseComponentProps, IFromControlProps {
     valueKey?: string;
 }
 
-export class Select extends PureComponent<ISelectProps, null> {
+interface IEmptyState { }
+
+export class Select extends PureComponent<ISelectProps, IEmptyState> {
     public static defaultProps = { valueKey: "id", titleKey: "title" };
 
     public render() {

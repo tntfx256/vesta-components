@@ -20,7 +20,9 @@ interface IMenuProps extends IBaseComponentProps {
     onItemSelect?: (id?: string) => void;
 }
 
-export class Menu extends PureComponent<IMenuProps, null> {
+interface IEmptyState { }
+
+export class Menu extends PureComponent<IMenuProps, IEmptyState> {
     public static defaultProps = { horizontal: false };
     private keyCounter = 1;
 

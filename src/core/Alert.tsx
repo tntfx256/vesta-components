@@ -5,7 +5,9 @@ interface IAlertProps extends IBaseComponentProps {
     type?: string;
 }
 
-export class Alert extends PureComponent<IAlertProps, null> {
+interface IEmptyState { }
+
+export class Alert extends PureComponent<IAlertProps, IEmptyState> {
 
     public render() {
         const { type, children } = this.props;

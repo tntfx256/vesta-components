@@ -3,12 +3,12 @@ import ReactCSSTransitionGroup from "react-addons-css-transition-group";
 import { IBaseComponentProps, IWithTransition } from "../BaseComponent";
 import Navbar, { NavBarMainButtonType } from "./Navbar";
 
-export interface ISideNavProps extends IBaseComponentProps, IWithTransition {
+interface ISideNavProps extends IBaseComponentProps, IWithTransition {
     open?: boolean;
     onChange?: (isOpen: boolean) => void;
 }
 
-export interface ISideNavState {
+interface ISideNavState {
 }
 
 export class Sidenav extends Component<ISideNavProps, ISideNavState> {

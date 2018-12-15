@@ -1,12 +1,12 @@
 import React, { MouseEvent, PureComponent } from "react";
 import { IBaseComponentProps } from "../BaseComponent";
 
-export interface IBurgerProps extends IBaseComponentProps {
+interface IBurgerProps extends IBaseComponentProps {
     className?: string;
     onClick?: (e) => void;
 }
 
-export interface IBurgerState {
+interface IBurgerState {
 }
 
 export class Burger extends PureComponent<IBurgerProps, IBurgerState> {

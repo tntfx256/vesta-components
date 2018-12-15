@@ -1,8 +1,8 @@
 import React, { ChangeEvent, Component, createRef, RefObject } from "react";
-import { IFileManagerProps, tr } from "..";
 import { IBaseComponentProps } from "../BaseComponent";
+import { tr } from "../Config";
 import { Dialog } from "../core/Dialog";
-import { FileManager } from "../core/FileManager";
+import { FileManager, IFileOperation } from "../core/FileManager";
 import { IFromControlProps } from "../core/FormWrapper";
 import { Icon } from "../core/Icon";
 
@@ -11,11 +11,11 @@ interface IToolbarAction {
     icon: string;
 }
 
-export interface IWysiwygProps extends IBaseComponentProps, IFromControlProps, IFileManagerProps {
+interface IWysiwygProps extends IBaseComponentProps, IFromControlProps, IFileOperation {
     value?: string;
 }
 
-export interface IWysiwygState {
+interface IWysiwygState {
     showFileManager?: boolean;
 }
 

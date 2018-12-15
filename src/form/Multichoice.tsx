@@ -11,7 +11,9 @@ interface IMultichoiceProps extends IBaseComponentProps, IFromControlProps {
     valueKey?: string;
 }
 
-export class Multichoice extends PureComponent<IMultichoiceProps, null> {
+interface IEmptyState { }
+
+export class Multichoice extends PureComponent<IMultichoiceProps, IEmptyState> {
     public static defaultProps = { valueKey: "id", titleKey: "title" };
     private selectAllText: string;
 

@@ -3,7 +3,7 @@ import React, { Component } from "react";
 import { IBaseComponentProps } from "../BaseComponent";
 import { tr } from "../Config";
 
-export interface IDatePickerProps extends IBaseComponentProps {
+interface IDatePickerProps extends IBaseComponentProps {
     DateTime: IDateTime;
     hasTime?: boolean;
     onAbort: () => void;
@@ -11,7 +11,7 @@ export interface IDatePickerProps extends IBaseComponentProps {
     value: string;
 }
 
-export interface IDatePickerState {
+interface IDatePickerState {
 }
 
 export class DatePicker extends Component<IDatePickerProps, IDatePickerState> {

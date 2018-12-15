@@ -1,16 +1,18 @@
-import React, { PureComponent } from "react";
+import { PureComponent } from "react";
 import { IBaseComponentProps } from "../BaseComponent";
 
-export interface IScriptProps extends IBaseComponentProps {
+interface IScriptProps extends IBaseComponentProps {
     src: string;
     success: () => void;
     error?: () => void;
 }
 
-export class Script extends PureComponent<IScriptProps, null> {
+interface IEmptyState { }
+
+export class Script extends PureComponent<IScriptProps, IEmptyState> {
 
     public render() {
-        const { src, error, success } = this.props;
+        const { src, success } = this.props;
         if (!src) { return null; }
         const head = document.documentElement.querySelector("head");
         const script = document.createElement("script");

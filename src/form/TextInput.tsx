@@ -4,7 +4,7 @@ import { IBaseComponentProps } from "../BaseComponent";
 import { IFromControlProps } from "../core/FormWrapper";
 import { extractClassNames } from "../util";
 
-export interface ITextInputProps extends IBaseComponentProps, IFromControlProps {
+interface ITextInputProps extends IBaseComponentProps, IFromControlProps {
     dir?: "ltr" | "rtl";
     type?: string;
     value?: string;

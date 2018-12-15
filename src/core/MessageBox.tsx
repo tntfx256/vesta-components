@@ -8,7 +8,7 @@ export enum MessageBoxBtn { Ok = 1, Cancel, Retry, Yes, No }
 
 export enum MessageBoxBtnGroup { OK, OkCancel = 1, OkCancelRetry, CancelRetry, YesNo }
 
-export interface IMessageBoxProps extends IBaseComponentProps {
+interface IMessageBoxProps extends IBaseComponentProps {
     show: boolean;
     title?: string;
     type?: MessageType;
@@ -16,7 +16,7 @@ export interface IMessageBoxProps extends IBaseComponentProps {
     onAction?: (btn: MessageBoxBtn) => void;
 }
 
-export interface IMessageBoxState {
+interface IMessageBoxState {
 }
 
 export class MessageBox extends PureComponent<IMessageBoxProps, IMessageBoxState> {

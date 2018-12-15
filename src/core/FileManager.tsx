@@ -5,8 +5,7 @@ import { KeyCode } from "../enum";
 import { IFile } from "../File";
 import { Icon } from "./Icon";
 
-export interface IFileManagerProps extends IBaseComponentProps {
-    onFileSelect: (path: string) => void;
+export interface IFileOperation {
     onNewFolder: (folder: IFile) => Promise<boolean>;
     onDelete: (file: IFile) => Promise<boolean>;
     onNewFile: (file: IFile) => Promise<boolean>;
@@ -15,7 +14,11 @@ export interface IFileManagerProps extends IBaseComponentProps {
     onError: (error: Error) => void;
 }
 
-export interface IFileManagerState {
+interface IFileManagerProps extends IBaseComponentProps, IFileOperation {
+    onFileSelect: (path: string) => void;
+}
+
+interface IFileManagerState {
     path: string;
     list: IFile[];
     newFolderInProgress?: boolean;

@@ -18,7 +18,9 @@ interface INavbarProps extends RouteComponentProps<INavbarParams> {
     onBurgerClick?: (e: MouseEvent<HTMLElement>) => void;
 }
 
-class Navbar extends PureComponent<INavbarProps, null> {
+interface IEmptyState { }
+
+class Navbar extends PureComponent<INavbarProps, IEmptyState> {
 
     private pathToExitApps = ["/"];
 

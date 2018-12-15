@@ -5,7 +5,7 @@ import { tr } from "../Config";
 import { Icon } from "./Icon";
 import { MessageBox, MessageBoxBtn, MessageBoxBtnGroup } from "./MessageBox";
 
-export interface IDataTableOperationsProps extends IBaseComponentProps {
+interface IDataTableOperationsProps extends IBaseComponentProps {
     editIcon: ReactNode;
     id: number;
     hasEditAccess: boolean;
@@ -15,7 +15,7 @@ export interface IDataTableOperationsProps extends IBaseComponentProps {
     onDelete: (id: number) => void;
 }
 
-export interface IDataTableOperationsState {
+interface IDataTableOperationsState {
     showConfirmBox: boolean;
 }
 

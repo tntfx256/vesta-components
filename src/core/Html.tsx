@@ -1,12 +1,14 @@
 import * as React from "react";
 import { PureComponent } from "react";
 
-export interface IHtmlProps {
+interface IHtmlProps {
     lang: string;
     dir: string;
 }
 
-export class Html extends PureComponent<IHtmlProps, null> {
+interface IEmptyState { }
+
+export class Html extends PureComponent<IHtmlProps, IEmptyState> {
 
     public componentDidMount() {
         const { lang, dir } = this.props;

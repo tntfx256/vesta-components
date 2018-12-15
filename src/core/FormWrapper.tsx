@@ -22,7 +22,9 @@ interface IFormWrapperProps extends IBaseComponentProps {
     onSubmit?: (e: Event) => void;
 }
 
-export class FormWrapper extends PureComponent<IFormWrapperProps, null> {
+interface IEmptyState { }
+
+export class FormWrapper extends PureComponent<IFormWrapperProps, IEmptyState> {
 
     public render() {
         return (

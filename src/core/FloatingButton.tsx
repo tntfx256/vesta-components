@@ -6,7 +6,9 @@ interface IFloatingButtonProps extends IBaseComponentProps {
     onClick?: MouseEventHandler<HTMLButtonElement>;
 }
 
-export class FloatingButton extends PureComponent<IFloatingButtonProps, null> {
+interface IEmptyState { }
+
+export class FloatingButton extends PureComponent<IFloatingButtonProps, IEmptyState> {
 
     public render() {
         const { className, onClick, children } = this.props;

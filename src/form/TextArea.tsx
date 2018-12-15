@@ -7,7 +7,9 @@ interface ITextAreaProps extends IBaseComponentProps, IFromControlProps {
     value?: string;
 }
 
-export class TextArea extends PureComponent<ITextAreaProps, null> {
+interface IEmptyState { }
+
+export class TextArea extends PureComponent<ITextAreaProps, IEmptyState> {
 
     public render() {
         const { label, name, value, error } = this.props;

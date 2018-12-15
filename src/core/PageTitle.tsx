@@ -1,12 +1,14 @@
 import React, { PureComponent } from "react";
 import { IBaseComponentProps } from "../BaseComponent";
 
-export interface IPageTitleProps extends IBaseComponentProps {
+interface IPageTitleProps extends IBaseComponentProps {
     title: string;
     append?: boolean;
 }
 
-export class PageTitle extends PureComponent<IPageTitleProps, null> {
+interface IEmptyState { }
+
+export class PageTitle extends PureComponent<IPageTitleProps, IEmptyState> {
     private static baseTitle = document.title;
 
     public componentDidMount() {

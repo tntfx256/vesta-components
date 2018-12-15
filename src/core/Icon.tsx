@@ -1,14 +1,16 @@
 import React, { PureComponent } from "react";
 import { IBaseComponentProps } from "../BaseComponent";
 
-export interface IconProps extends IBaseComponentProps {
+interface IconProps extends IBaseComponentProps {
     className?: string;
     name: string;
     onClick?: (e) => void;
     size?: string;
 }
 
-export class Icon extends PureComponent<IconProps, null> {
+interface IEmptyState { }
+
+export class Icon extends PureComponent<IconProps, IEmptyState> {
 
     public render() {
         const { name, size, onClick, className = "" } = this.props;

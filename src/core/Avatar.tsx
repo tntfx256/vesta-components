@@ -1,13 +1,15 @@
 import React, { PureComponent } from "react";
 import { IBaseComponentProps } from "../BaseComponent";
 
-export interface IAvatarProps extends IBaseComponentProps {
+interface IAvatarProps extends IBaseComponentProps {
     src: string;
     defaultSrc?: string;
     onClick?: (e) => void;
 }
 
-export class Avatar extends PureComponent<IAvatarProps, null> {
+interface IEmptyState { }
+
+export class Avatar extends PureComponent<IAvatarProps, IEmptyState> {
     private wrapper;
     private loadDefault = false;
     private faileCount = 0;

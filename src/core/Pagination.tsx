@@ -1,14 +1,14 @@
 import React, { PureComponent } from "react";
 import { IBaseComponentProps } from "../BaseComponent";
 
-export interface IPaginationProps extends IBaseComponentProps {
+interface IPaginationProps extends IBaseComponentProps {
     recordsPerPage: number;
     currentPage: number;
     totalRecords?: number;
     fetch: (page: number, recordsPerPage: number) => void;
 }
 
-export interface IPaginationState {
+interface IPaginationState {
     page: number;
 }
 

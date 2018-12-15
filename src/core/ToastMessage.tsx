@@ -2,12 +2,12 @@ import React, { PureComponent } from "react";
 import { IBaseComponentProps } from "../BaseComponent";
 import { MessageType } from "../enum";
 
-export interface IToastMessageProps extends IBaseComponentProps {
+interface IToastMessageProps extends IBaseComponentProps {
     message: string;
     type: MessageType;
 }
 
-export interface IToastMessageState {
+interface IToastMessageState {
 }
 
 export class ToastMessage extends PureComponent<IToastMessageProps, IToastMessageState> {

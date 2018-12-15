@@ -1,13 +1,14 @@
 const { Indexer, Packager } = require("@vesta/devmaid");
 const gulp = require("gulp")
-// const eliminator = require("./resources/gulp/plugins/eliminator");
 const sass = require("gulp-sass");
 const sourcemaps = require("gulp-sourcemaps");
 const postCss = require("gulp-postcss");
 const autoPrefixer = require("autoprefixer");
 const csswring = require("csswring");
 const mqpacker = require("css-mqpacker");
+const { readFileSync } = require("fs");
 
+const pkg = JSON.parse(readFileSync("package.json"));
 const pkgr = new Packager({
     root: __dirname,
     src: "src",
@@ -31,26 +32,17 @@ function indexer() {
 }
 
 function compileSass() {
-    const browsersToSupport = [
-        "last 4 version",
-        "iOS >= 7",
-        "Android >= 4",
-        "Explorer >= 10",
-        "ExplorerMobile >= 11"
-    ];
 
     return gulp.src(["src/index-ltr.scss", "src/index-rtl.scss"])
         .pipe(sourcemaps.init())
-        // .pipe(eliminator(setting))
         .pipe(sass())
-        .pipe(postCss([autoPrefixer({ browsers: browsersToSupport }), mqpacker, csswring]))
+        .pipe(postCss([autoPrefixer({ browsers: pkg.browserslist }), mqpacker, csswring]))
         .pipe(sourcemaps.write("./"))
-        .pipe(gulp.dest(`vesta/es6/css`))
-        .pipe(gulp.dest(`__test__/public/css`));
+        .pipe(gulp.dest(`vesta/es6/css`));
 }
 
 function watch() {
-    // gulp.watch(`src/scss/**/*.scss`, compileSass);
-    gulp.watch(`src/components/**/*.tsx?`, indexer);
+    gulp.watch(`src/**/*.scss`, compileSass);
+    gulp.watch(`src/**/*.tsx?`, indexer);
     return Promise.resolve();
 }

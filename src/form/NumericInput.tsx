@@ -10,7 +10,9 @@ interface INumericInputProps extends IBaseComponentProps, IFromControlProps {
     value?: number | string;
 }
 
-export class NumericInput extends PureComponent<INumericInputProps, null> {
+interface IEmptyState { }
+
+export class NumericInput extends PureComponent<INumericInputProps, IEmptyState> {
 
     public render() {
         const { label, name, value, step, error, size } = this.props;
