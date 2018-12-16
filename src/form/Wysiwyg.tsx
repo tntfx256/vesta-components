@@ -1,6 +1,6 @@
+import { Culture } from "@vesta/culture";
 import React, { ChangeEvent, Component, createRef, RefObject } from "react";
 import { IBaseComponentProps } from "../BaseComponent";
-import { tr } from "../Config";
 import { Dialog } from "../core/Dialog";
 import { FileManager, IFileOperation } from "../core/FileManager";
 import { IFromControlProps } from "../core/FormWrapper";
@@ -21,8 +21,9 @@ interface IWysiwygState {
 
 export class Wysiwyg extends Component<IWysiwygProps, IWysiwygState> {
     private content = "";
-    private editor: RefObject<HTMLDivElement> = createRef();
     private toolbarActions: IToolbarAction[] = [];
+    private tr = Culture.getDictionary().translate;
+    private editor: RefObject<HTMLDivElement> = createRef();
 
     constructor(props: IWysiwygProps) {
         super(props);
@@ -100,7 +101,7 @@ export class Wysiwyg extends Component<IWysiwygProps, IWysiwygState> {
         const { showFileManager } = this.state;
         if (!showFileManager) { return <Dialog show={false} />; }
         return (
-            <Dialog show={true} title={tr("filemanager")} className="file-manager-dialog"
+            <Dialog show={true} title={this.tr("filemanager")} className="file-manager-dialog"
                 onClose={this.hideFileManager}>
                 <FileManager onFileSelect={this.onFileSelect} onDelete={onDelete} onChangeDirectory={onChangeDirectory}
                     onError={onError} onNewFile={onNewFile} onNewFolder={onNewFolder} onRename={onRename} />

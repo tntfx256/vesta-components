@@ -1,4 +1,4 @@
-import React, { PureComponent } from "react";
+import React, { ComponentType } from "react";
 import { IBaseComponentProps } from "../BaseComponent";
 
 interface IconProps extends IBaseComponentProps {
@@ -8,16 +8,16 @@ interface IconProps extends IBaseComponentProps {
     size?: string;
 }
 
-interface IEmptyState { }
+export const Icon: ComponentType<IconProps> = ((props: IconProps) => {
 
-export class Icon extends PureComponent<IconProps, IEmptyState> {
-
-    public render() {
-        const { name, size, onClick, className = "" } = this.props;
-        const sizeClass = size ? `size-${size}` : "";
-
-        return (
-            <span className={`icon ${sizeClass} ${className}`} onClick={onClick}>{name}</span>
-        );
+    const classNames = [];
+    if (props.className) {
+        classNames.push(props.className);
     }
-}
+    if (props.size) {
+        classNames.push(props.size);
+    }
+
+    return name ? <span className={`icon ${classNames.join(" ")}`} onClick={props.onClick}>{name}</span> : null;
+
+});

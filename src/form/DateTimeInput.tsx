@@ -1,4 +1,4 @@
-import { DateTime, IDateTime } from "@vesta/locale";
+import { Culture } from "@vesta/culture";
 import React, { PureComponent } from "react";
 import { IBaseComponentProps } from "../BaseComponent";
 import { DatePicker } from "../core/DatePicker";
@@ -7,7 +7,6 @@ import { Modal } from "../core/Modal";
 import { extractClassNames } from "../util";
 
 interface IDateTimeInputProps extends IBaseComponentProps, IFromControlProps {
-    DateTime: IDateTime;
     hasTime?: boolean;
     value?: number;
 }
@@ -18,12 +17,11 @@ interface IDateTimeInputState {
 }
 
 export class DateTimeInput extends PureComponent<IDateTimeInputProps, IDateTimeInputState> {
-    private dateTime: DateTime;
+    private dateTime = Culture.getDateTimeInstance();
     private dateTimeFormat: string;
 
     constructor(props: IDateTimeInputProps) {
         super(props);
-        this.dateTime = new props.DateTime();
         const locale = this.dateTime.locale;
         this.dateTimeFormat = this.props.hasTime ? locale.defaultDateTimeFormat : locale.defaultDateFormat;
         this.state = { value: props.value ? this.format(props.value) : "" };
@@ -37,13 +35,12 @@ export class DateTimeInput extends PureComponent<IDateTimeInputProps, IDateTimeI
     }
 
     public render() {
-        const { name, label, error, hasTime, DateTime } = this.props;
+        const { name, label, error, hasTime } = this.props;
         const { value, showPicker } = this.state;
 
         const picker = showPicker ? (
             <Modal show={true} name="modal-zoom">
-                <DatePicker DateTime={DateTime} value={value}
-                    onChange={this.onChange} onAbort={this.hidePicker} hasTime={hasTime} />
+                <DatePicker value={value} onChange={this.onChange} onAbort={this.hidePicker} hasTime={hasTime} />
             </Modal>) : <Modal show={false} name="modal-zoom" />;
         const classNames = extractClassNames(this.props, { value: "is-dirty", error: "has-error" });
 

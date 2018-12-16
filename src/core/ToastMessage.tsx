@@ -1,39 +1,43 @@
-import React, { PureComponent } from "react";
+import React, { ComponentType, MouseEvent, useState } from "react";
 import { IBaseComponentProps } from "../BaseComponent";
 import { MessageType } from "../enum";
 
 interface IToastMessageProps extends IBaseComponentProps {
     message: string;
-    type: MessageType;
+    type?: MessageType;
+    duration?: number;
+    onClick?: (e: MouseEvent<HTMLElement>) => void;
+    onClose?: () => void;
 }
 
-interface IToastMessageState {
-}
+export const ToastMessage: ComponentType<IToastMessageProps> = ((props: IToastMessageProps) => {
 
-export class ToastMessage extends PureComponent<IToastMessageProps, IToastMessageState> {
+    let timer;
+    const delay = 2000;
+    const [, setUpdate] = useState(false);
+    const message = props.message ? getToast() : null;
+    if (!message) { return null; }
+    clearTimeout(timer);
+    timer = setTimeout(onClose, delay);
+    return <div className="toast-wrapper" onClick={onClick}>{message}</div>;
 
-    private timer;
-    private delay = 2000;
-
-    constructor(props: IToastMessageProps) {
-        super(props);
-    }
-
-    public render() {
-        const message = this.props.message ? this.getToast() : null;
-        if (message) {
-            clearTimeout(this.timer);
-            this.timer = setTimeout(() => {
-                this.setState({ message: null });
-            }, this.delay);
-            return <div className="toast-wrapper">{message}</div>;
+    function onClose() {
+        if (props.onClose) {
+            props.onClose();
+        } else {
+            setUpdate(true);
         }
-        return null;
     }
 
-    private getToast() {
+    function onClick(e: MouseEvent<HTMLElement>) {
+        if (props.onClick) {
+            props.onClick(e);
+        }
+    }
+
+    function getToast() {
         let className = "info";
-        switch (this.props.type) {
+        switch (props.type) {
             case MessageType.Warning:
                 className = "warning";
                 break;
@@ -45,6 +49,10 @@ export class ToastMessage extends PureComponent<IToastMessageProps, IToastMessag
                 break;
         }
         className = `toast type-${className}`;
-        return <div className={className}>{this.props.message}</div>;
+        return <div className={className}>{props.message}</div>;
     }
-}
+});
+
+ToastMessage.defaultProps = {
+    duration: 4500,
+};

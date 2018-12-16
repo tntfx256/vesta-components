@@ -1,6 +1,6 @@
+import { Culture } from "@vesta/culture";
 import React, { PureComponent } from "react";
 import { IBaseComponentProps } from "../BaseComponent";
-import { tr } from "../Config";
 import { MessageType } from "../enum";
 import { Dialog } from "./Dialog";
 
@@ -20,6 +20,8 @@ interface IMessageBoxState {
 }
 
 export class MessageBox extends PureComponent<IMessageBoxProps, IMessageBoxState> {
+
+    private tr = Culture.getDictionary().translate;
 
     constructor(props: IMessageBoxProps) {
         super(props);
@@ -50,27 +52,27 @@ export class MessageBox extends PureComponent<IMessageBoxProps, IMessageBoxState
     private renderOkBtn(key: number) {
         return (
             <button className="btn btn-primary" key={key} onClick={this.onBtnClick}
-                data-key={MessageBoxBtn.Ok}>{tr("ok")}</button>);
+                data-key={MessageBoxBtn.Ok}>{this.tr("ok")}</button>);
     }
 
     private renderCancelBtn(key: number) {
         return <button className="btn btn-outline" key={key} onClick={this.onBtnClick}
-            data-key={MessageBoxBtn.Cancel}>{tr("cancel")}</button>;
+            data-key={MessageBoxBtn.Cancel}>{this.tr("cancel")}</button>;
     }
 
     private renderRetryBtn(key: number) {
         return <button className="btn btn-primary" key={key} onClick={this.onBtnClick}
-            data-key={MessageBoxBtn.Retry}>{tr("retry")}</button>;
+            data-key={MessageBoxBtn.Retry}>{this.tr("retry")}</button>;
     }
 
     private renderYesBtn(key: number) {
         return <button className="btn btn-primary" key={key} onClick={this.onBtnClick}
-            data-key={MessageBoxBtn.Yes}>{tr("yes")}</button>;
+            data-key={MessageBoxBtn.Yes}>{this.tr("yes")}</button>;
     }
 
     private renderNoBtn(key: number) {
         return <button className="btn btn-outline" key={key} onClick={this.onBtnClick}
-            data-key={MessageBoxBtn.No}>{tr("no")}</button>;
+            data-key={MessageBoxBtn.No}>{this.tr("no")}</button>;
     }
 
     private renderMessageBoxBtnGroup() {

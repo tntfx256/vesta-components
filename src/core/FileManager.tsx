@@ -1,6 +1,6 @@
+import { Culture } from "@vesta/culture";
 import React, { Component } from "react";
 import { IBaseComponentProps } from "../BaseComponent";
-import { tr } from "../Config";
 import { KeyCode } from "../enum";
 import { IFile } from "../File";
 import { Icon } from "./Icon";
@@ -27,7 +27,9 @@ interface IFileManagerState {
 }
 
 export class FileManager extends Component<IFileManagerProps, IFileManagerState> {
+
     private baseDirectory = "file-manager";
+    private tr = Culture.getDictionary().translate;
 
     constructor(props: IFileManagerProps) {
         super(props);
@@ -56,8 +58,8 @@ export class FileManager extends Component<IFileManagerProps, IFileManagerState>
                     <table>
                         <thead>
                             <tr>
-                                <th>{tr("fld_name")}</th>
-                                <th>{tr("operations")}</th>
+                                <th>{this.tr("fld_name")}</th>
+                                <th>{this.tr("operations")}</th>
                             </tr>
                         </thead>
                         {filesList}

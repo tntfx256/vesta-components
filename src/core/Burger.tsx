@@ -3,7 +3,7 @@ import { IBaseComponentProps } from "../BaseComponent";
 
 interface IBurgerProps extends IBaseComponentProps {
     className?: string;
-    onClick?: (e) => void;
+    onClick?: (e: MouseEvent<HTMLElement>) => void;
 }
 
 interface IBurgerState {

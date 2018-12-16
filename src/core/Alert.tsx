@@ -1,21 +1,16 @@
-import React, { PureComponent } from "react";
+import React, { ComponentType } from "react";
+import { withTheme } from "theming";
 import { IBaseComponentProps } from "../BaseComponent";
 
 interface IAlertProps extends IBaseComponentProps {
     type?: string;
 }
 
-interface IEmptyState { }
+export const Alert: ComponentType<IAlertProps> = withTheme((props: IAlertProps) => {
 
-export class Alert extends PureComponent<IAlertProps, IEmptyState> {
-
-    public render() {
-        const { type, children } = this.props;
-
-        return (
-            <p className={`alert alert-${type}`}>
-                {children}
-            </p>
-        );
-    }
-}
+    return (
+        <p className={`alert alert-${props.type}`}>
+            {props.children}
+        </p>
+    );
+});

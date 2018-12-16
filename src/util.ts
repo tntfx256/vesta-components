@@ -1,3 +1,15 @@
+import { createTheme, ITheme } from "@vesta/theme";
+
+let iTheme = createTheme({});
+
+export function setTheme(theme: ITheme) {
+    iTheme = createTheme(theme);
+}
+
+export function getTheme(): ITheme {
+    return iTheme;
+}
+
 export function extractClassNames<T>(props: T, map: any): string {
     const classNames = [];
     for (let keys = Object.keys(map), i = 0, il = keys.length; i < il; ++i) {

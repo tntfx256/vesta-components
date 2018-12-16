@@ -17,14 +17,6 @@ const pkgr = new Packager({
     publish: "--access=public",
 });
 
-const tasks = pkgr.createTasks();
-
-module.exports = {
-    default: gulp.series(indexer, tasks.default, compileSass, watch),
-    publish: gulp.series(indexer, tasks.deploy, compileSass, tasks.publish),
-    sass: gulp.series(compileSass, watch)
-}
-
 function indexer() {
     const indexer = new Indexer("src");
     indexer.generate();
@@ -45,4 +37,11 @@ function watch() {
     gulp.watch(`src/**/*.scss`, compileSass);
     gulp.watch(`src/**/*.tsx?`, indexer);
     return Promise.resolve();
+}
+
+const tasks = pkgr.createTasks();
+
+module.exports = {
+    default: gulp.series(indexer, tasks.default, compileSass, watch),
+    publish: gulp.series(indexer, tasks.deploy, compileSass, tasks.publish),
 }

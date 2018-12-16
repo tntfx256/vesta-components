@@ -1,49 +1,44 @@
-import React, { PureComponent } from "react";
+import React, { ComponentType, MouseEvent, SyntheticEvent, useEffect, useState } from "react";
+import { withTheme } from "theming";
 import { IBaseComponentProps } from "../BaseComponent";
 
 interface IAvatarProps extends IBaseComponentProps {
     src: string;
     defaultSrc?: string;
-    onClick?: (e) => void;
+    onClick?: (e: MouseEvent<HTMLElement>) => void;
 }
 
-interface IEmptyState { }
+export const Avatar: ComponentType<IAvatarProps> = withTheme((props: IAvatarProps) => {
+    let loadDefault = false;
+    let faileCount = 0;
 
-export class Avatar extends PureComponent<IAvatarProps, IEmptyState> {
-    private wrapper;
-    private loadDefault = false;
-    private faileCount = 0;
+    const [update, setUpdate] = useState(true);
 
-    public componentDidUpdate() {
-        // after rendering default, set it to false in case of future props changes
-        this.loadDefault = false;
+    useEffect(() => {
+        loadDefault = false;
+    });
+
+    const imageSrc = loadDefault ? props.defaultSrc : (props.src || props.defaultSrc);
+    const avatar = imageSrc ? <img src={imageSrc} onError={imageLoadError} /> :
+        <div className="avatar-holder" />;
+
+    return (
+        <div className="avatar" onClick={onClick}>
+            {avatar}
+            {props.children}
+        </div>
+    );
+
+    function imageLoadError(e: SyntheticEvent<HTMLElement>) {
+        ++faileCount;
+        if (faileCount > 3) { return; }
+        loadDefault = true;
+        setUpdate(!update);
     }
 
-    public render() {
-        const { src, defaultSrc, onClick } = this.props;
-        const imageSrc = this.loadDefault ? defaultSrc : (src || defaultSrc);
-        const avatar = imageSrc ? <img src={imageSrc} onError={this.imageLoadError} /> :
-            <div className="avatar-holder" />;
-
-        return (
-            <div className="avatar" ref={(el) => this.wrapper = el} onClick={this.onClick}>
-                {avatar}
-                {this.props.children}
-            </div>
-        );
-    }
-
-    private imageLoadError = (e) => {
-        ++this.faileCount;
-        if (this.faileCount > 3) { return; }
-        this.loadDefault = true;
-        this.forceUpdate();
-    }
-
-    private onClick = (e) => {
-        const { onClick } = this.props;
-        if (onClick) {
-            onClick(e);
+    function onClick(e: MouseEvent<HTMLElement>) {
+        if (props.onClick) {
+            props.onClick(e);
         }
     }
-}
+});

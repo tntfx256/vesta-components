@@ -1,7 +1,7 @@
+import { Culture } from "@vesta/culture";
 import React, { PureComponent, ReactNode } from "react";
 import { Link } from "react-router-dom";
 import { IBaseComponentProps } from "../BaseComponent";
-import { tr } from "../Config";
 import { Icon } from "./Icon";
 import { MessageBox, MessageBoxBtn, MessageBoxBtnGroup } from "./MessageBox";
 
@@ -20,6 +20,8 @@ interface IDataTableOperationsState {
 }
 
 export class DataTableOperations extends PureComponent<IDataTableOperationsProps, IDataTableOperationsState> {
+
+    private tr = Culture.getDictionary().translate;
 
     constructor(props: IDataTableOperationsProps) {
         super(props);
@@ -40,8 +42,8 @@ export class DataTableOperations extends PureComponent<IDataTableOperationsProps
                 {editLink}
                 {delLink}
                 <MessageBox show={showConfirmBox} btnGroup={MessageBoxBtnGroup.YesNo} onAction={this.onAction}
-                    title={tr("title_record_delete")}>
-                    <p>{tr("msg_delete_confirm")}</p>
+                    title={this.tr("title_record_delete")}>
+                    <p>{this.tr("msg_delete_confirm")}</p>
                 </MessageBox>
             </span>
         );

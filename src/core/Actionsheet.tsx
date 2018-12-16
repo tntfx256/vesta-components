@@ -1,5 +1,6 @@
-import React, { PureComponent } from "react";
+import React, { ComponentType } from "react";
 import ReactCSSTransitionGroup from "react-addons-css-transition-group";
+import { withTheme } from "theming";
 import { IBaseComponentProps, IWithTransition } from "../BaseComponent";
 
 export interface IActionsheetItem {
@@ -13,27 +14,20 @@ interface IActionsheetProps extends IBaseComponentProps, IWithTransition {
     show: boolean;
 }
 
-interface IEmptyState { }
+export const Actionsheet: ComponentType<IActionsheetProps> = withTheme((props: IActionsheetProps) => {
 
-export class Actionsheet extends PureComponent<IActionsheetProps, IEmptyState> {
+    const duration = props.theme.timing.Default;
+    const { enter = duration, leave = duration } = props;
+    const actionsList = renderActionsList();
 
-    constructor(props: IActionsheetProps) {
-        super(props);
-    }
+    return (
+        <ReactCSSTransitionGroup transitionName="actionsheet"
+            transitionEnterTimeout={enter / 2} transitionLeaveTimeout={leave / 2}>
+            {actionsList}
+        </ReactCSSTransitionGroup>
+    );
 
-    public render() {
-        const { enter = 100, leave = 100 } = this.props;
-        const actionsList = this.renderActionsList();
-
-        return (
-            <ReactCSSTransitionGroup transitionName="actionsheet"
-                transitionEnterTimeout={enter / 2} transitionLeaveTimeout={leave / 2}>
-                {actionsList}
-            </ReactCSSTransitionGroup>
-        );
-    }
-
-    private renderActionsList() {
+    function renderActionsList() {
         if (!this.props.show) { return null; }
         const items = this.props.actions.map((item, index) => (
             <li onClick={item.onClick} data-value={item.value} key={index}>{item.title}</li>
@@ -46,4 +40,4 @@ export class Actionsheet extends PureComponent<IActionsheetProps, IEmptyState> {
             </div>
         );
     }
-}
+})

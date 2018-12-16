@@ -1,6 +1,6 @@
+import { Culture } from "@vesta/culture";
 import React, { PureComponent } from "react";
 import { IBaseComponentProps } from "../BaseComponent";
-import { tr } from "../Config";
 import { IFromControlProps } from "../core/FormWrapper";
 
 interface IMultichoiceProps extends IBaseComponentProps, IFromControlProps {
@@ -15,11 +15,12 @@ interface IEmptyState { }
 
 export class Multichoice extends PureComponent<IMultichoiceProps, IEmptyState> {
     public static defaultProps = { valueKey: "id", titleKey: "title" };
+    private tr = Culture.getDictionary().translate;
     private selectAllText: string;
 
     constructor(props: IMultichoiceProps) {
         super(props);
-        this.selectAllText = tr("select_all");
+        this.selectAllText = this.tr("select_all");
     }
 
     public render() {

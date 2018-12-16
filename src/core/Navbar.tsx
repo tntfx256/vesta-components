@@ -1,12 +1,15 @@
-import React, { ComponentType, MouseEvent, PureComponent } from "react";
+import React, { ComponentType, MouseEvent } from "react";
 import { RouteComponentProps, withRouter } from "react-router";
+import { withTheme } from "theming";
+import { IBaseComponentProps } from "../BaseComponent";
 import { Burger } from "./Burger";
+// import "./Navbar.scss";
 
 export enum NavBarMainButtonType { Burger = 1, Back, Close }
 
 interface INavbarParams { }
 
-interface INavbarProps extends RouteComponentProps<INavbarParams> {
+interface INavbarProps extends IBaseComponentProps, RouteComponentProps<INavbarParams> {
     title?: string;
     className?: string;
     backLink?: string;
@@ -20,62 +23,59 @@ interface INavbarProps extends RouteComponentProps<INavbarParams> {
 
 interface IEmptyState { }
 
-class Navbar extends PureComponent<INavbarProps, IEmptyState> {
+const NavBar: ComponentType<INavbarProps> = withTheme((props: INavbarProps) => {
 
-    private pathToExitApps = ["/"];
+    const pathToExitApps = ["/"];
 
     // public componentDidMount() {
-    //     if (this.hasBackBtn) {
-    //         DevicePlugin.getInstance().registerBackButtonHandler(this.goBack);
+    //     if (hasBackBtn) {
+    //         DevicePlugin.getInstance().registerBackButtonHandler(goBack);
     //     }
     // }
 
     // public componentWillUnmount() {
-    //     if (this.hasBackBtn) {
-    //         DevicePlugin.getInstance().unregisterBackButtonHandler(this.goBack);
+    //     if (hasBackBtn) {
+    //         DevicePlugin.getInstance().unregisterBackButtonHandler(goBack);
     //     }
     // }
 
-    public render() {
-        const { title, className, backLink, showBurger, hide, backAction, mainButtonType } = this.props;
-        if (hide) { return null; }
-        let btnClassName = "back-btn";
-        if (mainButtonType == NavBarMainButtonType.Close) {
-            btnClassName = "close-btn";
-        }
-        const navBtn = (showBurger || location.pathname == "/") && !backLink && !backAction ?
-            <Burger className="nav-btn" onClick={this.props.onBurgerClick} /> :
-            <Burger className={`nav-btn ${btnClassName}`} onClick={this.goBack} />;
-
-        return (
-            <div className={`navbar ${className}`}>
-                {navBtn}
-                <p className="nav-title">{title || ""}</p>
-                <div className="navbar-btn-group">
-                    {this.props.children}
-                </div>
-            </div>
-        );
+    if (props.hide) { return null; }
+    let btnClassName = "back-btn";
+    if (props.mainButtonType == NavBarMainButtonType.Close) {
+        btnClassName = "close-btn";
     }
+    const navBtn = (props.showBurger || location.pathname == "/") && !props.backLink && !props.backAction ?
+        <Burger className="nav-btn" onClick={props.onBurgerClick} /> :
+        <Burger className={`nav-btn ${btnClassName}`} onClick={goBack} />;
 
-    private goBack = (e) => {
+    return (
+        <div className={`navbar ${props.className}`}>
+            {navBtn}
+            <p className="nav-title">{props.title || ""}</p>
+            <div className="navbar-btn-group">
+                {props.children}
+            </div>
+        </div>
+    );
+
+    function goBack(e) {
         if (e) {
             e.stopPropagation();
         }
-        const { backAction } = this.props;
+        const { backAction } = props;
         if (backAction) {
             return backAction(e);
         }
-        const { history, backLink } = this.props;
+        const { history, backLink } = props;
         if (backLink) { return history.replace(backLink); }
-        if (this.props.handleBackEvent) {
-            if (this.pathToExitApps.indexOf(this.props.location.pathname) >= 0) {
+        if (props.handleBackEvent) {
+            if (pathToExitApps.indexOf(props.location.pathname) >= 0) {
                 return (navigator as any).app.exitApp();
             }
         }
         if (history.length) { return history.goBack(); }
         history.replace("/");
     }
-}
+});
 
-export default withRouter(Navbar as ComponentType<INavbarProps>);
+export const Navbar = withRouter(NavBar as ComponentType<INavbarProps>);
