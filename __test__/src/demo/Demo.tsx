@@ -5,7 +5,7 @@ interface IDemoProps extends IBaseComponentProps { }
 
 export const Demo: FC<IDemoProps> = (props: IDemoProps) => {
 
-    const components = ["button"];
+    const components = ["button", "alert"];
     const menuItems: IMenuItem[] = components.map((c, i) => ({ id: c, title: c, link: c }));
 
     return (

@@ -16,7 +16,8 @@ export const App: FC<IAppProps> = (props: IAppProps) => {
 
         <Demo>
           <Switch>
-            <Route link="button" component={ButtonDemo} />
+            <Route path="alert" component={ButtonDemo} />
+            <Route path="button" component={ButtonDemo} />
           </Switch>
         </Demo>
 
