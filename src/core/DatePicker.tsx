@@ -1,5 +1,5 @@
 import { Culture } from "@vesta/culture";
-import React, { Component } from "react";
+import React, { ChangeEvent, Component, MouseEvent } from "react";
 import { IBaseComponentProps } from "../BaseComponent";
 
 interface IDatePickerProps extends IBaseComponentProps {
@@ -95,21 +95,21 @@ export class DatePicker extends Component<IDatePickerProps, IDatePickerState> {
         // tslint
     }
 
-    private onDaySelect = (e) => {
+    private onDaySelect = (e: MouseEvent<HTMLTableDataCellElement>) => {
         // this.dateTime holds the current month & year
-        this.dateTime.setDate(+e.currentTarget.textContent);
+        this.dateTime.setDate(+(e.currentTarget.textContent as string));
         this.selectedDateTime.setTime(this.dateTime.getTime());
         this.forceUpdate();
     }
 
-    private onHourSelect = (e) => {
+    private onHourSelect = (e: ChangeEvent<HTMLSelectElement>) => {
         const hour = +e.target.value;
         // this.dateTime.setHours(hour);
         this.selectedDateTime.setHours(hour);
         this.forceUpdate();
     }
 
-    private onMinSelect = (e) => {
+    private onMinSelect = (e: ChangeEvent<HTMLSelectElement>) => {
         const minute = +e.target.value;
         // this.dateTime.setMinutes(minute);
         this.selectedDateTime.setMinutes(minute);

@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { ChangeEvent, Component, KeyboardEvent } from "react";
 import { IBaseComponentProps } from "../BaseComponent";
 import { IFromControlProps } from "../core/FormWrapper";
 import { KeyCode } from "../enum";
@@ -45,7 +45,7 @@ export class Autocomplete extends Component<IAutocompleteProps, IAutocompleteSta
         const { showLoader, term } = this.state;
         const list = this.renderList();
         const selectedItems = multi ? this.renderSelectedItems() : null;
-        const inputValue = term || (!multi && value && value[titleKey]) || "";
+        const inputValue = term || (!multi && value && value[titleKey as string]) || "";
         let classNames = extractClassNames(this.props, { value: "is-dirty", error: "has-error", multi: "is-multi" });
         classNames += showLoader ? "is-loading" : "";
 
@@ -66,7 +66,7 @@ export class Autocomplete extends Component<IAutocompleteProps, IAutocompleteSta
         const selectedItems = [];
         if (value && multi) {
             for (let i = 0, il = value.length; i < il; ++i) {
-                if (value[i][valueKey]) {
+                if (value[i][valueKey as string]) {
                     selectedItems.push(value[i]);
                 }
             }
@@ -76,7 +76,7 @@ export class Autocomplete extends Component<IAutocompleteProps, IAutocompleteSta
         }
     }
 
-    private onChange = (e) => {
+    private onChange = (e: ChangeEvent<HTMLInputElement>) => {
         const term = e.target.value;
         this.setState({ term });
         if (!term) {
@@ -92,20 +92,18 @@ export class Autocomplete extends Component<IAutocompleteProps, IAutocompleteSta
             });
     }
 
-    private onItemDelete = (e) => {
-        const index = e.currentTarget.getAttribute("data-index");
+    private onItemDelete = (index: number) => () => {
         if (index >= 0) {
             this.selectedItems.splice(index, 1);
         }
         this.forceUpdate();
     }
 
-    private onItemSelect = (e) => {
-        const index = e.currentTarget.getAttribute("data-index");
+    private onItemSelect = (index: number) => () => {
         this.selectItemByIndex(index);
     }
 
-    private onKeyDown = (e) => {
+    private onKeyDown = (e: KeyboardEvent<HTMLElement>) => {
         const { showDropDown, items } = this.state;
         const itemsCount = items.length;
         if (!itemsCount || !showDropDown) { return null; }
@@ -141,8 +139,8 @@ export class Autocomplete extends Component<IAutocompleteProps, IAutocompleteSta
         if (!items.length || !showDropDown) { return null; }
         const menuItems = (items || []).map((item, index) => {
             const className = index === menuIndex ? "has-hover" : "";
-            return <a className={`list-item ${className}`} onClick={this.onItemSelect}
-                key={index} data-index={index}>{item[titleKey]}</a>;
+            return <a className={`list-item ${className}`} onClick={this.onItemSelect(index)}
+                key={index}>{item[titleKey as string]}</a>;
         });
         return (
             <div className="list-wrapper form-control">
@@ -158,7 +156,7 @@ export class Autocomplete extends Component<IAutocompleteProps, IAutocompleteSta
         const selectedItems = [];
         for (let i = 0, il = this.selectedItems.length; i < il; ++i) {
             selectedItems.push((
-                <span key={i} data-index={i} onClick={this.onItemDelete}>{this.selectedItems[i][titleKey]}</span>
+                <span key={i} onClick={this.onItemDelete(i)}>{this.selectedItems[i][titleKey as string]}</span>
             ));
         }
         return <div className="selected-items">{selectedItems}</div>;
@@ -169,12 +167,12 @@ export class Autocomplete extends Component<IAutocompleteProps, IAutocompleteSta
         const { items } = this.state;
         const selectedItem = items[index];
         if (!selectedItem) { return; }
-        const term = selectedItem[titleKey];
-        const selectedValue = selectedItem[valueKey];
+        const term = selectedItem[titleKey as string];
+        const selectedValue = selectedItem[valueKey as string];
         if (multi) {
             let found = false;
             for (let i = 0, il = this.selectedItems.length; i < il; ++i) {
-                if (this.selectedItems[i][valueKey] == selectedItem[valueKey]) {
+                if (this.selectedItems[i][valueKey as string] == selectedItem[valueKey as string]) {
                     found = true;
                     break;
                 }
@@ -184,7 +182,9 @@ export class Autocomplete extends Component<IAutocompleteProps, IAutocompleteSta
             }
         }
         this.hasStateChanged = true;
-        onChange(name, multi ? this.selectedItems.map((item) => item[valueKey]) : selectedValue);
+        if (onChange) {
+            onChange(name, multi ? this.selectedItems.map((item) => item[valueKey as string]) : selectedValue);
+        }
         this.setState({ term: multi ? "" : term, menuIndex: -1, showDropDown: false });
     }
 }

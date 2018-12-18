@@ -13,7 +13,7 @@ export function getTheme(): ITheme {
 export function extractClassNames<T>(props: T, map: any): string {
     const classNames = [];
     for (let keys = Object.keys(map), i = 0, il = keys.length; i < il; ++i) {
-        if (props[keys[i]]) {
+        if ((props as any)[keys[i]]) {
             classNames.push(map[keys[i]]);
         }
     }

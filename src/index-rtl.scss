@@ -3,9 +3,8 @@ $opposite-float: left;
 $direction: rtl;
 $opposite-direction: ltr;
 $direction-eq: -1;
-// $font-path: '../fonts';
+$font-path: '../fonts';
 
-// @import 'fonts/iransans';
-// $base-font-family: 'Iranian Sans', Tahoma, Geneva, sans-serif;
+$base-font-family: IRANSans, Tahoma, Verdana, Geneva, sans-serif;
 
 @import 'common';

@@ -1,11 +1,12 @@
-import React, { ComponentType } from "react";
+import React, { ComponentType, MouseEvent } from "react";
 import { IBaseComponentProps } from "../BaseComponent";
 
 interface IButtonProps extends IBaseComponentProps {
-    type?: "button" | "submit";
-    variant?: "outline";
-    color?: "primary" | "secondary" | "default";
     disabled?: boolean;
+    type?: "button" | "submit";
+    variant?: "contained" | "outlined";
+    color?: "primary" | "secondary" | "default";
+    onClick?: (e: MouseEvent<HTMLElement>) => void;
 }
 
 export const Button: ComponentType<IButtonProps> = (props: IButtonProps) => {
@@ -15,11 +16,11 @@ export const Button: ComponentType<IButtonProps> = (props: IButtonProps) => {
         classNames.push(`btn-${props.variant}`);
     }
     if (props.color) {
-        classNames.push(`btn-${props.color}`);
+        classNames.push(`btn-${props.color || "default"}`);
     }
 
     return (
-        <button type={props.type || null} disabled={props.disabled} className={`btn ${classNames.join(" ")}`}>
+        <button type={props.type || ""} disabled={props.disabled} className={`btn ${classNames.join(" ")}`}>
             {props.children}
         </button>
     );

@@ -80,19 +80,18 @@ export class Wysiwyg extends Component<IWysiwygProps, IWysiwygState> {
 
     private onFileSelect = (file: string) => {
         // const url = getFileUrl(file);
-        this.editor.current.focus();
+        (this.editor.current as HTMLElement).focus();
         setTimeout(() => document.execCommand("insertImage", false, file), 50);
         this.setState({ showFileManager: false });
     }
 
-    private onToolbarAction = (e) => {
-        const command = e.currentTarget.getAttribute("data-command");
+    private onToolbarAction = (command: string) => () => {
         switch (command) {
             case "image":
                 this.setState({ showFileManager: true });
                 break;
             default:
-                document.execCommand(command, false, null);
+                document.execCommand(command, false);
         }
     }
 
@@ -111,7 +110,7 @@ export class Wysiwyg extends Component<IWysiwygProps, IWysiwygState> {
 
     private renderToolbar() {
         const actions = this.toolbarActions.map(({ command, icon }, i) => (
-            <a key={i} className="btn" data-command={command} onClick={this.onToolbarAction}><Icon name={icon} /></a>
+            <a key={i} className="btn" onClick={this.onToolbarAction(command)}><Icon name={icon} /></a>
         ));
         return <div className="toolbar">{actions}</div>;
     }

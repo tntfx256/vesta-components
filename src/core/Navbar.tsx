@@ -3,7 +3,6 @@ import { RouteComponentProps, withRouter } from "react-router";
 import { withTheme } from "theming";
 import { IBaseComponentProps } from "../BaseComponent";
 import { Burger } from "./Burger";
-// import "./Navbar.scss";
 
 export enum NavBarMainButtonType { Burger = 1, Back, Close }
 
@@ -13,11 +12,11 @@ interface INavbarProps extends IBaseComponentProps, RouteComponentProps<INavbarP
     title?: string;
     className?: string;
     backLink?: string;
-    backAction?: (e) => void;
     showBurger?: boolean;
     hide?: boolean;
     mainButtonType?: NavBarMainButtonType;
     handleBackEvent?: boolean;
+    backAction?: (e: MouseEvent<HTMLElement>) => void;
     onBurgerClick?: (e: MouseEvent<HTMLElement>) => void;
 }
 
@@ -26,18 +25,6 @@ interface IEmptyState { }
 const NavBar: ComponentType<INavbarProps> = withTheme((props: INavbarProps) => {
 
     const pathToExitApps = ["/"];
-
-    // public componentDidMount() {
-    //     if (hasBackBtn) {
-    //         DevicePlugin.getInstance().registerBackButtonHandler(goBack);
-    //     }
-    // }
-
-    // public componentWillUnmount() {
-    //     if (hasBackBtn) {
-    //         DevicePlugin.getInstance().unregisterBackButtonHandler(goBack);
-    //     }
-    // }
 
     if (props.hide) { return null; }
     let btnClassName = "back-btn";
@@ -58,7 +45,7 @@ const NavBar: ComponentType<INavbarProps> = withTheme((props: INavbarProps) => {
         </div>
     );
 
-    function goBack(e) {
+    function goBack(e: MouseEvent<HTMLElement>) {
         if (e) {
             e.stopPropagation();
         }

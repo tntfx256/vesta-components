@@ -19,7 +19,7 @@ export const TextInput: ComponentType<ITextInputProps> = withTheme((props: IText
     return (
         <div className={`form-group text-input ${classNames}`}>
             <label htmlFor={props.name}>{props.label}</label>
-            <input className="form-control" type={type} name={name} id={name} value={props.value || ""}
+            <input className="form-control" type={type} name={props.name} id={props.name} value={props.value || ""}
                 onChange={onChange} disabled={props.readonly} />
             <p className="form-error">{props.error || ""}</p>
         </div>

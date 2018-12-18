@@ -1,4 +1,4 @@
-import React, { PureComponent } from "react";
+import React, { ChangeEvent, PureComponent } from "react";
 import { IBaseComponentProps } from "../BaseComponent";
 import { IFromControlProps } from "../core/FormWrapper";
 import { extractClassNames } from "../util";
@@ -25,7 +25,7 @@ export class TextArea extends PureComponent<ITextAreaProps, IEmptyState> {
         );
     }
 
-    private onChange = (e) => {
+    private onChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
         const { name, onChange } = this.props;
         if (onChange) {
             onChange(name, e.target.value);

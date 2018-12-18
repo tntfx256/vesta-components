@@ -1,5 +1,5 @@
 import { Culture } from "@vesta/culture";
-import React, { PureComponent, ReactNode } from "react";
+import React, { MouseEvent, PureComponent, ReactNode } from "react";
 import { Link } from "react-router-dom";
 import { IBaseComponentProps } from "../BaseComponent";
 import { Icon } from "./Icon";
@@ -49,7 +49,7 @@ export class DataTableOperations extends PureComponent<IDataTableOperationsProps
         );
     }
 
-    private onDelete = (e) => {
+    private onDelete = (e: MouseEvent<HTMLElement>) => {
         e.preventDefault();
         this.setState({ showConfirmBox: true });
     }

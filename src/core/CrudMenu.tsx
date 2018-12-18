@@ -11,10 +11,9 @@ interface ICrudMenuProps extends IBaseComponentProps {
 export const CrudMenu: ComponentType<ICrudMenuProps> = ((props: ICrudMenuProps) => {
 
     let key = 1;
-    const { hasInsertAccess, path } = this.props;
-    const links = [<li key={key++}><Link to={`/${path}`}><Icon name="list" /></Link></li>];
-    if (hasInsertAccess) {
-        links.push(<li key={key}><Link to={`/${path}/add`}><Icon name="add" /></Link></li>);
+    const links = [<li key={key++}><Link to={`/${props.path}`}><Icon name="list" /></Link></li>];
+    if (props.hasInsertAccess) {
+        links.push(<li key={key}><Link to={`/${props.path}/add`}><Icon name="add" /></Link></li>);
     }
     return (
         <div className="crud-menu-component">

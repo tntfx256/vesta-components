@@ -9,7 +9,7 @@ interface IGridProps extends IBaseComponentProps {
     justify?: "flex-start" | "flex-end" | "center" | "space-between" | "space-around" | "space-evenly";
     // cross direction wise
     alignItem?: "flex-start" | "flex-end" | "center" | "baseline" | "stretch";
-    alignContent?: "flex-start" | "flex-end" | "center" | "space-between" | "space-around" | "stretch";
+    align?: "flex-start" | "flex-end" | "center" | "space-between" | "space-around" | "stretch";
     flex?: number;
 }
 
@@ -19,7 +19,7 @@ export const Grid: ComponentType<IGridProps> = withTheme((props: IGridProps) => 
 
     useEffect(() => {
         if (props.flex) {
-            grid.current.style.flex = props.flex.toString();
+            (grid.current as HTMLDivElement).style.flex = props.flex.toString();
         }
     });
 
@@ -32,13 +32,16 @@ export const Grid: ComponentType<IGridProps> = withTheme((props: IGridProps) => 
         classNames.push(props.wrap);
     }
     if (props.justify) {
-        classNames.push(props.justify);
+        classNames.push(`justify-${props.justify}`);
     }
     if (props.alignItem) {
-        classNames.push(props.alignItem);
+        classNames.push(`align-item-${props.alignItem}`);
+    }
+    if (props.align) {
+        classNames.push(`align-${props.align}`);
     }
     if (props.direction) {
-        classNames.push(props.alignContent);
+        classNames.push(props.direction);
     }
 
     return (

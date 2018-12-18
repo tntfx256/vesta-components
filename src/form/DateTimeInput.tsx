@@ -1,5 +1,5 @@
 import { Culture } from "@vesta/culture";
-import React, { PureComponent } from "react";
+import React, { ChangeEvent, PureComponent } from "react";
 import { IBaseComponentProps } from "../BaseComponent";
 import { DatePicker } from "../core/DatePicker";
 import { IFromControlProps } from "../core/FormWrapper";
@@ -30,7 +30,7 @@ export class DateTimeInput extends PureComponent<IDateTimeInputProps, IDateTimeI
     public componentWillReceiveProps(newProps: IDateTimeInputProps) {
         const { value } = this.props;
         if (newProps.value !== value) {
-            this.setState({ value: this.format(newProps.value) });
+            this.setState({ value: this.format(newProps.value as number) });
         }
     }
 
@@ -68,7 +68,7 @@ export class DateTimeInput extends PureComponent<IDateTimeInputProps, IDateTimeI
         this.setState({ showPicker: false });
     }
 
-    private onChange = (value) => {
+    private onChange = (value: string) => {
         const { name, onChange, hasTime } = this.props;
         // dateTime validation, also sets the correct values
         const timestamp = this.dateTime.validate(value, hasTime) ? this.dateTime.getTime() : 0;
@@ -78,7 +78,7 @@ export class DateTimeInput extends PureComponent<IDateTimeInputProps, IDateTimeI
         this.setState({ value, showPicker: false });
     }
 
-    private onInputChange = (e) => {
+    private onInputChange = (e: ChangeEvent<HTMLInputElement>) => {
         const value = e.target.value;
         this.onChange(value);
     }

@@ -1,11 +1,32 @@
-@mixin btn-style($color, $text-color: $white) {
-    background: $color;
-    border: 1px solid lighten($color, $btn-border-darken-ratio);
+@mixin btn-style($color) {
+    color: $color;
+
+    &:hover {
+        border-color: darken($color, $btn-border-darken-ratio);
+        transition: all $transition-duration-short;
+    }
+}
+
+@mixin btn-style-outline($color) {
+    border-color: $color;
+    color: $color;
+
+    &:hover {
+        border-color: darken($color, $btn-border-darken-ratio);
+        color: darken($color, $btn-border-darken-ratio);
+        transition: all $transition-duration-short;
+    }
+}
+
+@mixin btn-style-filled($background-color, $text-color) {
+    background: $background-color;
+    border-color: darken($background-color, $btn-border-darken-ratio);
     color: $text-color;
 
     &:hover {
-        background: darken($color, $btn-border-darken-ratio / 2);
-        border-color: darken($color, $btn-border-darken-ratio);
+        $hover-bg: darken($background-color, $btn-border-darken-ratio);
+        background: $hover-bg;
+        border-color: darken($hover-bg, $btn-border-darken-ratio);
         transition: all $transition-duration-short;
     }
 }
@@ -48,81 +69,58 @@
     vertical-align: middle;
     white-space: nowrap;
 
-    &.btn-outline {
-        border-color: $btn-border-color;
-    }
+
 
     &.btn-default {
-        @include btn-style($color-default, $color-primary);
+        @include btn-style($color-default);
+
+        &.btn-outline {
+            @include btn-style-outline($color-default);
+        }
+
+        &.btn-filled {
+            @include btn-style-filled($color-default, $color-default-text);
+        }
     }
 
     &.btn-primary {
         @include btn-style($color-primary);
+
+        &.btn-outline {
+            @include btn-style-outline($color-primary);
+        }
+
+        &.btn-filled {
+            @include btn-style-filled($color-primary, $color-primary-text);
+        }
     }
 
     &.btn-secondary {
         @include btn-style($color-secondary);
+
+        &.btn-outline {
+            @include btn-style-outline($color-secondary);
+        }
+
+        &.btn-filled {
+            @include btn-style-filled($color-secondary, $color-secondary-text);
+        }
     }
 
     &:disabled {
-        @include btn-style($silver, $grey);
+        @include btn-style($silver);
         cursor: not-allowed;
+
+        &.btn-outline {
+            @include btn-style-outline($silver);
+        }
+
+        &.btn-filled {
+            @include btn-style-filled($silver, $grey);
+        }
     }
 
     &.btn-lg {
         @include btn-size($btn-height-large, $font-size-large);
-    }
-}
-
-.btn-group {
-    padding: $btn-group-padding;
-
-    &.stick-btm {
-        @extend %btns-stick-to-bottom;
-    }
-
-    >.btn {
-        border-radius: 0;
-
-        &:first-child {
-            border-bottom-#{$float}-radius: $border-radius;
-            border-top-#{$float}-radius: $border-radius;
-        }
-
-        &:last-child {
-            border-bottom-#{$opposite-float}-radius: $border-radius;
-            border-top-#{$opposite-float}-radius: $border-radius;
-        }
-    }
-}
-
-.tab-header {
-    align-items: center;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    margin: auto;
-    padding: $btn-group-padding;
-    width: 100%;
-
-    &.stick-btm {
-        @extend %btns-stick-to-bottom;
-    }
-
-    >.btn {
-        flex: 1;
-        height: $btn-height-large;
-        line-height: $btn-height-large;
-        margin: auto 5px;
-    }
-
-    &.tab-header-default {
-        >.btn {
-            @include btn-style($white, $color-primary);
-
-            &.active {
-                @include btn-style($btn-group-active-bg, $color-semidark);
-            }
-        }
     }
 }

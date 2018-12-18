@@ -1,10 +1,10 @@
-import React, { PureComponent } from "react";
+import React, { ChangeEvent, PureComponent } from "react";
 import { IBaseComponentProps } from "../BaseComponent";
 import { IFromControlProps } from "../core/FormWrapper";
 import { extractClassNames } from "../util";
 
 interface ISelectProps extends IBaseComponentProps, IFromControlProps {
-    options: Array<{}>;
+    options: any[];
     titleKey?: string;
     valueKey?: string;
 }
@@ -18,7 +18,7 @@ export class Select extends PureComponent<ISelectProps, IEmptyState> {
         const { label, name, options, error, titleKey, readonly } = this.props;
         // finding index of selected value
         const selectedIndex = this.getSelectedIndex();
-        const optionsList = (options || []).map((o, i) => (<option key={i} value={i}>{o[titleKey]}</option>));
+        const optionsList = options.map((o, i) => (<option key={i} value={i}>{o[titleKey as string]}</option>));
         const classNames = extractClassNames(this.props, { value: "is-dirty", error: "has-error" });
 
         return (
@@ -36,10 +36,10 @@ export class Select extends PureComponent<ISelectProps, IEmptyState> {
     private getSelectedIndex() {
         const { value, options, valueKey } = this.props;
         // value might be a number or an object
-        const realValue = value && value[valueKey] || value;
+        const realValue = value && value[valueKey as string] || value;
         // finding index of selected value
         for (let i = options.length; i--;) {
-            if (realValue == options[i][valueKey]) {
+            if (realValue == options[i][valueKey as string]) {
                 return i;
             }
         }
@@ -47,12 +47,12 @@ export class Select extends PureComponent<ISelectProps, IEmptyState> {
         return undefined;
     }
 
-    private onChange = (e) => {
+    private onChange = (e: ChangeEvent<HTMLSelectElement>) => {
         const { name, onChange, options, valueKey, readonly } = this.props;
         const index = e.target.value;
-        const item = options[index];
+        const item = options[+index];
         if (onChange && !readonly) {
-            onChange(name, item ? item[valueKey] : null);
+            onChange(name, item ? item[valueKey as string] : null);
         }
     }
 }

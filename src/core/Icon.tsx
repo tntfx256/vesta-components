@@ -1,14 +1,16 @@
-import React, { ComponentType } from "react";
+import React, { ComponentType, MouseEvent } from "react";
 import { IBaseComponentProps } from "../BaseComponent";
 
 interface IconProps extends IBaseComponentProps {
     className?: string;
     name: string;
-    onClick?: (e) => void;
     size?: string;
+    onClick?: (e: MouseEvent<HTMLElement>) => void;
 }
 
 export const Icon: ComponentType<IconProps> = ((props: IconProps) => {
+
+    if (!props.name) { return null; }
 
     const classNames = [];
     if (props.className) {
@@ -18,6 +20,10 @@ export const Icon: ComponentType<IconProps> = ((props: IconProps) => {
         classNames.push(props.size);
     }
 
-    return name ? <span className={`icon ${classNames.join(" ")}`} onClick={props.onClick}>{name}</span> : null;
+    return (Icon as any).useClassName ?
+        <span className={`icon icon-${props.name} ${classNames.join(" ")}`} onClick={props.onClick} /> :
+        <span className={`icon ${classNames.join(" ")}`} onClick={props.onClick}>{props.name}</span>;
 
 });
+
+(Icon as any).useClassName = true;

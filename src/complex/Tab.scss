@@ -1,0 +1,30 @@
+.tab-header {
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin: auto;
+    padding: $btn-group-padding;
+    width: 100%;
+
+    &.stick-btm {
+        @extend %btns-stick-to-bottom;
+    }
+
+    >.btn {
+        flex: 1;
+        height: $btn-height-large;
+        line-height: $btn-height-large;
+        margin: auto 5px;
+    }
+
+    &.tab-header-default {
+        >.btn {
+            @include btn-style($white, $color-primary);
+
+            &.active {
+                @include btn-style($btn-group-active-bg, $color-semidark);
+            }
+        }
+    }
+}

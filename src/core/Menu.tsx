@@ -1,4 +1,4 @@
-import React, { ComponentType, MouseEvent, useState } from "react";
+import React, { ComponentType, MouseEvent, ReactNode, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { IBaseComponentProps } from "../BaseComponent";
 import { Icon } from "./Icon";
@@ -18,7 +18,7 @@ interface IMenuProps extends IBaseComponentProps {
     horizontal?: boolean;
     items: IMenuItem[];
     name?: string;
-    onItemSelect?: (id?: string) => void;
+    onItemSelect?: (id: string) => void;
 }
 
 interface IEmptyState { }
@@ -39,7 +39,7 @@ export const Menu: ComponentType<IMenuProps> = ((props: IMenuProps) => {
 
     function renderMenuItems(routeItems: IMenuItem[], prefix: string) {
         // const { onClick } = props;
-        let links = [];
+        let links: ReactNode[] = [];
         const routeCount = routeItems.length;
         for (let i = 0, il = routeCount; i < il; ++i) {
             const item: IMenuItem = routeItems[i];
@@ -49,7 +49,7 @@ export const Menu: ComponentType<IMenuProps> = ((props: IMenuProps) => {
                 const classNames = ["menu-item", item.disabled ? "disabled" : ""];
                 const itemComponent = item.link ?
                     (<NavLink to={`${basePath}/${item.link}`} activeClassName="active">
-                        <span><Icon name={item.icon} /> {item.title}</span>
+                        <span><Icon name={item.icon as string} /> {item.title}</span>
                     </NavLink>) :
                     <a data-id={item.id}>{item.icon || null} {item.title}</a>;
                 links.push(
@@ -59,7 +59,7 @@ export const Menu: ComponentType<IMenuProps> = ((props: IMenuProps) => {
                     </li>);
             }
             if (item.children) {
-                links = links.concat(renderMenuItems(item.children, item.link));
+                links = links.concat(renderMenuItems(item.children, item.link || ""));
             }
         }
         return links;
@@ -71,7 +71,7 @@ export const Menu: ComponentType<IMenuProps> = ((props: IMenuProps) => {
         const id = e.currentTarget.getAttribute("data-id");
         const { onItemSelect } = props;
         if (onItemSelect) {
-            onItemSelect(id);
+            onItemSelect(id as string);
         }
         setUpdate(!update);
     }

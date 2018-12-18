@@ -1,5 +1,5 @@
 import { Culture } from "@vesta/culture";
-import React, { Component } from "react";
+import React, { ChangeEvent, Component, KeyboardEvent } from "react";
 import { IBaseComponentProps } from "../BaseComponent";
 import { KeyCode } from "../enum";
 import { IFile } from "../File";
@@ -85,11 +85,10 @@ export class FileManager extends Component<IFileManagerProps, IFileManagerState>
         return directories.concat(files);
     }
 
-    private onSelect = (e) => {
+    private onSelect = (index: number) => () => {
         const { list, path } = this.state;
-        const index = e.currentTarget.parentElement.getAttribute("data-index");
         // check if we should change path to parent directory
-        if (index == -1) {
+        if (index === -1) {
             return this.changeDirectory(path.substring(0, path.lastIndexOf("/")));
         }
         const file = list[index];
@@ -99,18 +98,16 @@ export class FileManager extends Component<IFileManagerProps, IFileManagerState>
         this.props.onFileSelect(`${this.baseDirectory}/${file.path}/${file.name}`);
     }
 
-    private onDelete = (e) => {
+    private onDelete = (index: number) => () => {
         const { list } = this.state;
-        const index = e.currentTarget.parentElement.parentElement.getAttribute("data-index");
         const file = list[index];
         this.props.onDelete(file)
-            .then(() => this.changeDirectory(file.path))
+            .then(() => this.changeDirectory(file.path as string))
             .catch(this.props.onError);
     }
 
-    private onRename = (e) => {
+    private onRename = (index: number) => () => {
         const { list } = this.state;
-        const index = e.currentTarget.parentElement.parentElement.getAttribute("data-index");
         const file = list[index];
         this.setState({ renameIndex: index, newFolderInProgress: false, fileName: file.name });
     }
@@ -123,12 +120,12 @@ export class FileManager extends Component<IFileManagerProps, IFileManagerState>
         this.setState({ newFolderInProgress: false, renameIndex: -1 });
     }
 
-    private onInputNameChange = (e) => {
+    private onInputNameChange = (e: ChangeEvent<HTMLInputElement>) => {
         const value = e.currentTarget.value;
         this.setState({ fileName: value });
     }
 
-    private onNewFolderNameSave = (e) => {
+    private onNewFolderNameSave = (e: KeyboardEvent<HTMLInputElement>) => {
         const keyCode = e.keyCode || e.charCode;
         if (keyCode != KeyCode.Enter) { return; }
         e.preventDefault();
@@ -145,13 +142,13 @@ export class FileManager extends Component<IFileManagerProps, IFileManagerState>
             });
     }
 
-    private onRenameSave = (e) => {
+    private onRenameSave = (e: KeyboardEvent<HTMLInputElement>) => {
         const keyCode = e.keyCode || e.charCode;
         if (keyCode != KeyCode.Enter) { return; }
         e.preventDefault();
         e.stopPropagation();
         const { path, fileName, list, renameIndex } = this.state;
-        const file = list[renameIndex];
+        const file = list[renameIndex as number];
         this.props.onRename(file, fileName)
             .then((response) => {
                 this.setState({ renameIndex: -1 }, () => this.changeDirectory(path));
@@ -162,11 +159,10 @@ export class FileManager extends Component<IFileManagerProps, IFileManagerState>
             });
     }
 
-    private onFileSelectedForUpload = (e) => {
+    private onFileSelectedForUpload = (e: ChangeEvent<HTMLInputElement>) => {
         const { path } = this.state;
-        const file: File = e.target.files[0];
+        const file: File = (e.target.files as FileList)[0];
         this.props.onNewFile(file)
-            // this.api.upload("file", )
             .then(() => this.changeDirectory(path))
             .catch((error) => {
                 this.props.onError(error);
@@ -188,7 +184,7 @@ export class FileManager extends Component<IFileManagerProps, IFileManagerState>
         // go to parent directory
         const upDirectory = path && path != "/" ? (
             <tr key={-1} data-index={-1}>
-                <td onClick={this.onSelect}>
+                <td onClick={this.onSelect(-1)}>
                     <Icon name="arrow_upward" /> <label>..</label>
                 </td>
                 <td />
@@ -216,14 +212,14 @@ export class FileManager extends Component<IFileManagerProps, IFileManagerState>
                 <input className="form-control" type="text" value={fileName} onChange={this.onInputNameChange}
                     onKeyDown={this.onRenameSave} />) : file.name;
             return (
-                <tr key={index} data-index={index}>
-                    <td onClick={isRename ? null : this.onSelect}>
+                <tr key={index}>
+                    <td onClick={isRename ? this.noop : this.onSelect(index)}>
                         <Icon name={isDirectory ? "folder" : "image"} />
                         <label>{fileNameCmp}</label>
                     </td>
                     <td>
-                        {isRename ? null : <Icon name="edit" onClick={this.onRename} />}
-                        <Icon name="clear" onClick={isRename ? this.onRenameCancel : this.onDelete} />
+                        {isRename ? this.noop : <Icon name="edit" onClick={this.onRename(index)} />}
+                        <Icon name="clear" onClick={isRename ? this.onRenameCancel : this.onDelete(index)} />
                     </td>
                 </tr>
             );
@@ -236,5 +232,9 @@ export class FileManager extends Component<IFileManagerProps, IFileManagerState>
                 {filesList}
             </tbody>
         );
+    }
+
+    private noop() {
+        //
     }
 }

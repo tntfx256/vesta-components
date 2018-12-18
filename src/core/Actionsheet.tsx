@@ -1,3 +1,4 @@
+import { ITheme } from "@vesta/theme";
 import React, { ComponentType } from "react";
 import ReactCSSTransitionGroup from "react-addons-css-transition-group";
 import { withTheme } from "theming";
@@ -16,7 +17,7 @@ interface IActionsheetProps extends IBaseComponentProps, IWithTransition {
 
 export const Actionsheet: ComponentType<IActionsheetProps> = withTheme((props: IActionsheetProps) => {
 
-    const duration = props.theme.timing.Default;
+    const duration = (props.theme as ITheme).timing.Default;
     const { enter = duration, leave = duration } = props;
     const actionsList = renderActionsList();
 
@@ -28,8 +29,8 @@ export const Actionsheet: ComponentType<IActionsheetProps> = withTheme((props: I
     );
 
     function renderActionsList() {
-        if (!this.props.show) { return null; }
-        const items = this.props.actions.map((item, index) => (
+        if (!props.show) { return null; }
+        const items = props.actions.map((item, index) => (
             <li onClick={item.onClick} data-value={item.value} key={index}>{item.title}</li>
         ));
 
@@ -40,4 +41,4 @@ export const Actionsheet: ComponentType<IActionsheetProps> = withTheme((props: I
             </div>
         );
     }
-})
+});

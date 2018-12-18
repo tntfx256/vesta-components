@@ -16,5 +16,5 @@ export interface IBaseComponentProps {
 
 export interface IWithTransition {
     enter?: number;
-    leave?: null;
+    leave?: number;
 }

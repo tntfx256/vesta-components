@@ -1,7 +1,7 @@
 import { IRequest } from "@vesta/core";
 import React, { Component } from "react";
 import { IBaseComponentProps } from "../BaseComponent";
-import Pagination from "./Pagination";
+import { Pagination } from "./Pagination";
 
 export interface IColumn<T> {
     name?: string;
@@ -15,12 +15,12 @@ export interface IDataTableQueryOption<T> extends IRequest<T> {
 
 interface IDataTableProps<T> extends IBaseComponentProps {
     columns: Array<IColumn<T>>;
-    fetch?: (option: IDataTableQueryOption<T>) => void;
     pagination?: boolean;
-    queryOption?: IDataTableQueryOption<T>;
+    queryOption: IDataTableQueryOption<T>;
     records: T[];
     selectable?: boolean;
     showIndex?: boolean;
+    onChange?: (option: IDataTableQueryOption<T>) => void;
 }
 
 interface IDataTableState {
@@ -34,12 +34,12 @@ export class DataTable<T> extends Component<IDataTableProps<T>, IDataTableState>
     }
 
     public render() {
+        const { queryOption: { total, page = 1, limit = 20 }, pagination } = this.props;
         const header = this.createHeader();
         const rows = this.createRows();
-        const queryOption = this.props.queryOption;
-        const pagination = this.props.pagination ? (
-            <Pagination totalRecords={queryOption.total} currentPage={queryOption.page} fetch={this.onPaginationChange}
-                recordsPerPage={queryOption.limit} />) : null;
+        const paginationComponent = pagination ? (
+            <Pagination totalRecords={total} currentPage={page} fetch={this.onPaginationChange}
+                recordsPerPage={limit} />) : null;
         return (
             <div>
                 <div className="data-table">
@@ -48,7 +48,7 @@ export class DataTable<T> extends Component<IDataTableProps<T>, IDataTableState>
                         <tbody>{rows}</tbody>
                     </table>
                 </div>
-                {pagination}
+                {paginationComponent}
             </div>
         );
     }
@@ -61,14 +61,18 @@ export class DataTable<T> extends Component<IDataTableProps<T>, IDataTableState>
     }
 
     private createRows() {
-        const rows = this.props.records || [];
-        return rows.map((r, i) => {
-            const cells = this.props.columns.map((c, j) => (<td key={j + 1}>{c.render ? c.render(r) : r[c.name]}</td>));
+        const { records, columns } = this.props;
+        return records.map((r: any, i) => {
+            const cells = columns.map((c, j) => (
+                <td key={j + 1}>{c.render ? c.render(r) : r[c.name as string]}</td>
+            ));
             return <tr key={i + 1}>{cells}</tr>;
         });
     }
 
-    private onPaginationChange = (page: number, recordsPerPage: number) => {
-        this.props.fetch({ ...this.props.queryOption, page, limit: recordsPerPage });
+    private onPaginationChange = (page: number, limit: number) => {
+        if (this.props.onChange) {
+            this.props.onChange({ ...this.props.queryOption, page, limit });
+        }
     }
 }

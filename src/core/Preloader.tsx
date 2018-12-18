@@ -47,7 +47,7 @@ export class Preloader extends PureComponent<IPreloaderProps, IPreloaderState> {
         const { show, title, message } = this.state;
 
         return (
-            <Dialog show={show} modalClassName="preloader-modal">
+            <Dialog show={!!show} modalClassName="preloader-modal">
                 <div className="preloader">
                     <div className="pl-wrapper">
                         <div className="pl-circular" />

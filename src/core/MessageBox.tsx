@@ -1,7 +1,8 @@
 import { Culture } from "@vesta/culture";
-import React, { PureComponent } from "react";
+import React, { PureComponent, ReactNode } from "react";
 import { IBaseComponentProps } from "../BaseComponent";
 import { MessageType } from "../enum";
+import { Button } from "./Button";
 import { Dialog } from "./Dialog";
 
 export enum MessageBoxBtn { Ok = 1, Cancel, Retry, Yes, No }
@@ -13,6 +14,7 @@ interface IMessageBoxProps extends IBaseComponentProps {
     title?: string;
     type?: MessageType;
     btnGroup?: MessageBoxBtnGroup;
+    actions?: ReactNode[];
     onAction?: (btn: MessageBoxBtn) => void;
 }
 
@@ -29,85 +31,62 @@ export class MessageBox extends PureComponent<IMessageBoxProps, IMessageBoxState
     }
 
     public render() {
-        const { title, show, type, children } = this.props;
+        const { title, show, type, children, actions } = this.props;
         const messageBoxBtns = this.renderMessageBoxBtnGroup();
-        let content = children;
-        if (children && (children as any).length) {
-            content = children[0];
-            messageBoxBtns.push(children[1]);
-        }
+        // let content = children;
+        // if (children && (children as any).length) {
+        //     content = children[0];
+        //     messageBoxBtns.push(children[1]);
+        // }
 
         return (
             <Dialog show={show} title={title} className={`msg-box msg-box-${type}`}>
                 <div className="msg-box-content">
-                    {content}
+                    {children}
                 </div>
                 <div className="btn-group">
-                    {messageBoxBtns}
+                    {actions}
                 </div>
             </Dialog>
         );
     }
 
-    private renderOkBtn(key: number) {
-        return (
-            <button className="btn btn-primary" key={key} onClick={this.onBtnClick}
-                data-key={MessageBoxBtn.Ok}>{this.tr("ok")}</button>);
-    }
-
-    private renderCancelBtn(key: number) {
-        return <button className="btn btn-outline" key={key} onClick={this.onBtnClick}
-            data-key={MessageBoxBtn.Cancel}>{this.tr("cancel")}</button>;
-    }
-
-    private renderRetryBtn(key: number) {
-        return <button className="btn btn-primary" key={key} onClick={this.onBtnClick}
-            data-key={MessageBoxBtn.Retry}>{this.tr("retry")}</button>;
-    }
-
-    private renderYesBtn(key: number) {
-        return <button className="btn btn-primary" key={key} onClick={this.onBtnClick}
-            data-key={MessageBoxBtn.Yes}>{this.tr("yes")}</button>;
-    }
-
-    private renderNoBtn(key: number) {
-        return <button className="btn btn-outline" key={key} onClick={this.onBtnClick}
-            data-key={MessageBoxBtn.No}>{this.tr("no")}</button>;
+    private renderButton(key: number, btnType: MessageBoxBtn, color: string, variant: string, text: string) {
+        return <Button key={key} color={color as any} variant={variant as any}
+            onClick={this.onAction(btnType)}>{this.tr(text)}</Button>;
     }
 
     private renderMessageBoxBtnGroup() {
         switch (this.props.btnGroup) {
             case MessageBoxBtnGroup.CancelRetry:
                 return [
-                    this.renderRetryBtn(2),
-                    this.renderCancelBtn(1),
+                    this.renderButton(1, MessageBoxBtn.Retry, "primary", "", "retry"),
+                    this.renderButton(2, MessageBoxBtn.Cancel, "", "outline", "cancel"),
                 ];
             case MessageBoxBtnGroup.OkCancel:
                 return [
-                    this.renderOkBtn(1),
-                    this.renderCancelBtn(2),
+                    this.renderButton(1, MessageBoxBtn.Ok, "primary", "", "ok"),
+                    this.renderButton(2, MessageBoxBtn.Cancel, "", "outline", "cancel"),
                 ];
             case MessageBoxBtnGroup.OkCancelRetry:
                 return [
-                    this.renderOkBtn(1),
-                    this.renderRetryBtn(2),
-                    this.renderCancelBtn(3),
+                    this.renderButton(1, MessageBoxBtn.Ok, "primary", "", "ok"),
+                    this.renderButton(1, MessageBoxBtn.Retry, "", "outline", "retry"),
+                    this.renderButton(3, MessageBoxBtn.Cancel, "", "outline", "cancel"),
                 ];
             case MessageBoxBtnGroup.YesNo:
                 return [
-                    this.renderYesBtn(1),
-                    this.renderNoBtn(2),
+                    this.renderButton(1, MessageBoxBtn.Yes, "primary", "", "yes"),
+                    this.renderButton(2, MessageBoxBtn.No, "", "outline", "yes"),
                 ];
             default:
-                return [this.renderOkBtn(1)];
+                return [
+                    this.renderButton(1, MessageBoxBtn.Ok, "primary", "", "ok"),
+                ];
         }
     }
 
-    private onBtnClick = (e) => {
-        this.onAction(+e.target.getAttribute("data-key"));
-    }
-
-    private onAction = (btn: MessageBoxBtn) => {
+    private onAction = (btn: MessageBoxBtn) => () => {
         const { onAction } = this.props;
         if (onAction) {
             onAction(btn);

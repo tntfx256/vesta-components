@@ -38,7 +38,7 @@ export { MessageBoxBtn, MessageBoxBtnGroup, MessageBox } from "./core/MessageBox
 export { Modal } from "./core/Modal";
 export { NavBarMainButtonType, Navbar } from "./core/Navbar";
 export { PageTitle } from "./core/PageTitle";
-export { default as Pagination } from "./core/Pagination";
+export { Pagination } from "./core/Pagination";
 export { Preloader } from "./core/Preloader";
 export { Script } from "./core/Script";
 export { Sidenav } from "./core/Sidenav";

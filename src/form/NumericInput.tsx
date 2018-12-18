@@ -1,4 +1,4 @@
-import React, { InputHTMLAttributes, PureComponent } from "react";
+import React, { ChangeEvent, InputHTMLAttributes, PureComponent } from "react";
 import { IBaseComponentProps } from "../BaseComponent";
 import { IFromControlProps } from "../core/FormWrapper";
 import { extractClassNames } from "../util";
@@ -35,15 +35,17 @@ export class NumericInput extends PureComponent<INumericInputProps, IEmptyState>
         );
     }
 
-    private format(value): string {
+    private format(value: string | number): string {
         if (!value) {
-            return value;
+            return value.toString();
         }
-        return this.props.format ? (+value).toLocaleString() : value;
+        return this.props.format ? (+value).toLocaleString() : value as string;
     }
 
-    private onChange = (e) => {
-        const value = e.target.value;
-        this.props.onChange(this.props.name, isNaN(value) ? 0 : value);
+    private onChange = (e: ChangeEvent<HTMLInputElement>) => {
+        const value = +e.target.value;
+        if (this.props.onChange) {
+            this.props.onChange(this.props.name, isNaN(value) ? 0 : value);
+        }
     }
 }

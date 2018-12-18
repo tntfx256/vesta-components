@@ -9,8 +9,8 @@
         "moduleResolution": "node",
         "resolveJsonModule": true,
         "jsx": "react",
-        "strict": false,
-        "declaration": true
+        "declaration": true,
+        "strict": true
     },
     "include": [
         "src"
