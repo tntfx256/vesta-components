@@ -2,7 +2,7 @@
     color: $color;
 
     &:hover {
-        border-color: darken($color, $btn-border-darken-ratio);
+        color: darken($color, $btn-border-darken-ratio);
         transition: all $transition-duration-short;
     }
 }
@@ -18,7 +18,7 @@
     }
 }
 
-@mixin btn-style-filled($background-color, $text-color) {
+@mixin btn-style-contained($background-color, $text-color) {
     background: $background-color;
     border-color: darken($background-color, $btn-border-darken-ratio);
     color: $text-color;
@@ -37,21 +37,8 @@
     line-height: $height;
 }
 
-%btns-stick-to-bottom {
-    bottom: 0;
-    display: flex;
-    left: 0;
-    max-width: $page-max-width;
-    padding: 2px;
-    position: fixed;
-    right: 0;
-
-    .btn {
-        flex: 1;
-    }
-}
-
 .btn {
+    @include btn-style($color-default);
     background: transparent;
     border: 1px solid transparent;
     border-radius: $btn-border-radius;
@@ -69,41 +56,35 @@
     vertical-align: middle;
     white-space: nowrap;
 
+    &.btn-outlined {
+        @include btn-style-outline($color-default);
+    }
 
-
-    &.btn-default {
-        @include btn-style($color-default);
-
-        &.btn-outline {
-            @include btn-style-outline($color-default);
-        }
-
-        &.btn-filled {
-            @include btn-style-filled($color-default, $color-default-text);
-        }
+    &.btn-contained {
+        @include btn-style-contained($color-default, $color-default-text);
     }
 
     &.btn-primary {
         @include btn-style($color-primary);
 
-        &.btn-outline {
+        &.btn-outlined {
             @include btn-style-outline($color-primary);
         }
 
-        &.btn-filled {
-            @include btn-style-filled($color-primary, $color-primary-text);
+        &.btn-contained {
+            @include btn-style-contained($color-primary, $color-primary-text);
         }
     }
 
     &.btn-secondary {
         @include btn-style($color-secondary);
 
-        &.btn-outline {
+        &.btn-outlined {
             @include btn-style-outline($color-secondary);
         }
 
-        &.btn-filled {
-            @include btn-style-filled($color-secondary, $color-secondary-text);
+        &.btn-contained {
+            @include btn-style-contained($color-secondary, $color-secondary-text);
         }
     }
 
@@ -111,12 +92,12 @@
         @include btn-style($silver);
         cursor: not-allowed;
 
-        &.btn-outline {
+        &.btn-outlined {
             @include btn-style-outline($silver);
         }
 
-        &.btn-filled {
-            @include btn-style-filled($silver, $grey);
+        &.btn-contained {
+            @include btn-style-contained($silver, $grey);
         }
     }
 

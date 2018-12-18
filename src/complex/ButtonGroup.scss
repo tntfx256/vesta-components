@@ -1,3 +1,17 @@
+%btns-stick-to-bottom {
+    bottom: 0;
+    display: flex;
+    left: 0;
+    max-width: $page-max-width;
+    padding: 2px;
+    position: fixed;
+    right: 0;
+
+    .btn {
+        flex: 1;
+    }
+}
+
 .btn-group {
     padding: $btn-group-padding;
 

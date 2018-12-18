@@ -1,6 +1,10 @@
 .grid {
     display: flex;
 
+    &>.grid {
+        width: 100%;
+    }
+
     &.wrap {
         flex-wrap: wrap;
     }
