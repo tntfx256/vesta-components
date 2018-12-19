@@ -20,7 +20,8 @@ export const Button: ComponentType<IButtonProps> = (props: IButtonProps) => {
     }
 
     return (
-        <button type={props.type || ""} disabled={props.disabled} className={`btn ${classNames.join(" ")}`}>
+        <button type={props.type || ""} disabled={props.disabled} className={`btn ${classNames.join(" ")}`}
+            onClick={props.onClick}>
             {props.children}
         </button>
     );

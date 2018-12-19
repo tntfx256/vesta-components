@@ -4,15 +4,16 @@ import ReactCSSTransitionGroup from "react-addons-css-transition-group";
 import { withTheme } from "theming";
 import { IBaseComponentProps, IWithTransition } from "../BaseComponent";
 
-export interface IActionsheetItem {
-    onClick: () => void;
+export interface IAction {
+    [key: string]: any;
     title: string;
-    value?: string;
+    icon?: string;
 }
 
 interface IActionsheetProps extends IBaseComponentProps, IWithTransition {
-    actions: IActionsheetItem[];
+    actions: IAction[];
     show: boolean;
+    onClick?: (item: IAction) => void;
 }
 
 export const Actionsheet: ComponentType<IActionsheetProps> = withTheme((props: IActionsheetProps) => {
@@ -31,14 +32,22 @@ export const Actionsheet: ComponentType<IActionsheetProps> = withTheme((props: I
     function renderActionsList() {
         if (!props.show) { return null; }
         const items = props.actions.map((item, index) => (
-            <li onClick={item.onClick} data-value={item.value} key={index}>{item.title}</li>
+            <div key={index} className="action-item" onClick={onClick(index)}>{item.title}</div>
         ));
 
         return (
             <div className="actionsheet-component">
                 <div className="actionsheet-backdrop">&nbsp;</div>
-                <ul className="action-list">{items}</ul>
+                <div className="action-list">{items}</div>
             </div>
         );
+    }
+
+    function onClick(index: number) {
+        return () => {
+            if (props.onClick) {
+                props.onClick(props.actions[index]);
+            }
+        };
     }
 });

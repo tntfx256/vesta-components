@@ -17,14 +17,18 @@ $alert-lighten-ratio: 50%;
     padding: $alert-padding;
 }
 
-.alert-error {
+.alert-Success {
+    @include alert-style($color-success);
+}
+
+.alert-Error {
     @include alert-style($color-error);
 }
 
-.alert-warn {
+.alert-Warning {
     @include alert-style($color-warning);
 }
 
-.alert-info {
+.alert-Info {
     @include alert-style($color-info);
 }

@@ -1,7 +1,9 @@
 import { createTheme } from "@vesta/theme";
 import React, { FC } from "react";
-import { HashRouter, Route, Switch } from "react-router-dom";
+import { HashRouter, Route } from "react-router-dom";
 import { ThemeProvider } from "theming";
+import { ActionsheetDemo } from "./demo/ActionsheetDemo";
+import { AlertDemo } from "./demo/AlertDemo";
 import { ButtonDemo } from "./demo/ButtonDemo";
 import { Demo } from "./demo/Demo";
 
@@ -15,10 +17,11 @@ export const App: FC<IAppProps> = (props: IAppProps) => {
       <HashRouter>
 
         <Demo>
-          <Switch>
-            <Route path="alert" component={ButtonDemo} />
-            <Route path="button" component={ButtonDemo} />
-          </Switch>
+
+          <Route path="/actionsheet" component={ActionsheetDemo} />
+          <Route path="/alert" component={AlertDemo} />
+          <Route path="/button" component={ButtonDemo} />
+
         </Demo>
 
       </HashRouter>
