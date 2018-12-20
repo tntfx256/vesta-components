@@ -7,6 +7,7 @@
         "@types/node": "10.12.15",
         "@types/react": "16.7.17",
         "@types/react-dom": "16.0.11",
+        "@vesta/culture-us": "^1.0.4",
         "react": "^16.7.0-alpha.2",
         "react-dom": "^16.7.0-alpha.2",
         "react-router-dom": "^4.3.1",

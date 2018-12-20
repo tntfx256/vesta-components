@@ -2,7 +2,7 @@ $btn-height: 32px;
 $btn-group-padding: 7px 10px;
 $btn-height-large: floor(1.5 * $btn-height);
 //
-$form-control-height: 36px;
+$form-control-height: 32px;
 $form-group-margin: 10px;
 $form-group-padding: 2px;
 $form-label-margin: 0;
@@ -11,25 +11,25 @@ $form-control-bg: $white;
 $form-control-border-radius: $border-radius;
 $form-error-padding: 5px;
 
-.form-wrapper {
-    .btn-group {
-        align-items: center;
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-        margin: auto;
-        padding: $btn-group-padding;
-        width: 100%;
+// .form-wrapper {
+//     .btn-group {
+//         align-items: center;
+//         display: flex;
+//         flex-direction: row;
+//         justify-content: center;
+//         margin: auto;
+//         padding: $btn-group-padding;
+//         width: 100%;
 
-        >.btn {
-            border-radius: $border-radius;
-            flex: 1;
-            height: $btn-height-large;
-            line-height: $btn-height-large;
-            margin: auto 5px;
-        }
-    }
-}
+//         >.btn {
+//             border-radius: $border-radius;
+//             flex: 1;
+//             height: $btn-height-large;
+//             line-height: $btn-height-large;
+//             margin: auto 5px;
+//         }
+//     }
+// }
 
 .form-error {
     #{$opposite-float}: 0;
@@ -44,7 +44,7 @@ $form-error-padding: 5px;
 
 .form-group {
     // align-items: center;
-    display: flex;
+    // display: flex;
     // justify-content: center;
     margin: $form-group-margin;
     padding: $form-group-padding;
@@ -71,13 +71,9 @@ $form-error-padding: 5px;
         white-space: nowrap;
     }
 
-    .form-control {
-        flex: 1;
-    }
-
-    &.btn-group {
-        margin-top: 4 * $form-group-margin;
-    }
+    // &.btn-group {
+    //     margin-top: 4 * $form-group-margin;
+    // }
 
     &.has-error {
         .form-control {

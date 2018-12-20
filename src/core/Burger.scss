@@ -11,7 +11,7 @@ $burger-item-height: 3px;
 }
 
 .burger {
-    $burger-width: $header-height - (2 * $header-padding);
+    $burger-width: $appbar-icon-size;
     display: flex;
     flex-direction: column;
     height: $burger-width - 1;

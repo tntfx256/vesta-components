@@ -14,7 +14,7 @@ export const TextInput: ComponentType<ITextInputProps> = withTheme((props: IText
 
     const type = props.type || "text";
     let classNames = extractClassNames(props, { value: "is-dirty", error: "has-error" });
-    classNames = props.dir ? `dir-${props.dir}` : "";
+    classNames += props.dir ? ` dir-${props.dir}` : "";
 
     return (
         <div className={`form-group text-input ${classNames}`}>

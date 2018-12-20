@@ -1,5 +1,5 @@
 @function font-size($coef: 1) {
-    $base: 14px;
+    $base: 12pt;
     @return ceil($base * $coef);
 }
 

@@ -6,12 +6,13 @@ interface IButtonDemoProps { }
 export const ButtonDemo: FC<IButtonDemoProps> = (props: IButtonDemoProps) => {
 
     return (
-        <Grid justify="space-evenly">
+        <div>
             <Button onClick={onClick}>Default</Button>
             <Button onClick={onClick} color="primary">Primary</Button>
             <Button onClick={onClick} color="primary" variant="outlined">Primary Outline</Button>
             <Button onClick={onClick} color="primary" variant="contained">Primary Containes</Button>
-        </Grid>
+            <Button onClick={onClick} color="secondary" variant="contained">Primary Containes</Button>
+        </div>
     );
 
     function onClick(e: MouseEvent<HTMLElement>) {

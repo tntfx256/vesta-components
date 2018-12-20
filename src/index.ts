@@ -36,7 +36,7 @@ export type IMenuItem = IMenuItem;
 export { Menu } from "./core/Menu";
 export { MessageBoxBtn, MessageBoxBtnGroup, MessageBox } from "./core/MessageBox";
 export { Modal } from "./core/Modal";
-export { NavBarMainButtonType, Navbar } from "./core/Navbar";
+export { NavbarMainButtonType, Navbar } from "./core/Navbar";
 export { PageTitle } from "./core/PageTitle";
 export { Pagination } from "./core/Pagination";
 export { Preloader } from "./core/Preloader";

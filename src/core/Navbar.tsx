@@ -4,7 +4,7 @@ import { withTheme } from "theming";
 import { IBaseComponentProps } from "../BaseComponent";
 import { Burger } from "./Burger";
 
-export enum NavBarMainButtonType { Burger = 1, Back, Close }
+export enum NavbarMainButtonType { Burger = 1, Back, Close }
 
 interface INavbarParams { }
 
@@ -14,13 +14,11 @@ interface INavbarProps extends IBaseComponentProps, RouteComponentProps<INavbarP
     backLink?: string;
     showBurger?: boolean;
     hide?: boolean;
-    mainButtonType?: NavBarMainButtonType;
+    mainButtonType?: NavbarMainButtonType;
     handleBackEvent?: boolean;
     backAction?: (e: MouseEvent<HTMLElement>) => void;
     onBurgerClick?: (e: MouseEvent<HTMLElement>) => void;
 }
-
-interface IEmptyState { }
 
 const NavBar: ComponentType<INavbarProps> = withTheme((props: INavbarProps) => {
 
@@ -28,7 +26,7 @@ const NavBar: ComponentType<INavbarProps> = withTheme((props: INavbarProps) => {
 
     if (props.hide) { return null; }
     let btnClassName = "back-btn";
-    if (props.mainButtonType == NavBarMainButtonType.Close) {
+    if (props.mainButtonType == NavbarMainButtonType.Close) {
         btnClassName = "close-btn";
     }
     const navBtn = (props.showBurger || location.pathname == "/") && !props.backLink && !props.backAction ?
@@ -36,10 +34,10 @@ const NavBar: ComponentType<INavbarProps> = withTheme((props: INavbarProps) => {
         <Burger className={`nav-btn ${btnClassName}`} onClick={goBack} />;
 
     return (
-        <div className={`navbar ${props.className}`}>
+        <div className={`appbar ${props.className}`}>
             {navBtn}
-            <p className="nav-title">{props.title || ""}</p>
-            <div className="navbar-btn-group">
+            <p className="appbar-title">{props.title || ""}</p>
+            <div className="appbar-btn-group">
                 {props.children}
             </div>
         </div>
