@@ -85,7 +85,14 @@ $border-color: $color-default;
 $box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .16), 0 2px 10px 0 rgba(0, 0, 0, .12);
 
 // form
-$form-components-height: 36dp;
+$form-components-height: 36px;
+$form-group-margin: 10px;
+$form-group-padding: 2px;
+$form-label-margin: 0;
+$form-control-padding: 7px;
+$form-control-bg: $white;
+$form-control-border-radius: $border-radius;
+$form-error-padding: 5px;
 
 // button
 $btn-padding: 7px;
