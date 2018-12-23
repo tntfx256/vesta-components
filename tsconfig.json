@@ -10,9 +10,16 @@
         "resolveJsonModule": true,
         "jsx": "react",
         "declaration": true,
-        "strict": true
+        "strict": true,
+        "outDir": "build",
+        "lib": ["esnext", "dom"]
     },
     "include": [
         "src"
+    ],
+    "exclude": [
+        "__test__",
+        "build",
+        "node_modules"
     ]
 }

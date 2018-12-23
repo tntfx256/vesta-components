@@ -7,19 +7,25 @@ const autoPrefixer = require("autoprefixer");
 const csswring = require("csswring");
 const mqpacker = require("css-mqpacker");
 const { readFileSync } = require("fs");
+const { execSync } = require("child_process");
 
 const pkg = JSON.parse(readFileSync("package.json"));
-const pkgr = new Packager({
-    root: __dirname,
-    src: "src",
-    targets: ["es6"],
-    files: [".npmignore", "LICENSE", "README.md"],
-    publish: "--access=public",
-});
+// const pkgr = new Packager({
+//     root: __dirname,
+//     src: "src",
+//     targets: ["es6"],
+//     files: [".npmignore", "LICENSE", "README.md"],
+//     publish: "--access=public",
+// });
 
 function indexer() {
-    const indexer = new Indexer("src");
-    indexer.generate();
+    // const indexer = new Indexer("src");
+    // indexer.generate();
+    try {
+        execSync("npx barrelsby -d ./src --delete");
+    } catch (e) {
+        return Promise.reject(e);
+    }
     return Promise.resolve();
 }
 
@@ -43,9 +49,9 @@ function watch() {
     return Promise.resolve();
 }
 
-const tasks = pkgr.createTasks();
+// const tasks = pkgr.createTasks();
 
 module.exports = {
-    default: gulp.series(indexer, tasks.default, compileSass, copy4test, watch),
-    publish: gulp.series(indexer, tasks.deploy, compileSass, tasks.publish),
+    default: gulp.series(indexer, compileSass, copy4test, watch),
+    publish: gulp.series(indexer, compileSass),
 }

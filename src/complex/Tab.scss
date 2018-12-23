@@ -1,3 +1,7 @@
+$btn-group-padding: 7px;
+$btn-group-active-bg: $color-secondary;
+$btn-group-active-color: $color-secondary-text;
+
 .tab-header {
     align-items: center;
     display: flex;
@@ -23,7 +27,7 @@
             @include btn-style($white, $color-primary);
 
             &.active {
-                @include btn-style($btn-group-active-bg, $color-semidark);
+                @include btn-style($btn-group-active-bg, $btn-group-active-color);
             }
         }
     }
