@@ -2,8 +2,6 @@ export * from "./BaseComponent";
 export * from "./File";
 export * from "./enum";
 export * from "./util";
-export * from "./complex/ButtonGroup";
-export * from "./complex/Tab";
 export * from "./core/Actionsheet";
 export * from "./core/Alert";
 export * from "./core/Avatar";

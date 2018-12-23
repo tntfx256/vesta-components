@@ -36,7 +36,7 @@ function compileSass() {
         .pipe(postCss([autoPrefixer({ browsers: pkg.browserslist }), mqpacker, csswring]))
         .pipe(sourcemaps.write("./"))
         .pipe(gulp.dest(`vesta/es6/css`))
-        .pipe(gulp.dest("__test__/public/css"));
+        // .pipe(gulp.dest("__test__/public/css"));
 }
 
 function copy4test() {

@@ -1,4 +1,5 @@
 const webpack = require("webpack");
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
     mode: "development",
@@ -11,18 +12,16 @@ module.exports = {
         extensions: [".ts", ".tsx", ".js", ".scss"]
     },
     output: {
-        path: `${__dirname}/dist`,
+        path: `${__dirname}/public/assets`,
         filename: "[name].js"
     },
     module: {
         rules: [{
                 test: /\.scss$/,
-                use: [{
-                    loader: "sass-loader",
-                    options: {
-                        // includePaths: [`${__dirname}/components/index-ltr.scss`, `${__dirname}/components/index-rtl.scss`] 
-                    }
-                }]
+                use: ExtractTextPlugin.extract({
+                    fallback: 'style-loader',
+                    use: ['css-loader', 'sass-loader']
+                })
             },
             {
                 test: /\.js$/,
@@ -45,23 +44,21 @@ module.exports = {
     },
     optimization: {
         minimize: false,
-        // noEmitOnErrors: true,
-        namedChunks: true,
-        namedModules: true,
         splitChunks: {
-            // chunks: "all",
-            // minChunks: 1,
+            chunks: 'async',
+            minSize: 30000,
+            minChunks: 1,
+            name: true,
             cacheGroups: {
                 commons: { test: /[\\/]node_modules[\\/]/, name: "lib", chunks: "all" }
             }
         },
-
     },
     plugins: [
-        // new webpack.optimize.CommonsChunkPlugin({
-        //     name: "lib",
-        //     minChunks: Infinity,
-        // })
+        new ExtractTextPlugin({
+            filename: `[name].css`,
+            allChunks: true,
+        }),
     ],
     devServer: {
         contentBase: `${__dirname}/public`,
