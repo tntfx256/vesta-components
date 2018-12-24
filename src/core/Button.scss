@@ -55,10 +55,10 @@ $btn-group-active-bg: lighten($color-primary, 15%);
     border-radius: $btn-border-radius;
     color: $color-primary;
     cursor: pointer;
-    display: inline-block;
+    display: flex;
     font-size: $btn-font-size;
     height: $btn-height;
-    line-height: $btn-height;
+    justify-content: center;
     min-width: $btn-min-width;
     outline: 0;
     padding: 0 $btn-padding;
@@ -66,6 +66,11 @@ $btn-group-active-bg: lighten($color-primary, 15%);
     user-select: none;
     vertical-align: middle;
     white-space: nowrap;
+
+    a {
+        flex: 1;
+        white-space: nowrap;
+    }
 
     &.btn-outlined {
         @include btn-style-outline($color-default);

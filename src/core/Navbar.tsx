@@ -34,10 +34,10 @@ const NavBar: ComponentType<INavbarProps> = withTheme((props: INavbarProps) => {
         <Burger className={`nav-btn ${btnClassName}`} onClick={goBack} />;
 
     return (
-        <div className={`appbar ${props.className}`}>
+        <div className={`navbar ${props.className}`}>
             {navBtn}
-            <p className="appbar-title">{props.title || ""}</p>
-            <div className="appbar-btn-group">
+            <p className="navbar-title">{props.title || ""}</p>
+            <div className="navbar-btn-group">
                 {props.children}
             </div>
         </div>

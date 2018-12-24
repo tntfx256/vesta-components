@@ -1,25 +1,26 @@
 $form-error-padding: floor(2 * $unit);
 
 .form-error {
-    #{$opposite-float}: 0;
+    #{$opposite-float}: $form-control-padding;
     background: $white;
     color: $color-error;
-    font-size: $font-size-small;
+    font-size: $font-size-xsmall;
     padding: 0 $form-error-padding;
     position: absolute;
     text-align: end;
-    top: -1 * floor($form-components-height / 3);
+    top: $form-components-height;
 }
 
 .form-group {
+    display: flex;
     margin: $form-group-margin;
     padding: $form-group-padding;
     position: relative;
+    border: 1px solid red;
 
     &.is-dirty {
         label {
-            background: $form-control-background;
-            transform: scale(.6, .6) translate3d(-25px, -30px, 0);
+            transform: scale(.6, .6) translate3d(-20px, -20px, 0);
             transition: transform $transition-duration-default $transition-effect-default;
         }
     }
@@ -27,12 +28,12 @@ $form-error-padding: floor(2 * $unit);
     label {
         #{$float}: $form-control-padding;
         color: $color-default;
-        line-height: $form-components-height - 4;
+        line-height: $form-components-height;
         padding: 0 $form-control-padding;
         pointer-events: none;
         position: absolute;
         text-align: end;
-        top: 6px;
+        top: $form-control-padding;
         vertical-align: bottom;
         white-space: nowrap;
     }
@@ -51,7 +52,8 @@ $form-error-padding: floor(2 * $unit);
     height: $form-components-height;
     outline: 0;
     padding: $form-control-padding;
-    width: 100%;
+    flex: 1;
+    border: 1px solid green;
 }
 
 body {
