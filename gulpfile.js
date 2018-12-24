@@ -1,4 +1,3 @@
-const { Indexer, Packager } = require("@vesta/devmaid");
 const gulp = require("gulp")
 const sass = require("gulp-sass");
 const sourcemaps = require("gulp-sourcemaps");
@@ -10,17 +9,8 @@ const { readFileSync } = require("fs");
 const { execSync } = require("child_process");
 
 const pkg = JSON.parse(readFileSync("package.json"));
-// const pkgr = new Packager({
-//     root: __dirname,
-//     src: "src",
-//     targets: ["es6"],
-//     files: [".npmignore", "LICENSE", "README.md"],
-//     publish: "--access=public",
-// });
 
 function indexer() {
-    // const indexer = new Indexer("src");
-    // indexer.generate();
     try {
         execSync("npx barrelsby -d ./src --delete");
     } catch (e) {
@@ -29,14 +19,24 @@ function indexer() {
     return Promise.resolve();
 }
 
+function compileTypescript() {
+    try {
+        execSync("npx tsc -p .");
+    } catch (e) {
+        return Promise.reject(e);
+    }
+    return Promise.resolve();
+}
+
+
 function compileSass() {
     return gulp.src(["src/index-ltr.scss", "src/index-rtl.scss"])
         .pipe(sourcemaps.init())
         .pipe(sass())
         .pipe(postCss([autoPrefixer({ browsers: pkg.browserslist }), mqpacker, csswring]))
         .pipe(sourcemaps.write("./"))
-        .pipe(gulp.dest(`vesta/es6/css`))
-        // .pipe(gulp.dest("__test__/public/css"));
+        .pipe(gulp.dest(`build/css`))
+    // .pipe(gulp.dest("__test__/public/css"));
 }
 
 function copy4test() {
@@ -44,14 +44,12 @@ function copy4test() {
 }
 
 function watch() {
-    gulp.watch(`src/**/*`, gulp.series(compileSass));
-    gulp.watch(["src/**/*", "!src/index.ts"], gulp.series(indexer, copy4test));
+    gulp.watch(`src/**/*.scss`, gulp.series(compileSass, copy4test));
+    gulp.watch(["src/**/*.ts", `src/**/*.tsx`, "!src/index.ts"], gulp.series(indexer, compileTypescript, copy4test));
     return Promise.resolve();
 }
 
-// const tasks = pkgr.createTasks();
-
 module.exports = {
-    default: gulp.series(indexer, compileSass, copy4test, watch),
-    publish: gulp.series(indexer, compileSass),
+    default: gulp.series(indexer, compileTypescript, compileSass, copy4test, watch),
+    deploy: gulp.series(indexer, compileTypescript, compileSass),
 }

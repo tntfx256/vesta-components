@@ -1,6 +1,6 @@
 {
   "name": "@vesta/components",
-  "version": "0.2.9",
+  "version": "0.2.10",
   "description": "Vesta react components",
   "license": "Apache-2.0",
   "author": "hbtb <bishehsary@gmail.com>",
@@ -9,11 +9,7 @@
     "javadkh2 <khalilian.javad@gmail.com>"
   ],
   "scripts": {
-    "start": "gulp",
-    "index": "barrelsby -d ./src --delete",
-    "tsc-dev": "tsc -w -p .",
-    "gulp": "gulp",
-    "dev": "run-s index gulp"
+    "start": "gulp"
   },
   "main": "build/index.js",
   "types": "build/index.d.ts",
@@ -41,8 +37,6 @@
     "@vesta/devmaid": "^0.4.5",
     "autoprefixer": "^9.4.2",
     "barrelsby": "^1.0.2",
-    "create-index": "^2.3.0",
-    "create-ts-index": "^1.0.14",
     "css-mqpacker": "^7.0.0",
     "csswring": "^7.0.0",
     "gulp": "^4.0.0",

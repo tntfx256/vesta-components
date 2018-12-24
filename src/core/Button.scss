@@ -1,3 +1,14 @@
+$btn-padding: $element-padding;
+$btn-border-darken-ratio: 5%;
+$btn-height: $form-components-height;
+$btn-height-large: $form-components-height-large;
+$btn-font-size: $font-size-small;
+$btn-min-width: $element-min-width;
+$btn-border-radius: $border-radius;
+$btn-border-color: $border-color;
+$btn-group-padding: 16px;
+$btn-group-active-bg: lighten($color-primary, 15%);
+
 @mixin btn-style($color) {
     color: $color;
 

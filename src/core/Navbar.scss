@@ -54,7 +54,7 @@ $navbar-back-btn-size: $btn-height;
         .icon {
             color: $white;
             cursor: pointer;
-            font-size: ceil(1.6 * $font-size-medium);
+            font-size: floor(1.6 * $font-size-medium);
             position: relative;
             top: 3px;
         }

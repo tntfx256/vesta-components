@@ -16,6 +16,6 @@ export const Alert: ComponentType<IAlertProps> = withTheme((props: IAlertProps) 
     );
 });
 
-Alert.defaultProps = {
-    type: MessageType.Info,
-};
+// Alert.defaultProps = {
+//     type: MessageType.Info,
+// };

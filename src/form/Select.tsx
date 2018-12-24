@@ -15,10 +15,13 @@ export class Select extends PureComponent<ISelectProps, IEmptyState> {
     public static defaultProps = { valueKey: "id", titleKey: "title" };
 
     public render() {
-        const { label, name, options, error, titleKey, readonly } = this.props;
+        const { label, name, options, error, titleKey, readonly, valueKey } = this.props;
         // finding index of selected value
         const selectedIndex = this.getSelectedIndex();
-        const optionsList = options.map((o, i) => (<option key={i} value={i}>{o[titleKey as string]}</option>));
+        const nullValue = { [titleKey as string]: "", [valueKey as string]: -1 };
+        const optionsList = [nullValue, ...options].map((o, i) => (
+            <option key={i} value={i}>{o[titleKey as string]}</option>
+        ));
         const classNames = extractClassNames(this.props, { value: "is-dirty", error: "has-error" });
 
         return (

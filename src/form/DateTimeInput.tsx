@@ -45,7 +45,7 @@ export class DateTimeInput extends PureComponent<IDateTimeInputProps, IDateTimeI
         const classNames = extractClassNames(this.props, { value: "is-dirty", error: "has-error" });
 
         return (
-            <div className={`form-group date-time-input${classNames}`}>
+            <div className={`form-group date-time-input ${classNames}`}>
                 <label htmlFor={name}>{label}</label>
                 <input className="form-control" name={name} id={name} value={value}
                     onChange={this.onInputChange} readOnly={true} onClick={this.showPicker} />

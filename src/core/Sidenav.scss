@@ -1,6 +1,7 @@
 $sidenav-transition-enter-duration: $transition-duration-default;
 $sidenav-transition-leave-duration: floor(2 * $sidenav-transition-enter-duration / 3);
 $sidenav-transition-effect: $transition-effect-default;
+$sidenav-width: 300px;
 
 .sidenav-component {
     .navbar {
