@@ -1,18 +1,18 @@
 import { Culture } from "@vesta/culture";
 import React, { MouseEvent, PureComponent, ReactNode } from "react";
 import { Link } from "react-router-dom";
+import { IAccess } from "../Access";
 import { IBaseComponentProps } from "../BaseComponent";
 import { Icon } from "./Icon";
 import { MessageBox, MessageBoxBtn, MessageBoxBtnGroup } from "./MessageBox";
 
 interface IDataTableOperationsProps extends IBaseComponentProps {
-    editIcon: ReactNode;
+    access: IAccess;
+    editIcon?: ReactNode;
     id: number;
-    hasEditAccess: boolean;
-    hasRemoveAccess: boolean;
     path: string;
-    removeIcon: ReactNode;
-    onDelete: (id: number) => void;
+    removeIcon?: ReactNode;
+    onDelete?: (id: number) => void;
 }
 
 interface IDataTableOperationsState {
@@ -20,7 +20,7 @@ interface IDataTableOperationsState {
 }
 
 export class DataTableOperations extends PureComponent<IDataTableOperationsProps, IDataTableOperationsState> {
-
+    public static defaultProps = { editIcon: "edit", removeIcon: "remove" };
     private tr = Culture.getDictionary().translate;
 
     constructor(props: IDataTableOperationsProps) {
@@ -29,11 +29,11 @@ export class DataTableOperations extends PureComponent<IDataTableOperationsProps
     }
 
     public render() {
-        const { path, id } = this.props;
+        const { path, id, access } = this.props;
         const { showConfirmBox } = this.state;
-        const editLink = this.props.hasEditAccess ?
+        const editLink = access.edit ?
             <Link to={`/${path}/edit/${id}`} className="edit-btn"><Icon name="mode_edit" /></Link> : null;
-        const delLink = this.props.hasRemoveAccess ?
+        const delLink = access.delete ?
             <span className="del-btn" onClick={this.onDelete}><Icon name="delete" /></span> : null;
 
         return (
@@ -56,7 +56,7 @@ export class DataTableOperations extends PureComponent<IDataTableOperationsProps
 
     private onAction = (btn: MessageBoxBtn) => {
         this.setState({ showConfirmBox: false });
-        if (btn == MessageBoxBtn.Yes) {
+        if (btn == MessageBoxBtn.Yes && this.props.onDelete) {
             this.props.onDelete(this.props.id);
         }
     }
