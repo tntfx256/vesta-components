@@ -9,6 +9,7 @@ const { readFileSync } = require("fs");
 const { execSync } = require("child_process");
 
 const pkg = JSON.parse(readFileSync("package.json"));
+const target = "__test__";
 
 function indexer() {
     try {
@@ -28,7 +29,6 @@ function compileTypescript() {
     return Promise.resolve();
 }
 
-
 function compileSass() {
     return gulp.src(["src/index-ltr.scss", "src/index-rtl.scss"])
         .pipe(sourcemaps.init())
@@ -36,11 +36,11 @@ function compileSass() {
         .pipe(postCss([autoPrefixer({ browsers: pkg.browserslist }), mqpacker, csswring]))
         .pipe(sourcemaps.write("./"))
         .pipe(gulp.dest(`build/css`))
-    // .pipe(gulp.dest("__test__/public/css"));
+        .pipe(gulp.dest(`${target}/public/css`));
 }
 
 function copy4test() {
-    return gulp.src("src/**/*").pipe(gulp.dest("__test__/src/components"));
+    return gulp.src("src/**/*").pipe(gulp.dest(`${target}/src/components`));
 }
 
 function watch() {
