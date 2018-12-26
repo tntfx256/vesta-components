@@ -1,4 +1,4 @@
-$modal-background-color: transparentize($black, .2);
+$modal-background-color: transparentize($black, .05);
 $modal-transition-enter-duration: $transition-duration-short;
 $modal-transition-leave-duration: ceil($transition-duration-short);
 $modal-transition-effect: $transition-effect-default;
@@ -9,6 +9,7 @@ $modal-transition-effect: $transition-effect-default;
     align-items: center;
     background: $modal-background-color;
     bottom: 0;
+    color: $color-primary;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -57,16 +58,18 @@ $modal-transition-effect: $transition-effect-default;
     }
 }
 
-html.modal-open {
-    overflow-y: hidden;
-
-    .page {
+html {
+    &.modal-open {
         overflow-y: hidden;
-    }
 
-    .modal {
         .page {
-            overflow-y: auto;
+            overflow-y: hidden;
+        }
+
+        .modal {
+            .page {
+                overflow-y: auto;
+            }
         }
     }
 }

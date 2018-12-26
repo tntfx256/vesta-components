@@ -30,7 +30,7 @@ export const Modal: ComponentType<IModalProps> = withTheme((props: IModalProps) 
         </div> : null;
 
     return (
-        <ReactCSSTransitionGroup transitionName={name || "modal"} transitionEnterTimeout={enter}
+        <ReactCSSTransitionGroup transitionName={props.name || "modal"} transitionEnterTimeout={enter}
             transitionLeaveTimeout={leave}>
             {content}
         </ReactCSSTransitionGroup>

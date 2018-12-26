@@ -69,6 +69,7 @@ $btn-group-active-bg: lighten($color-primary, 15%);
 
     a {
         flex: 1;
+        line-height: $btn-height;
         white-space: nowrap;
     }
 

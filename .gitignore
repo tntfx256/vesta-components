@@ -26,3 +26,4 @@ yarn-error.log*
 /__test__/src/components
 /__test__/src/react-app-env.d.ts
 /__test__/public/assets
+/__test__/public/css

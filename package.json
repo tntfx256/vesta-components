@@ -1,6 +1,6 @@
 {
   "name": "@vesta/components",
-  "version": "0.2.12",
+  "version": "0.2.13",
   "description": "Vesta react components",
   "license": "Apache-2.0",
   "author": "hbtb <bishehsary@gmail.com>",
@@ -9,10 +9,11 @@
     "javadkh2 <khalilian.javad@gmail.com>"
   ],
   "scripts": {
-    "start": "gulp"
+    "start": "gulp",
+    "deploy": "gulp publish"
   },
-  "main": "build/index.js",
-  "types": "build/index.d.ts",
+  "main": "vesta/es6/index.js",
+  "types": "vesta/es6/index.d.ts",
   "dependencies": {
     "@vesta/culture": "^0.1.0",
     "@vesta/theme": "^0.1.3",
