@@ -1,7 +1,7 @@
 import React, { ComponentType } from "react";
 import { withTheme } from "theming";
 import { IBaseComponentProps } from "../BaseComponent";
-import { MessageType } from "../enum";
+import { MessageType } from "../MessageType";
 
 interface IAlertProps extends IBaseComponentProps {
     type?: MessageType;

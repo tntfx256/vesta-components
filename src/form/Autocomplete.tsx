@@ -1,7 +1,7 @@
 import React, { ChangeEvent, Component, KeyboardEvent } from "react";
 import { IBaseComponentProps } from "../BaseComponent";
 import { IFromControlProps } from "../core/FormWrapper";
-import { KeyCode } from "../enum";
+import { KeyCode } from "../KeyCode";
 import { extractClassNames } from "../util";
 
 interface IAutocompleteProps extends IBaseComponentProps, IFromControlProps {

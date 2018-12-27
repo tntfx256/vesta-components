@@ -6,7 +6,7 @@ import { IBaseComponentProps, IWithTransition } from "../BaseComponent";
 
 interface IModalProps extends IBaseComponentProps, IWithTransition {
     show: boolean;
-    name?: string;
+    animation?: string;
     className?: string;
     onClick?: (e: MouseEvent<HTMLElement>) => void;
 }
@@ -28,9 +28,10 @@ export const Modal: ComponentType<IModalProps> = withTheme((props: IModalProps) 
         <div className={`modal ${props.className}`} onClick={onModalClicked}>
             {props.children}
         </div> : null;
+    const animation = `modal-${props.animation || "slide"}`;
 
     return (
-        <ReactCSSTransitionGroup transitionName={props.name || "modal"} transitionEnterTimeout={enter}
+        <ReactCSSTransitionGroup transitionName={animation} transitionEnterTimeout={enter}
             transitionLeaveTimeout={leave}>
             {content}
         </ReactCSSTransitionGroup>

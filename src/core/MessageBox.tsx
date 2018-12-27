@@ -1,7 +1,7 @@
 import { Culture } from "@vesta/culture";
 import React, { PureComponent, ReactNode } from "react";
 import { IBaseComponentProps } from "../BaseComponent";
-import { MessageType } from "../enum";
+import { MessageType } from "../MessageType";
 import { Button } from "./Button";
 import { Dialog } from "./Dialog";
 

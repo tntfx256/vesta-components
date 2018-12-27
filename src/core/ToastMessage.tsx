@@ -1,6 +1,6 @@
 import React, { ComponentType, MouseEvent, useState } from "react";
 import { IBaseComponentProps } from "../BaseComponent";
-import { MessageType } from "../enum";
+import { MessageType } from "../MessageType";
 
 interface IToastMessageProps extends IBaseComponentProps {
     message: string;

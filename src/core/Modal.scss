@@ -23,19 +23,19 @@ $modal-transition-effect: $transition-effect-default;
     z-index: $z-index-dialog;
 }
 
-.modal-enter {
+.modal-slide-enter {
     @include translate3d(100%, 0);
 
-    &.modal-enter-active {
+    &.modal-slide-enter-active {
         @include translate3d(0);
         @include scale(1);
         transition: transform $modal-transition-enter-duration $modal-transition-effect;
     }
 }
 
-.modal-leave {
+.modal-slide-leave {
 
-    &.modal-leave-active {
+    &.modal-slideØ-leave-active {
         @include translate3d(100%, 0);
         transition: transform $modal-transition-leave-duration $modal-transition-effect;
     }

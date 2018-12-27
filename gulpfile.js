@@ -6,10 +6,8 @@ const autoPrefixer = require("autoprefixer");
 const csswring = require("csswring");
 const mqpacker = require("css-mqpacker");
 const { readFileSync } = require("fs");
-const { execSync } = require("child_process");
 const { Indexer, Packager } = require("@vesta/devmaid");
 
-const pkg = JSON.parse(readFileSync("package.json"));
 const target = "__test__";
 
 const indexer = new Indexer("src");
@@ -24,10 +22,17 @@ let pkgr = new Packager({
 });
 
 function compileSass() {
+    const browsersToSupport = [
+        "last 4 version",
+        "iOS >= 7",
+        "Android >= 4",
+        "Explorer >= 10",
+        "ExplorerMobile >= 11"
+    ];
     return gulp.src(["src/index-ltr.scss", "src/index-rtl.scss"])
         .pipe(sourcemaps.init())
         .pipe(sass())
-        .pipe(postCss([autoPrefixer({ browsers: pkg.browserslist }), mqpacker, csswring]))
+        .pipe(postCss([autoPrefixer({ browsers: browsersToSupport }), mqpacker, csswring]))
         .pipe(sourcemaps.write("./"))
         .pipe(gulp.dest(`vesta/es6/css`))
         .pipe(gulp.dest(`${target}/public/css`));
@@ -35,6 +40,10 @@ function compileSass() {
 
 function copy4test() {
     return gulp.src("src/**/*").pipe(gulp.dest(`${target}/src/components`));
+}
+
+function copyStyle() {
+    return gulp.src("src/**/*.scss").pipe(gulp.dest("vesta/es6"));
 }
 
 function watch() {
@@ -45,6 +54,6 @@ function watch() {
 
 const tasks = pkgr.createTasks();
 module.exports = {
-    default: gulp.series(tasks.default, compileSass, copy4test, watch),
-    publish: gulp.series(tasks.deploy, compileSass, tasks.publish),
+    default: gulp.series(tasks.default, compileSass, copyStyle, copy4test, watch),
+    publish: gulp.series(tasks.deploy, compileSass, copyStyle, tasks.publish),
 }

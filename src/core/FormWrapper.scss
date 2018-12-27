@@ -1,14 +1,11 @@
-$form-error-padding: floor(2 * $unit);
-
 .form-error {
     #{$opposite-float}: $form-control-padding;
     background: $white;
     color: $color-error;
     font-size: $font-size-xsmall;
-    padding: 0 $form-error-padding;
     position: absolute;
     text-align: end;
-    top: $form-components-height;
+    top: $form-components-height - 6;
 }
 
 .form-group {
@@ -16,11 +13,10 @@ $form-error-padding: floor(2 * $unit);
     margin: $form-group-margin;
     padding: $form-group-padding;
     position: relative;
-    border: 1px solid red;
 
     &.is-dirty {
         label {
-            transform: scale(.6, .6) translate3d(-20px, -20px, 0);
+            transform: scale(.6, .6) translate3d(-$form-components-height, -24px, 0);
             transition: transform $transition-duration-default $transition-effect-default;
         }
     }
@@ -40,20 +36,24 @@ $form-error-padding: floor(2 * $unit);
 
     &.has-error {
         .form-control {
-            border-color: $color-error;
+            border-bottom-color: $color-error;
         }
     }
 }
 
 .form-control {
     background-color: $form-control-background;
-    border: 1px solid $border-color;
-    border-radius: $form-control-border-radius;
+    border: 1px solid transparent;
+    border-bottom-color: $border-color;
+    flex: 1;
     height: $form-components-height;
     outline: 0;
     padding: $form-control-padding;
-    flex: 1;
-    border: 1px solid green;
+
+    &:focus {
+        border-bottom-color: $color-primary;
+        transition: border-bottom-color $transition-duration-default $transition-effect-default;
+    }
 }
 
 body {

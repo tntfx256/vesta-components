@@ -1,8 +1,8 @@
 import { Culture } from "@vesta/culture";
 import React, { ChangeEvent, Component, KeyboardEvent } from "react";
 import { IBaseComponentProps } from "../BaseComponent";
-import { KeyCode } from "../enum";
 import { IFile } from "../File";
+import { KeyCode } from "../KeyCode";
 import { Icon } from "./Icon";
 
 export interface IFileOperation {

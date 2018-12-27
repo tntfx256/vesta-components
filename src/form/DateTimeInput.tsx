@@ -39,9 +39,9 @@ export class DateTimeInput extends PureComponent<IDateTimeInputProps, IDateTimeI
         const { value, showPicker } = this.state;
 
         const picker = showPicker ? (
-            <Modal show={true} name="modal-zoom">
+            <Modal show={true} animation="modal-zoom">
                 <DatePicker value={value} onChange={this.onChange} onAbort={this.hidePicker} hasTime={hasTime} />
-            </Modal>) : <Modal show={false} name="modal-zoom" />;
+            </Modal>) : <Modal show={false} animation="modal-zoom" />;
         const classNames = extractClassNames(this.props, { value: "is-dirty", error: "has-error" });
 
         return (

@@ -28,7 +28,7 @@ export class Dialog extends PureComponent<IDialogProps, IEmptyState> {
         const header = this.renderHeader();
 
         return (
-            <Modal show={show} name="modal-zoom" className={modalClassName}>
+            <Modal show={show} animation="modal-zoom" className={modalClassName}>
                 <div className={`dialog ${className ? `${className}` : ""}`}>
                     {header}
                     <div className="dialog-content">{content}</div>

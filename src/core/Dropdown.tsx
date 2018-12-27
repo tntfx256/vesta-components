@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { IBaseComponentProps } from "../BaseComponent";
-import { KeyCode } from "../enum";
+import { KeyCode } from "../KeyCode";
 
 interface IDropdownProps extends IBaseComponentProps {
     className?: string;
