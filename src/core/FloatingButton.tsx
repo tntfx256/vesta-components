@@ -1,7 +1,7 @@
 import React, { MouseEventHandler, PureComponent } from "react";
-import { IBaseComponentProps } from "../BaseComponent";
+import { IComponentProps } from "../BaseComponent";
 
-interface IFloatingButtonProps extends IBaseComponentProps {
+interface IFloatingButtonProps extends IComponentProps {
     className?: string;
     onClick?: MouseEventHandler<HTMLButtonElement>;
 }

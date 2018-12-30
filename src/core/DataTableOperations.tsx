@@ -2,11 +2,11 @@ import { Culture } from "@vesta/culture";
 import React, { MouseEvent, PureComponent, ReactNode } from "react";
 import { Link } from "react-router-dom";
 import { IAccess } from "../Access";
-import { IBaseComponentProps } from "../BaseComponent";
+import { IComponentProps } from "../BaseComponent";
 import { Icon } from "./Icon";
 import { MessageBox, MessageBoxBtn, MessageBoxBtnGroup } from "./MessageBox";
 
-interface IDataTableOperationsProps extends IBaseComponentProps {
+interface IDataTableOperationsProps extends IComponentProps {
     access: IAccess;
     editIcon?: ReactNode;
     id: number;

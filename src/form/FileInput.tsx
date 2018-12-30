@@ -1,9 +1,9 @@
 import React, { ChangeEvent, PureComponent } from "react";
-import { IBaseComponentProps } from "../BaseComponent";
+import { IComponentProps } from "../BaseComponent";
 import { IFromControlProps } from "../core/FormWrapper";
 import { extractClassNames, Mime } from "../util";
 
-interface IFileInputProps extends IBaseComponentProps, IFromControlProps {
+interface IFileInputProps extends IComponentProps, IFromControlProps {
     accept?: string;
     multiple?: boolean;
     value?: string | File | Array<string | File>;

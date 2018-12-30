@@ -1,14 +1,14 @@
 import React, { ComponentType, MouseEvent } from "react";
 import { RouteComponentProps, withRouter } from "react-router";
 import { withTheme } from "theming";
-import { IBaseComponentProps } from "../BaseComponent";
+import { IComponentProps } from "../BaseComponent";
 import { Burger } from "./Burger";
 
 export enum NavbarMainButtonType { Burger = 1, Back, Close }
 
 interface INavbarParams { }
 
-interface INavbarProps extends IBaseComponentProps, RouteComponentProps<INavbarParams> {
+interface INavbarProps extends IComponentProps, RouteComponentProps<INavbarParams> {
     title?: string;
     className?: string;
     backLink?: string;

@@ -1,10 +1,10 @@
 import React, { ChangeEvent, Component, KeyboardEvent } from "react";
-import { IBaseComponentProps } from "../BaseComponent";
+import { IComponentProps } from "../BaseComponent";
 import { IFromControlProps } from "../core/FormWrapper";
 import { KeyCode } from "../KeyCode";
 import { extractClassNames } from "../util";
 
-interface IAutocompleteProps extends IBaseComponentProps, IFromControlProps {
+interface IAutocompleteProps extends IComponentProps, IFromControlProps {
     multi?: boolean;
     titleKey?: string;
     valueKey?: string;

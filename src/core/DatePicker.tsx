@@ -1,8 +1,8 @@
 import { Culture } from "@vesta/culture";
 import React, { ChangeEvent, Component, MouseEvent } from "react";
-import { IBaseComponentProps } from "../BaseComponent";
+import { IComponentProps } from "../BaseComponent";
 
-interface IDatePickerProps extends IBaseComponentProps {
+interface IDatePickerProps extends IComponentProps {
     hasTime?: boolean;
     onAbort: () => void;
     onChange: (value: string) => void;

@@ -1,9 +1,9 @@
 import React, { ChangeEvent, InputHTMLAttributes, PureComponent } from "react";
-import { IBaseComponentProps } from "../BaseComponent";
+import { IComponentProps } from "../BaseComponent";
 import { IFromControlProps } from "../core/FormWrapper";
 import { extractClassNames } from "../util";
 
-interface INumericInputProps extends IBaseComponentProps, IFromControlProps {
+interface INumericInputProps extends IComponentProps, IFromControlProps {
     format?: boolean;
     size?: number;
     step?: number;

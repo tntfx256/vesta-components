@@ -1,10 +1,10 @@
 import React, { ChangeEvent, ComponentType } from "react";
 import { withTheme } from "react-jss";
-import { IBaseComponentProps } from "../BaseComponent";
+import { IComponentProps } from "../BaseComponent";
 import { IFromControlProps } from "../core/FormWrapper";
 import { extractClassNames } from "../util";
 
-interface ITextInputProps extends IBaseComponentProps, IFromControlProps {
+interface ITextInputProps extends IComponentProps, IFromControlProps {
     dir?: "ltr" | "rtl";
     type?: string;
     value?: string;

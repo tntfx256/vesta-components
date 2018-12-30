@@ -1,6 +1,6 @@
 import { Culture } from "@vesta/culture";
 import React, { ChangeEvent, Component, KeyboardEvent } from "react";
-import { IBaseComponentProps } from "../BaseComponent";
+import { IComponentProps } from "../BaseComponent";
 import { IFile } from "../File";
 import { KeyCode } from "../KeyCode";
 import { Icon } from "./Icon";
@@ -14,7 +14,7 @@ export interface IFileOperation {
     onError: (error: Error) => void;
 }
 
-interface IFileManagerProps extends IBaseComponentProps, IFileOperation {
+interface IFileManagerProps extends IComponentProps, IFileOperation {
     onFileSelect: (path: string) => void;
 }
 

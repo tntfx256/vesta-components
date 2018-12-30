@@ -1,6 +1,6 @@
 import { Culture } from "@vesta/culture";
 import React, { ChangeEvent, Component, createRef, RefObject } from "react";
-import { IBaseComponentProps } from "../BaseComponent";
+import { IComponentProps } from "../BaseComponent";
 import { Dialog } from "../core/Dialog";
 import { FileManager, IFileOperation } from "../core/FileManager";
 import { IFromControlProps } from "../core/FormWrapper";
@@ -11,7 +11,7 @@ interface IToolbarAction {
     icon: string;
 }
 
-interface IWysiwygProps extends IBaseComponentProps, IFromControlProps, IFileOperation {
+interface IWysiwygProps extends IComponentProps, IFromControlProps, IFileOperation {
     value?: string;
 }
 

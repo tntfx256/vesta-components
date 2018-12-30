@@ -1,12 +1,12 @@
 import { Culture } from "@vesta/culture";
 import React, { ChangeEvent, PureComponent } from "react";
-import { IBaseComponentProps } from "../BaseComponent";
+import { IComponentProps } from "../BaseComponent";
 import { DatePicker } from "../core/DatePicker";
 import { IFromControlProps } from "../core/FormWrapper";
 import { Modal } from "../core/Modal";
 import { extractClassNames } from "../util";
 
-interface IDateTimeInputProps extends IBaseComponentProps, IFromControlProps {
+interface IDateTimeInputProps extends IComponentProps, IFromControlProps {
     hasTime?: boolean;
     value?: number;
 }

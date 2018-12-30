@@ -2,9 +2,9 @@ import { ITheme } from "@vesta/theme";
 import React, { ComponentType, MouseEvent, useEffect } from "react";
 import ReactCSSTransitionGroup from "react-addons-css-transition-group";
 import { withTheme } from "theming";
-import { IBaseComponentProps, IWithTransition } from "../BaseComponent";
+import { IComponentProps, IWithTransition } from "../BaseComponent";
 
-interface IModalProps extends IBaseComponentProps, IWithTransition {
+interface IModalProps extends IComponentProps, IWithTransition {
     show: boolean;
     animation?: string;
     className?: string;

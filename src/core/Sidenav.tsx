@@ -1,9 +1,9 @@
 import React, { ComponentType } from "react";
 import ReactCSSTransitionGroup from "react-addons-css-transition-group";
 import { withTheme } from "theming";
-import { IBaseComponentProps, IWithTransition } from "../BaseComponent";
+import { IComponentProps, IWithTransition } from "../BaseComponent";
 
-interface ISideNavProps extends IBaseComponentProps, IWithTransition {
+interface ISideNavProps extends IComponentProps, IWithTransition {
     open?: boolean;
     onChange?: (isOpen: boolean) => void;
 }

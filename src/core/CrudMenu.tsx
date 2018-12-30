@@ -1,10 +1,10 @@
 import React, { ComponentType } from "react";
 import { Link } from "react-router-dom";
 import { IAccess } from "../Access";
-import { IBaseComponentProps } from "../BaseComponent";
+import { IComponentProps } from "../BaseComponent";
 import { Icon } from "./Icon";
 
-interface ICrudMenuProps extends IBaseComponentProps {
+interface ICrudMenuProps extends IComponentProps {
     path: string;
     access: IAccess;
 }

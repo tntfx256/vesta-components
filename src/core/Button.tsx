@@ -1,7 +1,7 @@
 import React, { ComponentType, MouseEvent } from "react";
-import { IBaseComponentProps } from "../BaseComponent";
+import { IComponentProps } from "../BaseComponent";
 
-interface IButtonProps extends IBaseComponentProps {
+interface IButtonProps extends IComponentProps {
     disabled?: boolean;
     type?: "button" | "submit";
     variant?: "contained" | "outlined";

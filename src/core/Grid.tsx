@@ -1,8 +1,8 @@
 import React, { ComponentType, createRef, RefObject, useEffect } from "react";
 import { withTheme } from "react-jss";
-import { IBaseComponentProps } from "../BaseComponent";
+import { IComponentProps } from "../BaseComponent";
 
-interface IGridProps extends IBaseComponentProps {
+interface IGridProps extends IComponentProps {
     direction?: "row" | "column";
     wrap?: "nowrap" | "wrap";
     // direction wise

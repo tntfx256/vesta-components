@@ -1,6 +1,6 @@
 import { IRequest } from "@vesta/core";
 import React, { Component } from "react";
-import { IBaseComponentProps } from "../BaseComponent";
+import { IComponentProps } from "../BaseComponent";
 import { Pagination } from "./Pagination";
 
 export interface IColumn<T> {
@@ -13,7 +13,7 @@ export interface IDataTableQueryOption<T> extends IRequest<T> {
     total?: number;
 }
 
-interface IDataTableProps<T> extends IBaseComponentProps {
+interface IDataTableProps<T> extends IComponentProps {
     columns: Array<IColumn<T>>;
     pagination?: boolean;
     queryOption: IDataTableQueryOption<T>;

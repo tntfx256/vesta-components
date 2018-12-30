@@ -2,7 +2,7 @@ import { ITheme } from "@vesta/theme";
 import React, { ComponentType } from "react";
 import ReactCSSTransitionGroup from "react-addons-css-transition-group";
 import { withTheme } from "theming";
-import { IBaseComponentProps, IWithTransition } from "../BaseComponent";
+import { IComponentProps, IWithTransition } from "../BaseComponent";
 
 export interface IAction {
     [key: string]: any;
@@ -10,7 +10,7 @@ export interface IAction {
     icon?: string;
 }
 
-interface IActionsheetProps extends IBaseComponentProps, IWithTransition {
+interface IActionsheetProps extends IComponentProps, IWithTransition {
     actions: IAction[];
     show: boolean;
     onClick?: (item: IAction) => void;

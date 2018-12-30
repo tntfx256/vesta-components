@@ -1,9 +1,9 @@
 import { Culture } from "@vesta/culture";
 import React, { PureComponent } from "react";
-import { IBaseComponentProps } from "../BaseComponent";
+import { IComponentProps } from "../BaseComponent";
 import { Dialog } from "./Dialog";
 
-interface IPreloaderProps extends IBaseComponentProps {
+interface IPreloaderProps extends IComponentProps {
 }
 
 interface IPreloaderState {

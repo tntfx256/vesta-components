@@ -1,6 +1,6 @@
 import { Culture } from "@vesta/culture";
 import React, { PureComponent, ReactNode } from "react";
-import { IBaseComponentProps } from "../BaseComponent";
+import { IComponentProps } from "../BaseComponent";
 import { MessageType } from "../MessageType";
 import { Button } from "./Button";
 import { Dialog } from "./Dialog";
@@ -9,7 +9,7 @@ export enum MessageBoxBtn { Ok = 1, Cancel, Retry, Yes, No }
 
 export enum MessageBoxBtnGroup { OK, OkCancel = 1, OkCancelRetry, CancelRetry, YesNo }
 
-interface IMessageBoxProps extends IBaseComponentProps {
+interface IMessageBoxProps extends IComponentProps {
     show: boolean;
     title?: string;
     type?: MessageType;

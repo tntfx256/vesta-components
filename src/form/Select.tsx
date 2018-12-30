@@ -1,9 +1,9 @@
 import React, { ChangeEvent, PureComponent } from "react";
-import { IBaseComponentProps } from "../BaseComponent";
+import { IComponentProps } from "../BaseComponent";
 import { IFromControlProps } from "../core/FormWrapper";
 import { extractClassNames } from "../util";
 
-interface ISelectProps extends IBaseComponentProps, IFromControlProps {
+interface ISelectProps extends IComponentProps, IFromControlProps {
     options: any[];
     titleKey?: string;
     valueKey?: string;

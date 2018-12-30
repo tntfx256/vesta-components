@@ -1,6 +1,6 @@
 import React, { ComponentType, MouseEvent, ReactNode, useState } from "react";
 import { NavLink } from "react-router-dom";
-import { IBaseComponentProps } from "../BaseComponent";
+import { IComponentProps } from "../BaseComponent";
 import { Icon } from "./Icon";
 
 export interface IMenuItem {
@@ -14,7 +14,7 @@ export interface IMenuItem {
     title: string;
 }
 
-interface IMenuProps extends IBaseComponentProps {
+interface IMenuProps extends IComponentProps {
     horizontal?: boolean;
     items: IMenuItem[];
     name?: string;

@@ -1,5 +1,5 @@
 import React, { FormEvent, PureComponent } from "react";
-import { IBaseComponentProps } from "../BaseComponent";
+import { IComponentProps } from "../BaseComponent";
 
 export type ChangeEventHandler = (name: string, value: any) => void;
 
@@ -17,7 +17,7 @@ export interface IFormOption {
     title: string;
 }
 
-interface IFormWrapperProps extends IBaseComponentProps {
+interface IFormWrapperProps extends IComponentProps {
     name?: string;
     onSubmit?: (e: FormEvent<HTMLFormElement>) => void;
 }

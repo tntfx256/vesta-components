@@ -1,9 +1,9 @@
 import { Culture } from "@vesta/culture";
 import React, { ChangeEvent, ComponentType } from "react";
-import { IBaseComponentProps } from "../BaseComponent";
+import { IComponentProps } from "../BaseComponent";
 import { IFromControlProps } from "../core/FormWrapper";
 
-interface IMultichoiceProps extends IBaseComponentProps, IFromControlProps {
+interface IMultichoiceProps extends IComponentProps, IFromControlProps {
     options: any[];
     showSelectAll?: boolean;
     titleKey?: string;
