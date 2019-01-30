@@ -22,13 +22,13 @@ $btn-group-active-color: $color-secondary-text;
         margin: auto 5px;
     }
 
-    &.tab-header-default {
-        >.btn {
-            @include btn-style($white, $color-primary);
+    // &.tab-header-default {
+    //     >.btn {
+    //         @include btn-style($white, $color-primary);
 
-            &.active {
-                @include btn-style($btn-group-active-bg, $btn-group-active-color);
-            }
-        }
-    }
+    //         &.active {
+    //             @include btn-style($btn-group-active-bg, $btn-group-active-color);
+    //         }
+    //     }
+    // }
 }

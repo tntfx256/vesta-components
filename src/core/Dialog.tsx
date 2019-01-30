@@ -2,7 +2,7 @@ import React, { EventHandler, PureComponent, ReactChild } from "react";
 import { IComponentProps } from "../BaseComponent";
 import { Modal } from "./Modal";
 
-interface IDialogProps extends IComponentProps {
+export interface IDialogProps extends IComponentProps {
     title?: string;
     show: boolean;
     onClose?: EventHandler<any>;

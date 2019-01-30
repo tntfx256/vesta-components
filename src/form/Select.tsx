@@ -20,7 +20,7 @@ export class Select extends PureComponent<ISelectProps, IEmptyState> {
         const selectedIndex = this.getSelectedIndex();
         const nullValue = { [titleKey as string]: "", [valueKey as string]: -1 };
         const optionsList = [nullValue, ...options].map((o, i) => (
-            <option key={i} value={i}>{o[titleKey as string]}</option>
+            <option key={i} value={i - 1}>{o[titleKey as string]}</option>
         ));
         const classNames = extractClassNames(this.props, { value: "is-dirty", error: "has-error" });
 
@@ -52,8 +52,9 @@ export class Select extends PureComponent<ISelectProps, IEmptyState> {
 
     private onChange = (e: ChangeEvent<HTMLSelectElement>) => {
         const { name, onChange, options, valueKey, readonly } = this.props;
-        const index = e.target.value;
-        const item = options[+index];
+        // -1 is because of nuulValue at index 0
+        const index = +e.target.value;
+        const item = options[index];
         if (onChange && !readonly) {
             onChange(name, item ? item[valueKey as string] : null);
         }

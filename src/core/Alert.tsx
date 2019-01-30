@@ -3,7 +3,7 @@ import { withTheme } from "theming";
 import { IComponentProps } from "../BaseComponent";
 import { MessageType } from "../MessageType";
 
-interface IAlertProps extends IComponentProps {
+export interface IAlertProps extends IComponentProps {
     type?: MessageType;
 }
 

@@ -1,7 +1,7 @@
 import React, { ChangeEvent, FormEvent, PureComponent } from "react";
 import { IComponentProps } from "../BaseComponent";
 
-interface IPaginationProps extends IComponentProps {
+export interface IPaginationProps extends IComponentProps {
     recordsPerPage: number;
     currentPage: number;
     totalRecords?: number;

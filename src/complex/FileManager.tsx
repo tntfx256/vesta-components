@@ -1,9 +1,9 @@
 import { Culture } from "@vesta/culture";
 import React, { ChangeEvent, Component, KeyboardEvent } from "react";
 import { IComponentProps } from "../BaseComponent";
+import { Icon } from "../core/Icon";
 import { IFile } from "../File";
 import { KeyCode } from "../KeyCode";
-import { Icon } from "./Icon";
 
 export interface IFileOperation {
     onNewFolder: (folder: IFile) => Promise<boolean>;

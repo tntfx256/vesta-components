@@ -2,7 +2,7 @@ import React, { ComponentType, createRef, RefObject, useEffect } from "react";
 import { withTheme } from "react-jss";
 import { IComponentProps } from "../BaseComponent";
 
-interface IGridProps extends IComponentProps {
+export interface IGridProps extends IComponentProps {
     direction?: "row" | "column";
     wrap?: "nowrap" | "wrap";
     // direction wise

@@ -11,6 +11,10 @@ $dp-cell-padding: 5px;
         background: $white;
         border-radius: $border-radius;
         overflow: hidden;
+
+        .btn-group {
+            padding: $dp-cell-padding 0;
+        }
     }
 
     .month-year-row {
@@ -25,6 +29,10 @@ $dp-cell-padding: 5px;
             flex: 1;
             padding: (4 * $dp-cell-padding) $dp-cell-padding;
             white-space: nowrap;
+        }
+
+        h2 {
+            width: 100px;
         }
 
         h2, a {
@@ -103,7 +111,7 @@ $dp-cell-padding: 5px;
         font-weight: lighter;
         height: $dp-cell-size;
         line-height: $dp-cell-size;
-        transition: background $transition-duration-short $transition-effect-default;
+        transition: background-color $transition-duration-short $transition-effect-default;
         width: $dp-cell-size;
     }
 

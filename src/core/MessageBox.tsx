@@ -9,7 +9,7 @@ export enum MessageBoxBtn { Ok = 1, Cancel, Retry, Yes, No }
 
 export enum MessageBoxBtnGroup { OK, OkCancel = 1, OkCancelRetry, CancelRetry, YesNo }
 
-interface IMessageBoxProps extends IComponentProps {
+export interface IMessageBoxProps extends IComponentProps {
     show: boolean;
     title?: string;
     type?: MessageType;

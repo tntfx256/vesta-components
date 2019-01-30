@@ -9,34 +9,26 @@ $multichoice-margin-side: 10%;
     margin-left: 0;
     margin-right: 0;
 
-    &.has-error {
-        border-color: $color-error;
-    }
-
-    label {
-        color: $color-semilight;
-        font-size: $font-size-xsmall;
-    }
-
     ul {
-        margin: get-value-by-direction($multichoice-margin-top auto $multichoice-margin-top $multichoice-margin-side, $multichoice-margin-top $multichoice-margin-side $multichoice-margin-top auto);
+        display: flex;
+        flex-wrap: wrap;
+        // margin: get-value-by-direction($multichoice-margin-top auto $multichoice-margin-top $multichoice-margin-side, $multichoice-margin-top $multichoice-margin-side $multichoice-margin-top auto);
+        margin: $multichoice-margin-top;
     }
 
-    li {
+    .check-item {
+        cursor: pointer;
         list-style: none;
-        margin-#{$float}: 20px;
         white-space: nowrap;
 
-        &.select-all-choice {
             label {
-                color: $color-secondary;
-            }
+            display: inline-block;
+            position: static;
+            pointer-events: auto;
         }
 
-        label, input {
-            cursor: pointer;
+        input {
             display: inline-block;
-            margin: auto 5px;
             vertical-align: middle;
         }
     }

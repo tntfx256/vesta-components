@@ -2,7 +2,7 @@ import { ComponentType, useEffect } from "react";
 import { IComponentProps } from "../BaseComponent";
 
 
-interface IPageTitleProps extends IComponentProps {
+export interface IPageTitleProps extends IComponentProps {
     title: string;
     append?: boolean;
 }

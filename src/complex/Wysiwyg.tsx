@@ -2,9 +2,9 @@ import { Culture } from "@vesta/culture";
 import React, { ChangeEvent, Component, createRef, RefObject } from "react";
 import { IComponentProps } from "../BaseComponent";
 import { Dialog } from "../core/Dialog";
-import { FileManager, IFileOperation } from "../core/FileManager";
 import { IFromControlProps } from "../core/FormWrapper";
 import { Icon } from "../core/Icon";
+import { FileManager, IFileOperation } from "./FileManager";
 
 interface IToolbarAction {
     command: string;

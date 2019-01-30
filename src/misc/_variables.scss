@@ -1,104 +1,106 @@
 // media queries
-$layout-small-min: 320px;
-$layout-small-max: 425px;
-$layout-medium-min: $layout-small-max;
-$layout-medium-max: 768px;
-$layout-large-min: $layout-medium-max;
-$layout-large-max: 1024px;
-$layout-xlarge-min: $layout-large-max;
+$layout-small-min: 320px !default;
+$layout-small-max: 425px !default;
+$layout-medium-min: $layout-small-max !default;
+$layout-medium-max: 768px !default;
+$layout-large-min: $layout-medium-max !default;
+$layout-large-max: 1024px !default;
+$layout-xlarge-min: $layout-large-max !default;
 
 // font
-$font-size-base: 16px;
-$font-size-xsmall: floor(.65 * $font-size-base);
-$font-size-small: floor(.85 * $font-size-base);
-$font-size-medium: floor(1.25 * $font-size-base);
-$font-size-large: floor(1.5 * $font-size-base);
-$font-size-xlarge: floor(2 * $font-size-base);
-$font-size-xxlarge: floor(4 * $font-size-base);
+$font-size-base: 16px !default;
+$font-size-xsmall: floor(.65 * $font-size-base) !default;
+$font-size-small: floor(.85 * $font-size-base) !default;
+$font-size-medium: floor(1.25 * $font-size-base) !default;
+$font-size-large: floor(1.5 * $font-size-base) !default;
+$font-size-xlarge: floor(2 * $font-size-base) !default;
+$font-size-xxlarge: floor(4 * $font-size-base) !default;
 
 // timing
-$transition-duration-short: 150ms;
-$transition-duration-medium: 300ms;
-$transition-duration-long: 500ms;
-$transition-duration-default: $transition-duration-short;
+$transition-duration-short: 150ms !default;
+$transition-duration-medium: 300ms !default;
+$transition-duration-long: 500ms !default;
+$transition-duration-default: $transition-duration-short !default;
 
 // easing
-$transition-effect-default: ease-in-out;
+$transition-effect-default: ease-in-out !default;
 
 // zIndex
-$z-index-base: 1;
-$z-index-content: 2;
-$z-index-header: 10;
-$z-index-sidenav: 11;
-$z-index-navbar: 11;
-$z-index-dialog: 12;
-$z-index-date-picker: 12;
-$z-index-actionsheet: 13;
-$z-index-splash: 90;
-$z-index-notification: 99;
+$z-index-base: 1 !default;
+$z-index-content: 2 !default;
+$z-index-header: 10 !default;
+$z-index-sidenav: 11 !default;
+$z-index-navbar: 11 !default;
+$z-index-dialog: 12 !default;
+$z-index-date-picker: 12 !default;
+$z-index-actionsheet: 13 !default;
+$z-index-splash: 90 !default;
+$z-index-notification: 99 !default;
 
 // sizes
-$unit: 2px;
-$border-radius: floor(2 * $unit);
-$header-padding: floor(8 * $unit);
-$breadcrumb-height: floor(22 * $unit);
-$footer-height: floor(16 * $unit);
-$page-max-width: $layout-medium-max;
+$unit: 2px !default;
+$border-radius: floor(2 * $unit) !default;
+$header-padding: floor(8 * $unit) !default;
+$breadcrumb-height: floor(22 * $unit) !default;
+$footer-height: floor(16 * $unit) !default;
+$page-max-width: $layout-medium-max !default;
 
 // colors
-$color-primary: #519af7;
-$color-primary-text: $white;
-$color-primary-light: #a9d4ff;
-$color-primary-light: $black;
-$color-primary-dark: #4375ac;
-$color-primary-dark-text: $white;
-$color-secondary: #eb522e;
-$color-secondary-text: $white;
-$color-default: $grey;
-$color-default-text: $black;
-$color-success: #3db366;
-$color-error: #f15b44;
-$color-info: $blue;
-$color-warning: #fdc600;
-$color-light: darken($white, 10%);
-$color-semilight: darken($white, 40%);
-$color-dark: lighten($black, 10%);
-$color-semidark: lighten($black, 40%);
-$color-list: $color-primary $color-success $color-error $color-warning $color-info;
-$color-classes: primary success error warning info;
+$color-text: #444 !default;
+$color-primary: #519af7 !default;
+$color-primary-text: $white !default;
+$color-primary-light: #a9d4ff !default;
+$color-primary-light: $black !default;
+$color-primary-dark: #4375ac !default;
+$color-primary-dark-text: $white !default;
+$color-secondary: #eb522e !default;
+$color-secondary-text: $white !default;
+$color-default: $grey !default;
+$color-default-text: $black !default;
+$color-success: #3db366 !default;
+$color-error: #f15b44 !default;
+$color-info: $blue !default;
+$color-warning: #fdc600 !default;
+$color-light: darken($white, 10%) !default;
+$color-semilight: darken($white, 40%) !default;
+$color-dark: lighten($black, 10%) !default;
+$color-semidark: lighten($black, 40%) !default;
+$color-list: $color-primary $color-success $color-error $color-warning $color-info !default;
+$color-classes: primary success error warning info !default;
 
 //shadow
-$shadow-color: $color-dark;
-$shadow-horizontal-offset: $unit;
-$shadow-vertical-offset: $unit;
-$shadow-radius: floor(2 * $unit);
-$shadow-default: $shadow-horizontal-offset $shadow-vertical-offset $shadow-radius $shadow-color;
+$shadow-color: $color-dark !default;
+$shadow-horizontal-offset: $unit !default;
+$shadow-vertical-offset: $unit !default;
+$shadow-radius: floor(2 * $unit) !default;
+$shadow-default: $shadow-horizontal-offset $shadow-vertical-offset $shadow-radius $shadow-color !default;
 
 // element colors
-$body-background-color: rgba(250, 250, 250, .85);
-$border-color: $color-default;
-$box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .16), 0 2px 10px 0 rgba(0, 0, 0, .12);
+$body-background-color: rgba(250, 250, 250, .85) !default;
+$border-color: $color-default !default;
+$box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .16), 0 2px 10px 0 rgba(0, 0, 0, .12) !default;
 
 // basic element
-$element-height: floor(18 * $unit);
-$element-height-large: floor(1.5 * 18 * $unit);
-$element-height-xlarge: floor(2 * 18 * $unit);
-$element-padding: floor(4 * $unit);
-$element-margin: floor(2 * $unit);
-$element-min-width: floor(32 * $unit);
-$element-background: $white;
-$element-color: $color-dark;
+$element-height: floor(18 * $unit) !default;
+$element-height-large: floor(1.5 * 18 * $unit) !default;
+$element-height-xlarge: floor(2 * 18 * $unit) !default;
+$element-padding: floor(4 * $unit) !default;
+$element-margin: floor(2 * $unit) !default;
+$element-min-width: floor(32 * $unit) !default;
+$element-background: $white !default;
+$element-color: $color-dark !default;
 
 // form
-$form-components-height: $element-height;
-$form-components-height-large: $element-height-large;
-$form-group-padding: $element-padding;
-$form-group-margin: $element-margin;
-$form-control-padding: $element-padding;
-$form-control-background: $white;
-$form-control-border-radius: $border-radius;
+$form-components-height: $element-height !default;
+$form-components-height-large: $element-height-large !default;
+$form-group-padding: $element-padding !default;
+$form-group-margin: $element-margin !default;
+$form-control-padding: $element-padding !default;
+$form-control-background: $white !default;
+$form-control-border-radius: $border-radius !default;
+$form-control-font-size: ceil(($font-size-small + $font-size-base) / 2) !default;
 
 // appbar
-$appbar-height: floor(28 * $unit);
-$appbar-padding: floor(8 * $unit);
-$appbar-icon-size: floor(12 * $unit);
+$appbar-height: floor(28 * $unit) !default;
+$appbar-padding: floor(8 * $unit) !default;
+$appbar-icon-size: floor(12 * $unit) !default;

@@ -1,7 +1,7 @@
 import React, { ComponentType, MouseEvent } from "react";
 import { IComponentProps } from "../BaseComponent";
 
-interface IconProps extends IComponentProps {
+export interface IconProps extends IComponentProps {
     className?: string;
     name: string;
     size?: string;

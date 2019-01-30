@@ -3,7 +3,7 @@ import React, { PureComponent } from "react";
 import { IComponentProps } from "../BaseComponent";
 import { Dialog } from "./Dialog";
 
-interface IPreloaderProps extends IComponentProps {
+export interface IPreloaderProps extends IComponentProps {
 }
 
 interface IPreloaderState {
@@ -15,16 +15,24 @@ interface IPreloaderState {
 export class Preloader extends PureComponent<IPreloaderProps, IPreloaderState> {
 
     public static hide(force?: boolean) {
+        if (!Preloader.instance) { return; }
         Preloader.instance.hide();
         Preloader.counter = force ? 0 : Preloader.counter - 1;
+        const wrapper = document.getElementById("content-wrapper");
+        wrapper.classList.remove("preloader-open");
         if (Preloader.counter < 0) {
             Preloader.counter = 0;
         }
     }
 
     public static show(title?: string, message?: string) {
+        if (!Preloader.instance) { return; }
         Preloader.counter++;
         Preloader.instance.show(title, message);
+        const wrapper = document.getElementById("content-wrapper");
+        if (!wrapper.classList.contains("preloader-open")) {
+            wrapper.classList.add("preloader-open");
+        }
     }
 
     private static counter = 0;
@@ -47,7 +55,7 @@ export class Preloader extends PureComponent<IPreloaderProps, IPreloaderState> {
         const { show, title, message } = this.state;
 
         return (
-            <Dialog show={!!show} modalClassName="preloader-modal">
+            <Dialog show={show} modalClassName="preloader-modal">
                 <div className="preloader">
                     <div className="pl-wrapper">
                         <div className="pl-circular" />

@@ -2,7 +2,7 @@ import React, { ComponentType, MouseEvent, SyntheticEvent, useEffect, useState }
 import { withTheme } from "theming";
 import { IComponentProps } from "../BaseComponent";
 
-interface IAvatarProps extends IComponentProps {
+export interface IAvatarProps extends IComponentProps {
     src: string;
     defaultSrc?: string;
     onClick?: (e: MouseEvent<HTMLElement>) => void;

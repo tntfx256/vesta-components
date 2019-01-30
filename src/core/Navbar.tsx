@@ -4,38 +4,32 @@ import { withTheme } from "theming";
 import { IComponentProps } from "../BaseComponent";
 import { Burger } from "./Burger";
 
-export enum NavbarMainButtonType { Burger = 1, Back, Close }
+// export enum NavbarMainButtonType { Burger = 1, Back, Close }
 
 interface INavbarParams { }
 
-interface INavbarProps extends IComponentProps, RouteComponentProps<INavbarParams> {
-    title?: string;
+export interface INavbarProps extends IComponentProps, RouteComponentProps<INavbarParams> {
     className?: string;
     backLink?: string;
-    showBurger?: boolean;
-    hide?: boolean;
-    mainButtonType?: NavbarMainButtonType;
-    handleBackEvent?: boolean;
-    backAction?: (e: MouseEvent<HTMLElement>) => void;
+    title?: string;
+    onBack?: (e: MouseEvent<HTMLElement>) => void;
+    onClose?: (e: MouseEvent<HTMLElement>) => void;
     onBurgerClick?: (e: MouseEvent<HTMLElement>) => void;
 }
 
 const NavBar: ComponentType<INavbarProps> = withTheme((props: INavbarProps) => {
 
-    const pathToExitApps = ["/"];
-
-    if (props.hide) { return null; }
-    let btnClassName = "back-btn";
-    if (props.mainButtonType == NavbarMainButtonType.Close) {
+    let btnClassName = "";
+    if (props.onClose) {
         btnClassName = "close-btn";
     }
-    const navBtn = (props.showBurger || location.pathname == "/") && !props.backLink && !props.backAction ?
-        <Burger className="nav-btn" onClick={props.onBurgerClick} /> :
-        <Burger className={`nav-btn ${btnClassName}`} onClick={goBack} />;
+    if (props.backLink || props.onBack) {
+        btnClassName = "back-btn";
+    }
 
     return (
         <div className={`navbar ${props.className}`}>
-            {navBtn}
+            <Burger className={`nav-btn ${btnClassName}`} onClick={onClick} />
             <p className="navbar-title">{props.title || ""}</p>
             <div className="navbar-btn-group">
                 {props.children}
@@ -43,23 +37,22 @@ const NavBar: ComponentType<INavbarProps> = withTheme((props: INavbarProps) => {
         </div>
     );
 
-    function goBack(e: MouseEvent<HTMLElement>) {
+    function onClick(e: MouseEvent<HTMLElement>) {
         if (e) {
             e.stopPropagation();
         }
-        const { backAction } = props;
-        if (backAction) {
-            return backAction(e);
+        if (props.onClose) {
+            return props.onClose(e);
         }
-        const { history, backLink } = props;
-        if (backLink) { return history.replace(backLink); }
-        if (props.handleBackEvent) {
-            if (pathToExitApps.indexOf(props.location.pathname) >= 0) {
-                return (navigator as any).app.exitApp();
+        if (props.onBack) {
+            return props.onBack(e);
+        }
+        if (props.backLink) {
+            return props.history.replace(props.backLink);
             }
+        if (props.onBurgerClick) {
+            props.onBurgerClick(e);
         }
-        if (history.length) { return history.goBack(); }
-        history.replace("/");
     }
 });
 

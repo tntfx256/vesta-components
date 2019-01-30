@@ -1,8 +1,9 @@
 import { Culture } from "@vesta/culture";
 import React, { ChangeEvent, Component, MouseEvent } from "react";
 import { IComponentProps } from "../BaseComponent";
+import { Button } from "./Button";
 
-interface IDatePickerProps extends IComponentProps {
+export interface IDatePickerProps extends IComponentProps {
     hasTime?: boolean;
     onAbort: () => void;
     onChange: (value: string) => void;
@@ -56,12 +57,9 @@ export class DatePicker extends Component<IDatePickerProps, IDatePickerState> {
                     </table>
                     {time}
                     <div className="btn-group">
-                        <button type="button" className="btn btn-primary"
-                            onClick={this.onSubmit}>{this.tr("select")}</button>
-                        <button type="button" className="btn btn-outline"
-                            onClick={onAbort}>{this.tr("cancel")}</button>
-                        <button type="button" className="btn btn-outline"
-                            onClick={this.onClear}>{this.tr("clear")}</button>
+                        <Button type="button" onClick={this.onSubmit}>{this.tr("select")}</Button>
+                        <Button type="button" onClick={onAbort}>{this.tr("cancel")}</Button>
+                        <Button type="button" onClick={this.onClear}>{this.tr("clear")}</Button>
                     </div>
                 </div>
             </div>
@@ -165,7 +163,7 @@ export class DatePicker extends Component<IDatePickerProps, IDatePickerState> {
         const rows = [];
         let rowCounter = 1;
         let colCounter = 0;
-        const daysInMonth = this.dateTime.locale.daysInMonth[this.dateTime.getMonth()];
+        const daysInMonth = this.dateTime.getDaysInMonth();
         let row = [];
         // get weekDay first day of month
         const firstWeekDayOfMonth = tmpDate.getDay();
@@ -175,11 +173,11 @@ export class DatePicker extends Component<IDatePickerProps, IDatePickerState> {
             ++colCounter;
         }
         for (let i = 1; i <= daysInMonth; i++) {
-            let className = isThisMonth && i == today ? "today" : "";
-            className = `${className} ${isSelectedMonth && i == selectedDay ? "selected" : ""}`;
+            let className = isThisMonth && i === today ? "today" : "";
+            className = `${className} ${isSelectedMonth && i === selectedDay ? "selected" : ""}`;
             row.push(<td key={colCounter} className={className} onClick={this.onDaySelect}><i>{i}</i></td>);
             ++colCounter;
-            if (colCounter % 7 == 0) {
+            if (colCounter % 7 === 0) {
                 rows.push(<tr key={rowCounter++}>{row}</tr>);
                 row = [];
             }
@@ -191,7 +189,10 @@ export class DatePicker extends Component<IDatePickerProps, IDatePickerState> {
             }
         }
         if (row.length) {
-            rows.push(<tr key={rowCounter}>{row}</tr>);
+            rows.push(<tr key={rowCounter++}>{row}</tr>);
+        }
+        if (rows.length === 5) {
+            rows.push(<tr key={rowCounter}><td colSpan={7}>&nbsp;</td></tr>);
         }
         return rows;
     }

@@ -18,10 +18,6 @@ $dt-data-cell-padding: 7px;
             padding: $dt-header-cell-padding;
             position: relative;
             text-align: start;
-
-            &:last-child {
-                width: 1px;
-            }
         }
     }
 
@@ -40,6 +36,10 @@ $dt-data-cell-padding: 7px;
             //    background: transparentize($color-dark, .7);
             //    color: $color-light;
             //}
+
+            &.selected {
+                background: transparentize($color-primary, .8);
+            }
         }
 
         td, th {

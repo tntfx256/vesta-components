@@ -3,7 +3,7 @@ import ReactCSSTransitionGroup from "react-addons-css-transition-group";
 import { withTheme } from "theming";
 import { IComponentProps, IWithTransition } from "../BaseComponent";
 
-interface ISideNavProps extends IComponentProps, IWithTransition {
+export interface ISideNavProps extends IComponentProps, IWithTransition {
     open?: boolean;
     onChange?: (isOpen: boolean) => void;
 }

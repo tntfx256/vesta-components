@@ -66,3 +66,9 @@ $pl-wrapper-min-size: 200px;
         }
     }
 }
+
+.preloader-open {
+    // #content-wrapper {
+    filter: blur(5px);
+    // }
+}

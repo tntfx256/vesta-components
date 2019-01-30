@@ -1,6 +1,17 @@
+$form-components-label-scale: .8;
+
+.form-wrapper {
+    .btn-group {
+        margin: auto;
+
+        .btn {
+            height: $form-components-height-large;
+        }
+    }
+}
+
 .form-error {
     #{$opposite-float}: $form-control-padding;
-    background: $white;
     color: $color-error;
     font-size: $font-size-xsmall;
     position: absolute;
@@ -15,21 +26,22 @@
     position: relative;
 
     &.is-dirty {
-        label {
-            transform: scale(.6, .6) translate3d(-24px, -24px, 0);
-            transition: transform $transition-duration-default $transition-effect-default;
+        >label {
+            transform: scale($form-components-label-scale, $form-components-label-scale) translate3d(-10px, -25px, 0);
         }
     }
 
     label {
-        #{$float}: $form-control-padding;
+        #{$float}: 0;
         color: $color-default;
+        font-size: $form-control-font-size;
         line-height: $form-components-height;
         padding: 0 $form-control-padding;
         pointer-events: none;
         position: absolute;
         text-align: end;
         top: floor(3 * $form-control-padding / 2);
+        transition: transform $transition-duration-default $transition-effect-default;
         vertical-align: bottom;
         white-space: nowrap;
     }
@@ -42,9 +54,10 @@
 }
 
 .form-control {
-    background-color: $form-control-background;
+    background-color: transparent;
     border: 1px solid transparent;
     border-bottom-color: $border-color;
+    font-size: $form-control-font-size;
     flex: 1;
     height: $form-components-height;
     outline: 0;

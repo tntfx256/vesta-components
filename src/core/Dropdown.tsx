@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { IComponentProps } from "../BaseComponent";
 import { KeyCode } from "../KeyCode";
 
-interface IDropdownProps extends IComponentProps {
+export interface IDropdownProps extends IComponentProps {
     className?: string;
     left?: number;
     onClose: () => void;

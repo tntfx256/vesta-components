@@ -1,7 +1,7 @@
 import React, { MouseEvent, PureComponent } from "react";
 import { IComponentProps } from "../BaseComponent";
 
-interface IBurgerProps extends IComponentProps {
+export interface IBurgerProps extends IComponentProps {
     className?: string;
     onClick?: (e: MouseEvent<HTMLElement>) => void;
 }

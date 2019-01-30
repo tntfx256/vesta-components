@@ -10,7 +10,6 @@
         "resolveJsonModule": true,
         "jsx": "react",
         "declaration": true,
-        "strict": true,
         "outDir": "build",
         "lib": ["esnext", "dom"]
     },

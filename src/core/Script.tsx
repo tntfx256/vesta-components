@@ -1,7 +1,7 @@
 import { PureComponent } from "react";
 import { IComponentProps } from "../BaseComponent";
 
-interface IScriptProps extends IComponentProps {
+export interface IScriptProps extends IComponentProps {
     src: string;
     success: () => void;
     error?: () => void;

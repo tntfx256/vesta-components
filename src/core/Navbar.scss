@@ -20,15 +20,16 @@ $navbar-back-btn-size: $btn-height;
         background: transparent; // make elements under navbar clickable
         pointer-events: none;
 
-        .nav-btn {
+        .navbar-btn {
             pointer-events: auto;
         }
     }
 
-    .nav-title {
+    .navbar-title {
         // $navbar-title-back-margin: floor(2 * $navbar-title-margin / 3);
         color: $white;
         flex: 1;
+        font-size: $font-size-medium;
         overflow: hidden;
         padding: 0 $navbar-title-margin;
         text-align: $float;
@@ -60,7 +61,7 @@ $navbar-back-btn-size: $btn-height;
         }
     }
 
-    .nav-btn {
+    .navbar-btn {
         cursor: pointer;
     }
 }

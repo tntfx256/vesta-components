@@ -4,7 +4,7 @@ import ReactCSSTransitionGroup from "react-addons-css-transition-group";
 import { withTheme } from "theming";
 import { IComponentProps, IWithTransition } from "../BaseComponent";
 
-interface IModalProps extends IComponentProps, IWithTransition {
+export interface IModalProps extends IComponentProps, IWithTransition {
     show: boolean;
     animation?: string;
     className?: string;

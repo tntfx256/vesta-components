@@ -4,7 +4,7 @@ import { IFromControlProps } from "../core/FormWrapper";
 import { KeyCode } from "../KeyCode";
 import { extractClassNames } from "../util";
 
-interface IAutocompleteProps extends IComponentProps, IFromControlProps {
+export interface IAutocompleteProps extends IComponentProps, IFromControlProps {
     multi?: boolean;
     titleKey?: string;
     valueKey?: string;

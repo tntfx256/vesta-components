@@ -14,7 +14,7 @@ export interface IMenuItem {
     title: string;
 }
 
-interface IMenuProps extends IComponentProps {
+export interface IMenuProps extends IComponentProps {
     horizontal?: boolean;
     items: IMenuItem[];
     name?: string;

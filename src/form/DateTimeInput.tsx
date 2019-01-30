@@ -6,7 +6,7 @@ import { IFromControlProps } from "../core/FormWrapper";
 import { Modal } from "../core/Modal";
 import { extractClassNames } from "../util";
 
-interface IDateTimeInputProps extends IComponentProps, IFromControlProps {
+export interface IDateTimeInputProps extends IComponentProps, IFromControlProps {
     hasTime?: boolean;
     value?: number;
 }

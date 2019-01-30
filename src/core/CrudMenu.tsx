@@ -4,7 +4,7 @@ import { IAccess } from "../Access";
 import { IComponentProps } from "../BaseComponent";
 import { Icon } from "./Icon";
 
-interface ICrudMenuProps extends IComponentProps {
+export interface ICrudMenuProps extends IComponentProps {
     path: string;
     access: IAccess;
 }

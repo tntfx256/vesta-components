@@ -2,7 +2,7 @@ import React, { ComponentType, MouseEvent, useState } from "react";
 import { IComponentProps } from "../BaseComponent";
 import { MessageType } from "../MessageType";
 
-interface IToastMessageProps extends IComponentProps {
+export interface IToastMessageProps extends IComponentProps {
     message: string;
     type?: MessageType;
     duration?: number;

@@ -24,7 +24,9 @@ $btn-group-active-bg: lighten($color-primary, 15%);
 }
 
 .btn-group {
-    padding: $btn-group-padding;
+    display: flex;
+    max-width: $layout-small-max;
+    padding: $btn-group-padding 0;
 
     &.stick-btm {
         @extend %btns-stick-to-bottom;
@@ -32,6 +34,7 @@ $btn-group-active-bg: lighten($color-primary, 15%);
 
     >.btn {
         border-radius: 0;
+        flex: 1;
 
         &:first-child {
             border-bottom-#{$float}-radius: $border-radius;

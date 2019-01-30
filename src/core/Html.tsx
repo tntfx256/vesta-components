@@ -1,7 +1,6 @@
-import * as React from "react";
 import { PureComponent } from "react";
 
-interface IHtmlProps {
+export interface IHtmlProps {
     lang: string;
     dir: string;
 }
