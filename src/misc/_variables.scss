@@ -101,6 +101,6 @@ $form-control-border-radius: $border-radius !default;
 $form-control-font-size: ceil(($font-size-small + $font-size-base) / 2) !default;
 
 // appbar
-$appbar-height: floor(28 * $unit) !default;
-$appbar-padding: floor(8 * $unit) !default;
+$appbar-height: floor(32 * $unit) !default;
+$appbar-padding: 0 floor(13 * $unit) !default;
 $appbar-icon-size: floor(12 * $unit) !default;

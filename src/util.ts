@@ -13,8 +13,12 @@ export function getTheme(): ITheme {
 export function extractClassNames<T>(props: T, map: any): string {
     const classNames = [];
     for (let keys = Object.keys(map), i = 0, il = keys.length; i < il; ++i) {
-        if ((props as any)[keys[i]]) {
-            classNames.push(map[keys[i]]);
+        const key = keys[i];
+        const value = props[key];
+        if (key === "value") {
+            classNames.push(value || value === false || value === 0 ? map[key] : "");
+        } else if (value) {
+            classNames.push(map[key]);
         }
     }
     return classNames.join(" ");
@@ -31,13 +35,13 @@ export const Mime = {
     },
     getMime(extension: string): string[] {
         const types: string[] = [];
-        if (extension.charAt(0) == ".") {
+        if (extension.charAt(0) === ".") {
             extension = extension.substr(1);
         }
         extension = extension.toLowerCase();
         for (let i = Mime.types.length; i--;) {
             const type = Mime.types[i];
-            if (type.ext == extension) {
+            if (type.ext === extension) {
                 types.push(type.mime);
             }
         }
@@ -46,7 +50,7 @@ export const Mime = {
     isValid(mimeType: string): boolean {
         mimeType = mimeType.toLowerCase();
         for (let i = Mime.types.length; i--;) {
-            if (Mime.types[i].mime == mimeType) { return true; }
+            if (Mime.types[i].mime === mimeType) { return true; }
         }
         return false;
     },

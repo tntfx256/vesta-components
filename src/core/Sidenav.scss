@@ -4,23 +4,39 @@ $sidenav-transition-effect: $transition-effect-default;
 $sidenav-width: 300px;
 
 .sidenav-component {
+    background-color: $color-light;
+    box-shadow: 13px 1px 20px 6px black;
+
     .navbar {
         z-index: $z-index-sidenav + 1;
+    }
+
+    &.sidenav-static {
+        position: sticky;
+        padding-top: $appbar-height;
+        max-height: 100vh;
+        top: 0;
+
+        .sidenav-backdrop {
+            display: none;
+        }
+
+        .sidenav {
+            height: 100%;
+            position: relative;
+        }
     }
 }
 
 .sidenav {
     @include translate3d(0);
 
-    @include media-query-below {
-        width: 75vw;
-    }
-
     @include media-query-small {
         max-width: none;
         width: 100%;
     }
 
+    background-color: $color-light;
     #{$float}: 0;
     bottom: 0;
     max-width: $sidenav-width;
@@ -30,9 +46,7 @@ $sidenav-width: 300px;
     transition: all $transition-duration-medium;
     width: $sidenav-width;
     will-change: transform;
-    z-index: $z-index-sidenav;
-
-
+    z-index: $z-index-sidenav+1;
 }
 
 .sidenav-backdrop {

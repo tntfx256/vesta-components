@@ -6,6 +6,7 @@ export interface IconProps extends IComponentProps {
     name: string;
     size?: string;
     onClick?: (e: MouseEvent<HTMLElement>) => void;
+    title?: string;
 }
 
 export const Icon: ComponentType<IconProps> = ((props: IconProps) => {
@@ -21,8 +22,10 @@ export const Icon: ComponentType<IconProps> = ((props: IconProps) => {
     }
 
     return (Icon as any).useClassName ?
-        <span className={`icon icon-${props.name} ${classNames.join(" ")}`} onClick={props.onClick} /> :
-        <span className={`icon ${classNames.join(" ")}`} onClick={props.onClick}>{props.name}</span>;
+        <span className={`icon icon-${props.name} ${classNames.join(" ")}`} onClick={props.onClick}
+            title={props.title}/> :
+        <span className={`icon ${classNames.join(" ")}`} onClick={props.onClick}
+            title={props.title}>{props.name}</span>;
 
 });
 

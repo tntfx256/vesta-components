@@ -1,11 +1,24 @@
 $form-components-label-scale: .8;
 
 .form-wrapper {
+    // border: 1px solid $border-color;
+    border-radius: $border-radius;
+    display: flex;
+    justify-content: center;
+    margin: 20px auto;
+    padding: 20px;
+
+    >form {
+        width: 100%;
+    }
+
     .btn-group {
         margin: auto;
 
         .btn {
+            border-radius: $border-radius;
             height: $form-components-height-large;
+            margin: $form-group-margin;
         }
     }
 }
@@ -21,13 +34,19 @@ $form-components-label-scale: .8;
 
 .form-group {
     display: flex;
-    margin: $form-group-margin;
-    padding: $form-group-padding;
+    margin: 2 * $form-group-margin;
+    // padding: $form-group-padding;
     position: relative;
+    margin-bottom: 2 * $form-group-margin + 12px;
+    max-width: $layout-small-max;
+    min-width: $layout-small-min - 20px;
 
     &.is-dirty {
         >label {
-            transform: scale($form-components-label-scale, $form-components-label-scale) translate3d(-10px, -25px, 0);
+            transform: scale($form-components-label-scale, $form-components-label-scale) translate3d(-$direction-eq * 10px, -15px, 0);
+            transition: transform $transition-duration-default $transition-effect-default, background-color 100ms 150ms;
+            background: $white;
+            line-height: 20px;
         }
     }
 
@@ -40,32 +59,35 @@ $form-components-label-scale: .8;
         pointer-events: none;
         position: absolute;
         text-align: end;
-        top: floor(3 * $form-control-padding / 2);
-        transition: transform $transition-duration-default $transition-effect-default;
+        top: 0;
+        transition: transform $transition-duration-default $transition-effect-default, background-color 100ms;
         vertical-align: bottom;
         white-space: nowrap;
+        background: rgba(255, 255, 255, 0);
     }
 
     &.has-error {
         .form-control {
-            border-bottom-color: $color-error;
+            border-color: $color-error;
         }
     }
 }
 
 .form-control {
-    background-color: transparent;
-    border: 1px solid transparent;
-    border-bottom-color: $border-color;
+    background: transparent;
+    border: 1px solid $border-color;
+    border-radius: $border-radius;
     font-size: $form-control-font-size;
     flex: 1;
     height: $form-components-height;
+    line-height: $form-components-height;
     outline: 0;
-    padding: $form-control-padding 0 0 1px;
+    padding: 0 $form-control-padding;
+    transition: border-color $transition-duration-default $transition-effect-default;
 
     &:focus {
-        border-bottom-color: $color-primary;
-        transition: border-bottom-color $transition-duration-default $transition-effect-default;
+        background: $white;
+        border-color: $yellow;
     }
 }
 

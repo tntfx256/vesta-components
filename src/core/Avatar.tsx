@@ -1,5 +1,4 @@
 import React, { ComponentType, MouseEvent, SyntheticEvent, useEffect, useState } from "react";
-import { withTheme } from "theming";
 import { IComponentProps } from "../BaseComponent";
 
 export interface IAvatarProps extends IComponentProps {
@@ -8,7 +7,7 @@ export interface IAvatarProps extends IComponentProps {
     onClick?: (e: MouseEvent<HTMLElement>) => void;
 }
 
-export const Avatar: ComponentType<IAvatarProps> = withTheme((props: IAvatarProps) => {
+export const Avatar: ComponentType<IAvatarProps> = (props: IAvatarProps) => {
     let loadDefault = false;
     let faileCount = 0;
 
@@ -41,4 +40,4 @@ export const Avatar: ComponentType<IAvatarProps> = withTheme((props: IAvatarProp
             props.onClick(e);
         }
     }
-});
+}

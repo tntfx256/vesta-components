@@ -9,6 +9,7 @@ export interface IAutocompleteProps extends IComponentProps, IFromControlProps {
     titleKey?: string;
     valueKey?: string;
     onSearch: (term: string) => Promise<any[]>;
+    render?: (r: any) => any;
 }
 
 interface IAutocompleteState {
@@ -53,7 +54,7 @@ export class Autocomplete extends Component<IAutocompleteProps, IAutocompleteSta
             <div className={`form-group autocomplete-input ${classNames}`}>
                 <label htmlFor={name}>{label}</label>
                 <input className="form-control" onChange={this.onChange} onKeyDown={this.onKeyDown}
-                    value={inputValue} name={name} />
+                    value={inputValue} name={name} autoComplete="off" />
                 {list}
                 {selectedItems}
                 <p className="form-error">{error || ""}</p>
@@ -140,7 +141,7 @@ export class Autocomplete extends Component<IAutocompleteProps, IAutocompleteSta
         const menuItems = (items || []).map((item, index) => {
             const className = index === menuIndex ? "has-hover" : "";
             return <a className={`list-item ${className}`} onClick={this.onItemSelect(index)}
-                key={index}>{item[titleKey as string]}</a>;
+                key={index}>{this.props.render ? this.props.render(item) : item[titleKey as string]}</a>;
         });
         return (
             <div className="list-wrapper form-control">
@@ -172,7 +173,7 @@ export class Autocomplete extends Component<IAutocompleteProps, IAutocompleteSta
         if (multi) {
             let found = false;
             for (let i = 0, il = this.selectedItems.length; i < il; ++i) {
-                if (this.selectedItems[i][valueKey as string] == selectedItem[valueKey as string]) {
+                if (this.selectedItems[i][valueKey as string] === selectedItem[valueKey as string]) {
                     found = true;
                     break;
                 }

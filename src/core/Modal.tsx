@@ -1,8 +1,7 @@
-import { ITheme } from "@vesta/theme";
 import React, { ComponentType, MouseEvent, useEffect } from "react";
 import ReactCSSTransitionGroup from "react-addons-css-transition-group";
-import { withTheme } from "theming";
 import { IComponentProps, IWithTransition } from "../BaseComponent";
+import { getTheme } from "../util";
 
 export interface IModalProps extends IComponentProps, IWithTransition {
     show: boolean;
@@ -11,14 +10,14 @@ export interface IModalProps extends IComponentProps, IWithTransition {
     onClick?: (e: MouseEvent<HTMLElement>) => void;
 }
 
-export const Modal: ComponentType<IModalProps> = withTheme((props: IModalProps) => {
+export const Modal: ComponentType<IModalProps> = (props: IModalProps) => {
     (Modal as any).count = 0;
-    const duration = (props.theme as ITheme).timing.Default;
+    const duration = getTheme().timing.Default;
     let isOpen = false;
 
     useEffect(() => {
         return () => updateStatus(false);
-    });
+    }, []);
 
     const { enter = duration, leave = duration } = props;
 
@@ -64,4 +63,4 @@ export const Modal: ComponentType<IModalProps> = withTheme((props: IModalProps) 
             onClick(e);
         }
     }
-});
+}

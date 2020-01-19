@@ -1,23 +1,19 @@
+import { ITheme } from "@vesta/theme";
 import React, { ComponentType, MouseEvent } from "react";
-import { RouteComponentProps, withRouter } from "react-router";
-import { withTheme } from "theming";
 import { IComponentProps } from "../BaseComponent";
 import { Burger } from "./Burger";
 
-// export enum NavbarMainButtonType { Burger = 1, Back, Close }
-
-interface INavbarParams { }
-
-export interface INavbarProps extends IComponentProps, RouteComponentProps<INavbarParams> {
+export interface INavbarProps extends IComponentProps {
     className?: string;
     backLink?: string;
     title?: string;
+    theme?: NonNullable<ITheme>;
     onBack?: (e: MouseEvent<HTMLElement>) => void;
     onClose?: (e: MouseEvent<HTMLElement>) => void;
     onBurgerClick?: (e: MouseEvent<HTMLElement>) => void;
 }
 
-const NavBar: ComponentType<INavbarProps> = withTheme((props: INavbarProps) => {
+export const Navbar: ComponentType<INavbarProps> = (props: INavbarProps) => {
 
     let btnClassName = "";
     if (props.onClose) {
@@ -29,7 +25,9 @@ const NavBar: ComponentType<INavbarProps> = withTheme((props: INavbarProps) => {
 
     return (
         <div className={`navbar ${props.className}`}>
+
             <Burger className={`nav-btn ${btnClassName}`} onClick={onClick} />
+
             <p className="navbar-title">{props.title || ""}</p>
             <div className="navbar-btn-group">
                 {props.children}
@@ -47,13 +45,12 @@ const NavBar: ComponentType<INavbarProps> = withTheme((props: INavbarProps) => {
         if (props.onBack) {
             return props.onBack(e);
         }
-        if (props.backLink) {
-            return props.history.replace(props.backLink);
-            }
+        // if (props.backLink) {
+        //     return props.history.replace(props.backLink);
+        // }
         if (props.onBurgerClick) {
             props.onBurgerClick(e);
         }
     }
-});
+}
 
-export const Navbar = withRouter(NavBar as ComponentType<INavbarProps>);

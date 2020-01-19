@@ -40,12 +40,9 @@ export class MessageBox extends PureComponent<IMessageBoxProps, IMessageBoxState
         // }
 
         return (
-            <Dialog show={show} title={title} className={`msg-box msg-box-${type}`}>
+            <Dialog show={show} title={title} className={`msg-box msg-box-${type}`} actions={messageBoxBtns || actions}>
                 <div className="msg-box-content">
                     {children}
-                </div>
-                <div className="btn-group">
-                    {actions}
                 </div>
             </Dialog>
         );
@@ -77,7 +74,7 @@ export class MessageBox extends PureComponent<IMessageBoxProps, IMessageBoxState
             case MessageBoxBtnGroup.YesNo:
                 return [
                     this.renderButton(1, MessageBoxBtn.Yes, "primary", "", "yes"),
-                    this.renderButton(2, MessageBoxBtn.No, "", "outline", "yes"),
+                    this.renderButton(2, MessageBoxBtn.No, "", "outline", "no"),
                 ];
             default:
                 return [

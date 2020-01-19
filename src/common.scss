@@ -13,6 +13,7 @@
 @import 'form/Select';
 @import 'form/TextArea';
 @import 'form/TextInput';
+@import 'form/Wysiwyg';
 
 @import 'core/Actionsheet';
 @import 'core/Alert';
@@ -24,6 +25,7 @@
 @import 'core/DatePicker';
 @import 'core/Dialog';
 @import 'core/Dropdown';
+@import 'core/FileManager';
 @import 'core/FloatingButton';
 @import 'core/FormWrapper';
 @import 'core/Grid';
@@ -38,6 +40,4 @@
 @import 'core/ToastMessage';
 
 @import 'complex/ButtonGroup';
-@import 'complex/FileManager';
 @import 'complex/Tab';
-@import 'complex/Wysiwyg';

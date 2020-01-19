@@ -37,12 +37,9 @@ $dialog-border-radius: $border-radius;
 
     >.dialog-footer {
         border-top: 1px solid $border-color;
-        text-align: end;
-
-        .btn-group {
             display: flex;
             justify-content: flex-end;
-        }
+        text-align: end;
 
         .btn {
             border-radius: $border-radius;

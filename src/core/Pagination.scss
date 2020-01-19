@@ -1,25 +1,36 @@
-$pagination-input-width: 64px;
+// $pagination-input-width: 64px;
 
 .pagination {
+    align-items: baseline;
     background: $white;
-    border-bottom-left-radius: $border-radius;
-    border-bottom-right-radius: $border-radius;
-    text-align: center;
-    white-space: nowrap;
+    // border-bottom-left-radius: $border-radius;
+    // border-bottom-right-radius: $border-radius;
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: center;
+    padding: 10px;
+    width: 100%;
+    // text-align: center;
+    // white-space: nowrap;
 
-    form {
-        display: inline-block;
+    // form {
+    //     display: inline-block;
 
-        input {
-            background: $white;
-            border: 1px solid $border-color;
-            border-radius: 0;
-            text-align: center;
-            width: $pagination-input-width;
-        }
-    }
+    //     input {
+    //         background: $white;
+    //         border: 1px solid $border-color;
+    //         border-radius: 0;
+    //         text-align: center;
+    //         width: $pagination-input-width;
+    //     }
+    // }
 
     .btn {
         min-width: 32px;
+        margin: 0 10px;
+    }
+
+    .form-group {
+        margin: 0px 8px;
     }
 }

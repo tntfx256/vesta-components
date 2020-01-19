@@ -5,6 +5,7 @@ $form-file-input-del-width: 24px;
     input {
         opacity: 0.5;
         position: absolute;
+        margin-top: 6px;
     }
 
     .form-control {
@@ -18,6 +19,14 @@ $form-file-input-del-width: 24px;
             position: relative;
             top: -$form-control-padding;
         }
+    }
+
+    label {
+        transition: transform .15s ease-in-out, background-color .1s .15s, -webkit-transform .15s ease-in-out;
+        background: #fff !important;
+        line-height: 20px !important;
+        transform: scale(.8, .8) translate3d(10px, -15px, 0) !important;
+        z-index: 2;
     }
 
     .thumbnails {

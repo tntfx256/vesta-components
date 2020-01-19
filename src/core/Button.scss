@@ -73,6 +73,12 @@ $btn-group-active-bg: lighten($color-primary, 15%);
         white-space: nowrap;
     }
 
+    .icon {
+        font-size: $font-size-medium;
+        margin-#{$opposite-float}: 5px;
+        cursor: pointer;
+    }
+
     &.btn-outlined {
         @include btn-style-outline($color-default);
     }

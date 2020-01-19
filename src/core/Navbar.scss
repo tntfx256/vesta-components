@@ -1,11 +1,14 @@
-$navbar-bg-color: rgba(0, 0, 0, .65);
+$navbar-bg-color: #2e3757;
+$navbar-bg-image: url("../images/tab_bg.png") no-repeat;
 $navbar-title-margin: 10px;
 $navbar-back-btn-size: $btn-height;
+$navbar-border-radius: get-value-by-direction(0 0 23px 0, 0 0 0 23px);
 
 .navbar {
     //border: 2px solid red;
     align-items: center;
-    background: $navbar-bg-color;
+    background: $navbar-bg-color $navbar-bg-image;
+    background-position: center;
     color: $color-light;
     display: flex;
     height: $appbar-height;
@@ -15,6 +18,7 @@ $navbar-back-btn-size: $btn-height;
     right: 0;
     top: 0;
     z-index: $z-index-navbar;
+    border-radius: $navbar-border-radius;
 
     &.navbar-transparent {
         background: transparent; // make elements under navbar clickable
@@ -32,7 +36,7 @@ $navbar-back-btn-size: $btn-height;
         font-size: $font-size-medium;
         overflow: hidden;
         padding: 0 $navbar-title-margin;
-        text-align: $float;
+        text-align: center;
         text-overflow: ellipsis;
         white-space: nowrap;
     }
@@ -63,5 +67,36 @@ $navbar-back-btn-size: $btn-height;
 
     .navbar-btn {
         cursor: pointer;
+    }
+
+    .logo-wrapper {
+        width: 274px;
+        text-align: center;
+        border-#{$opposite-float}: 1px solid #6b728a;
+
+        img {
+            height: 46px;
+        }
+    }
+
+    .navbar-content-wrapper {
+        display: flex;
+        align-items: center;
+        flex: 1;
+
+        .navbar-profile {
+            display: flex;
+            align-items: center;
+            margin-#{$float}: 10px;
+            font-size: $font-size-small;
+            color: $white;
+
+            img {
+                margin: 0px 10px;
+                width: 33px;
+                height: 33px;
+                border-radius: 50px;
+            }
+        }
     }
 }

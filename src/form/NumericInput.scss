@@ -1,1 +1,5 @@
-.numeric-input {}
+.numeric-input {
+    .form-control {
+        padding-#{$opposite-float}: 0px;
+    }
+}

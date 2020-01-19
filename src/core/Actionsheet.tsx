@@ -1,7 +1,6 @@
 import { ITheme } from "@vesta/theme";
 import React, { ComponentType } from "react";
 import ReactCSSTransitionGroup from "react-addons-css-transition-group";
-import { withTheme } from "theming";
 import { IComponentProps, IWithTransition } from "../BaseComponent";
 
 export interface IAction {
@@ -16,7 +15,7 @@ interface IActionsheetProps extends IComponentProps, IWithTransition {
     onClick?: (item: IAction) => void;
 }
 
-export const Actionsheet: ComponentType<IActionsheetProps> = withTheme((props: IActionsheetProps) => {
+export const Actionsheet: ComponentType<IActionsheetProps> = (props: IActionsheetProps) => {
 
     const duration = (props.theme as ITheme).timing.Default;
     const { enter = duration, leave = duration } = props;
@@ -50,4 +49,4 @@ export const Actionsheet: ComponentType<IActionsheetProps> = withTheme((props: I
             }
         };
     }
-});
+}

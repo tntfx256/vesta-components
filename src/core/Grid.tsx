@@ -1,5 +1,4 @@
 import React, { ComponentType, createRef, RefObject, useEffect } from "react";
-import { withTheme } from "react-jss";
 import { IComponentProps } from "../BaseComponent";
 
 export interface IGridProps extends IComponentProps {
@@ -13,7 +12,7 @@ export interface IGridProps extends IComponentProps {
     flex?: number;
 }
 
-export const Grid: ComponentType<IGridProps> = withTheme((props: IGridProps) => {
+export const Grid: ComponentType<IGridProps> = (props: IGridProps) => {
 
     const grid: RefObject<HTMLDivElement> = createRef();
 
@@ -47,4 +46,4 @@ export const Grid: ComponentType<IGridProps> = withTheme((props: IGridProps) => 
     return (
         <div ref={grid} className={`grid ${classNames.join(" ")}`}>{props.children}</div>
     );
-});
+}

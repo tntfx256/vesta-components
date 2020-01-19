@@ -38,12 +38,14 @@ export const Menu: ComponentType<IMenuProps> = ((props: IMenuProps) => {
     );
 
     function renderMenuItems(routeItems: IMenuItem[], prefix: string) {
-        // const { onClick } = props;
-        let links: ReactNode[] = [];
-        const routeCount = routeItems.length;
-        for (let i = 0, il = routeCount; i < il; ++i) {
+        const links: ReactNode[] = [];
+        for (let i = 0, il = routeItems.length; i < il; ++i) {
             const item: IMenuItem = routeItems[i];
-            if (!item.abstract && !item.hidden) {
+            let childItems = [];
+            if (item.children) {
+                childItems = renderMenuItems(item.children, item.link || "");
+            }
+            if (!item.hidden) {
                 const basePath = prefix ? `/${prefix}` : "";
 
                 const classNames = ["menu-item", item.disabled ? "disabled" : ""];
@@ -51,16 +53,20 @@ export const Menu: ComponentType<IMenuProps> = ((props: IMenuProps) => {
                     (<NavLink to={`${basePath}/${item.link}`} activeClassName="active">
                         <span><Icon name={item.icon as string} /> {item.title}</span>
                     </NavLink>) :
-                    <a data-id={item.id}>{item.icon || null} {item.title}</a>;
+                    <a data-id={item.id}><span><Icon name={item.icon as string} /> {item.title}</span></a>;
+
+                if (item.children) {
+                    classNames.push("has-children menu-hidden");
+                }
+
                 links.push(
                     <li data-id={item.id} key={keyCounter++} className={classNames.join(" ")}
                         onClick={onItemClick}>
                         {itemComponent}
+                        {childItems.length ? <ul>{childItems}</ul> : null}
                     </li>);
             }
-            if (item.children) {
-                links = links.concat(renderMenuItems(item.children, item.link || ""));
-            }
+
         }
         return links;
     }
@@ -68,6 +74,10 @@ export const Menu: ComponentType<IMenuProps> = ((props: IMenuProps) => {
     function onItemClick(e: MouseEvent<HTMLElement>) {
         e.preventDefault();
         e.stopPropagation();
+        const element = e.currentTarget;
+        if (element.classList.contains("has-children")) {
+            return element.classList.toggle("menu-hidden");
+        }
         const id = e.currentTarget.getAttribute("data-id");
         const { onItemSelect } = props;
         if (onItemSelect) {

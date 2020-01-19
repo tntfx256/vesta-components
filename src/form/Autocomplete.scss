@@ -19,14 +19,18 @@ $autocomplete-clear-btn-size: 24px;
         padding: 0;
         position: absolute;
         top: $autocomplete-list-top-offset;
-        width: 80%;
+        width: 180px;
         z-index: $z-index-content;
+        height: auto;
+        max-height: 400px;
+        overflow: auto;
+        box-shadow: 0 0 4px #adadad;
     }
 
     .list-item {
         //border: 1px solid blue;
         background: $element-background;
-        border: 1px solid $border-color;
+        border: 1px solid lighten($border-color,20);
         border-bottom: 0;
         cursor: pointer;
         display: block;

@@ -21,8 +21,12 @@ export interface IDataTableProps<T> extends IComponentProps {
     records: T[];
     multi?: boolean;
     value?: T[];
+    showIndex?: boolean;
+    inverseSelection?: boolean;
     onPagination?: (option: IQueryOption<T>) => void;
     onSelect?: (records: T[]) => void;
+    firstCustomRows?: (columns?: any[], records?: T[]) => JSX.Element[];
+    lastCustomRows?: (columns?: any[], records?: T[]) => JSX.Element[];
 }
 
 export const DataTable: ComponentType<IDataTableProps<any>> = (props: IDataTableProps<any>) => {
@@ -31,8 +35,8 @@ export const DataTable: ComponentType<IDataTableProps<any>> = (props: IDataTable
     const header = createHeader();
     const rows = createRows();
     const paginationComponent = props.pagination ? (
-        <Pagination totalRecords={total} currentPage={page} fetch={onPaginationChange}
-                recordsPerPage={limit} />) : null;
+        <Pagination total={total} page={page} fetch={onPaginationChange}
+            limit={limit} />) : null;
         return (
             <div>
                 <div className="data-table">
@@ -46,31 +50,55 @@ export const DataTable: ComponentType<IDataTableProps<any>> = (props: IDataTable
         );
 
     function createHeader() {
-        const isAllselected = props.value.length === props.records.length;
+        const { value, records = [], showIndex } = props;
+        const isAllselected = value && value.length === records.length;
         const selectAll = props.multi ? (
-            <th key={0}><input type="checkbox" onChange={onSelectAllChange} checked={isAllselected} /></th>
+            <th key={0}><input
+                type="checkbox"
+                onChange={onSelectAllChange}
+                checked={props.inverseSelection ? !isAllselected : isAllselected}
+            /></th>
         ) : null;
+        const index = showIndex ? <th key={1}>#</th> : null;
         const headerCells = props.columns.map((col, i) => {
-            return <th key={i + 1}>{col.title || col.name}</th>;
+            return <th key={showIndex ? i + 2 : i + 1}>{col.title || col.name}</th>;
         });
-        return <tr>{selectAll}{headerCells}</tr>;
+        return <tr>{selectAll}{index}{headerCells}</tr>;
     }
 
     function createRows() {
-        const { records, columns, multi, value: selection } = props;
-        return records.map((r: any, i) => {
+        const { records = [], columns, multi, value: selection, showIndex } = props;
+        let counter = ((page - 1) * limit) + 1;
+
+        const dataRows = records.map((r: any, i) => {
             const cells = columns.map((c, j) => (
-                <td key={j + 1}>{c.render ? c.render(r) : r[c.name as string]}</td>
+                <td key={showIndex ? j + 2 : j + 1}>{c.render ? c.render(r) : r[c.name as string]}</td>
             ));
             const isSelected = indexOf(r) >= 0;
+            if (showIndex) {
+                cells.unshift(
+                    <td key={1}>
+                        {counter++}
+                    </td>);
+            }
             if (multi) {
                 cells.unshift(
                     <td key={0}>
-                        <input type="checkbox" checked={isSelected} readOnly={true} />
+                        <input
+                            type="checkbox"
+                            onClick={onRowSelect(i)}
+                            checked={props.inverseSelection ? !isSelected : isSelected}
+                            readOnly={true} />
                     </td>);
             }
-            return <tr className={isSelected ? "selected" : ""} key={i + 1} onClick={onRowSelect(i)}>{cells}</tr>;
+            return <tr className={isSelected ? "selected" : ""} key={i + 1}>{cells}</tr>;
         });
+
+        return [
+            ...(props.firstCustomRows ? props.firstCustomRows(columns, props.records) : []),
+            ...dataRows,
+            ...(props.lastCustomRows ? props.lastCustomRows(columns, props.records) : []),
+        ];
     }
 
     function onPaginationChange(page: number, limit: number) {
@@ -116,5 +144,6 @@ export const DataTable: ComponentType<IDataTableProps<any>> = (props: IDataTable
 
 DataTable.defaultProps = {
     key: "id",
+    showIndex: false,
     value: [],
 };

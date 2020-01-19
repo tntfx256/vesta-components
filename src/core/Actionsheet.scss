@@ -19,8 +19,8 @@ $actionsheet-item-padding: 15px;
         cursor: pointer;
         padding: $actionsheet-item-padding;
 
-        & + .action-item {
-            border-top: 1px solid $border-color;            
+        &+.action-item {
+            border-top: 1px solid $border-color;
         }
     }
 }

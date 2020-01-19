@@ -1,12 +1,19 @@
 $menu-z-index: $z-index-header;
 $menu-item-padding-horizontal: 3px 5px;
 $menu-item-padding-vertical: 8px 8px 8px 5px;
+$menu-item-indent-padding: 10 * $unit;
 $menu-item-hover-bg: $silver;
 $menu-item-hover-text: $white;
 
 .menu {
     position: relative;
     z-index: $menu-z-index;
+
+    .menu-item.has-children{
+        ul{
+            background: #fafafa;
+        }
+    }
 
     li {
         // border: 1px solid $red;
@@ -35,30 +42,53 @@ $menu-item-hover-text: $white;
     }
 
     &.menu-vr {
-        li {
-            border-top: 1px solid $border-color;
+        .has-children {
+            position: relative;
 
-            &:first-child {
-                border-top: 0;
+            &:after {
+                position: absolute;
+                font-family: 'Material Icons';
+                content: 'keyboard_arrow_down';
+                width: 10px;
+                height: 10px;
+                #{$opposite-float}: 20px;
+                top: 10px;
+                font-size: 24px
             }
 
-            &.disabled {
-                a {
-                    color: $grey;
+            &.menu-hidden {
+                &:after {
+                    content: 'keyboard_arrow_left';
+            }
+
+                ul {
+                    display: none;
+                }
                 }
             }
 
-            &:not(.disabled) {
-                a {
+        li {
+            border-top: 1px solid $border-color;
 
+            li {
+                padding-#{$float}: $menu-item-indent-padding;
                     &:hover {
                         background: $menu-item-hover-bg;
                         color: $menu-item-hover-text;
                         transition: background linear $transition-duration-default, color linear $transition-duration-default floor($transition-duration-default/2);
                     }
                 }
-            }
 
+            // &:first-child {
+            //     border-top: 0;
+            // }
+
+            &.disabled {
+                a {
+                    color: $grey;
+            }
+            }
+            
             a {
                 padding: $menu-item-padding-vertical;
             }

@@ -52,7 +52,7 @@ export class Select extends PureComponent<ISelectProps, IEmptyState> {
 
     private onChange = (e: ChangeEvent<HTMLSelectElement>) => {
         const { name, onChange, options, valueKey, readonly } = this.props;
-        // -1 is because of nuulValue at index 0
+        // -1 is because of nullValue at index 0
         const index = +e.target.value;
         const item = options[index];
         if (onChange && !readonly) {

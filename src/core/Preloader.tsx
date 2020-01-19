@@ -18,7 +18,7 @@ export class Preloader extends PureComponent<IPreloaderProps, IPreloaderState> {
         if (!Preloader.instance) { return; }
         Preloader.instance.hide();
         Preloader.counter = force ? 0 : Preloader.counter - 1;
-        const wrapper = document.getElementById("content-wrapper");
+        const wrapper = document.getElementById("main-wrapper");
         wrapper.classList.remove("preloader-open");
         if (Preloader.counter < 0) {
             Preloader.counter = 0;
@@ -29,7 +29,7 @@ export class Preloader extends PureComponent<IPreloaderProps, IPreloaderState> {
         if (!Preloader.instance) { return; }
         Preloader.counter++;
         Preloader.instance.show(title, message);
-        const wrapper = document.getElementById("content-wrapper");
+        const wrapper = document.getElementById("main-wrapper");
         if (!wrapper.classList.contains("preloader-open")) {
             wrapper.classList.add("preloader-open");
         }

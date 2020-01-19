@@ -3,19 +3,18 @@ import React, { PureComponent } from "react";
 import { IComponentProps } from "../BaseComponent";
 import { IFromControlProps } from "../core/FormWrapper";
 
-
-interface IFormFileInputProps extends IComponentProps, IFromControlProps {
+export interface IFileInputProps extends IComponentProps, IFromControlProps {
     accept?: string;
     multiple?: boolean;
     value?: string | File | Array<string | File>;
 }
 
-interface IFormFileInputState {
+interface IFileInputState {
 }
 
-export class FormFileInput extends PureComponent<IFormFileInputProps, IFormFileInputState> {
+export class FileInput extends PureComponent<IFileInputProps, IFileInputState> {
 
-    constructor(props: IFormFileInputProps) {
+    constructor(props: IFileInputProps) {
         super(props);
         this.state = {};
     }

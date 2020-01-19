@@ -16,7 +16,7 @@ export class NumericInput extends PureComponent<INumericInputProps, IEmptyState>
 
     public render() {
         const { label, name, value, step, error, size } = this.props;
-        const displayValue = this.format(value || "");
+        const displayValue = this.format(value);
         const classNames = extractClassNames(this.props, { value: "is-dirty", error: "has-error" });
         const attrs: InputHTMLAttributes<HTMLInputElement> = {};
         if (step) {
@@ -27,17 +27,18 @@ export class NumericInput extends PureComponent<INumericInputProps, IEmptyState>
         }
 
         return (
-            <div className={`form-group numeric-input ${error ? "has-error" : ""}`}>
+            <div className={`form-group numeric-input ${classNames} ${error ? "has-error" : ""}`}>
                 <label htmlFor={name}>{label}</label>
-                <input {...attrs} name={name} type="number" value={displayValue} onChange={this.onChange} />
+                <input {...attrs} className="form-control" name={name} type="number" value={displayValue}
+                    onChange={this.onChange} />
                 <p className="form-error">{error || ""}</p>
             </div>
         );
     }
 
     private format(value: string | number): string {
-        if (!value) {
-            return value.toString();
+        if (!value && value !== 0) {
+            return "";
         }
         return this.props.format ? (+value).toLocaleString() : value as string;
     }
