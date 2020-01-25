@@ -1,16 +1,16 @@
-$crud-menu-top-offset: $appbar-height;
-$crud-menu-side-offset: 10px;
-$crud-menu-z-index: $z-index-content;
+$crud-menu-top-offset: $appbar-height !default;
+$crud-menu-side-offset: 10px !default;
+$crud-menu-z-index: $z-index-content !default;
 
 .crud-menu-component {
-    #{$opposite-float}: $crud-menu-side-offset;
-    position: absolute;
-    text-align: end;
-    top: $crud-menu-top-offset;
-    z-index: $crud-menu-z-index;
+  #{$opposite-float}: $crud-menu-side-offset;
+  position: absolute;
+  text-align: end;
+  top: $crud-menu-top-offset;
+  z-index: $crud-menu-z-index;
 
-    li {
-        display: inline-block;
-        margin: 5px 10px;
-    }
+  li {
+    display: inline-block;
+    margin: 5px 10px;
+  }
 }

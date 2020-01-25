@@ -1,100 +1,100 @@
-$form-components-label-scale: .8;
+$form-components-label-scale: 0.8 !default;
 
 .form-wrapper {
-    // border: 1px solid $border-color;
-    border-radius: $border-radius;
-    display: flex;
-    justify-content: center;
-    margin: 20px auto;
-    padding: 20px;
+  // border: 1px solid $border-color;
+  border-radius: $border-radius;
+  display: flex;
+  justify-content: center;
+  margin: 20px auto;
+  padding: 20px;
 
-    >form {
-        width: 100%;
+  > form {
+    width: 100%;
+  }
+
+  .btn-group {
+    margin: auto;
+
+    .btn {
+      border-radius: $border-radius;
+      height: $form-components-height-large;
+      margin: $form-group-margin;
     }
-
-    .btn-group {
-        margin: auto;
-
-        .btn {
-            border-radius: $border-radius;
-            height: $form-components-height-large;
-            margin: $form-group-margin;
-        }
-    }
+  }
 }
 
 .form-error {
-    #{$opposite-float}: $form-control-padding;
-    color: $color-error;
-    font-size: $font-size-xsmall;
-    position: absolute;
-    text-align: end;
-    top: $form-components-height - 6;
+  #{$opposite-float}: $form-control-padding;
+  color: $color-error;
+  font-size: $font-size-xsmall;
+  position: absolute;
+  text-align: end;
+  top: $form-components-height - 6;
 }
 
 .form-group {
-    display: flex;
-    margin: 2 * $form-group-margin;
-    // padding: $form-group-padding;
-    position: relative;
-    margin-bottom: 2 * $form-group-margin + 12px;
-    max-width: $layout-small-max;
-    min-width: $layout-small-min - 20px;
+  display: flex;
+  margin: 2 * $form-group-margin;
+  // padding: $form-group-padding;
+  position: relative;
+  margin-bottom: 2 * $form-group-margin + 12px;
+  max-width: $layout-small-max;
+  min-width: $layout-small-min - 20px;
 
-    &.is-dirty {
-        >label {
-            transform: scale($form-components-label-scale, $form-components-label-scale) translate3d(-$direction-eq * 10px, -15px, 0);
-            transition: transform $transition-duration-default $transition-effect-default, background-color 100ms 150ms;
-            background: $white;
-            line-height: 20px;
-        }
+  &.is-dirty {
+    > label {
+      transform: scale($form-components-label-scale, $form-components-label-scale) translate3d(-$direction-eq * 10px, -15px, 0);
+      transition: transform $transition-duration-default $transition-effect-default, background-color 100ms 150ms;
+      background: $white;
+      line-height: 20px;
     }
+  }
 
-    label {
-        #{$float}: 0;
-        color: $color-default;
-        font-size: $form-control-font-size;
-        line-height: $form-components-height;
-        padding: 0 $form-control-padding;
-        pointer-events: none;
-        position: absolute;
-        text-align: end;
-        top: 0;
-        transition: transform $transition-duration-default $transition-effect-default, background-color 100ms;
-        vertical-align: bottom;
-        white-space: nowrap;
-        background: rgba(255, 255, 255, 0);
-    }
+  label {
+    #{$float}: 0;
+    color: $color-default;
+    font-size: $form-control-font-size;
+    line-height: $form-components-height;
+    padding: 0 $form-control-padding;
+    pointer-events: none;
+    position: absolute;
+    text-align: end;
+    top: 0;
+    transition: transform $transition-duration-default $transition-effect-default, background-color 100ms;
+    vertical-align: bottom;
+    white-space: nowrap;
+    background: rgba(255, 255, 255, 0);
+  }
 
-    &.has-error {
-        .form-control {
-            border-color: $color-error;
-        }
+  &.has-error {
+    .form-control {
+      border-color: $color-error;
     }
+  }
 }
 
 .form-control {
-    background: transparent;
-    border: 1px solid $border-color;
-    border-radius: $border-radius;
-    font-size: $form-control-font-size;
-    flex: 1;
-    height: $form-components-height;
-    line-height: $form-components-height;
-    outline: 0;
-    padding: 0 $form-control-padding;
-    transition: border-color $transition-duration-default $transition-effect-default;
+  background: transparent;
+  border: 1px solid $border-color;
+  border-radius: $border-radius;
+  font-size: $form-control-font-size;
+  flex: 1;
+  height: $form-components-height;
+  line-height: $form-components-height;
+  outline: 0;
+  padding: 0 $form-control-padding;
+  transition: border-color $transition-duration-default $transition-effect-default;
 
-    &:focus {
-        background: $white;
-        border-color: $yellow;
-    }
+  &:focus {
+    background: $white;
+    border-color: $yellow;
+  }
 }
 
 body {
-    &.shrink-view {
-        .stick-btm {
-            @include scale(0);
-        }
+  &.shrink-view {
+    .stick-btm {
+      @include scale(0);
     }
+  }
 }

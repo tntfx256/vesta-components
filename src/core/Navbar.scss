@@ -1,102 +1,99 @@
-$navbar-bg-color: #2e3757;
-$navbar-bg-image: url("../images/tab_bg.png") no-repeat;
-$navbar-title-margin: 10px;
-$navbar-back-btn-size: $btn-height;
-$navbar-border-radius: get-value-by-direction(0 0 23px 0, 0 0 0 23px);
+$navbar-bg-color: $color-primary !default;
+$navbar-title-margin: 10px !default;
+$navbar-back-btn-size: $btn-height !default;
 
 .navbar {
-    //border: 2px solid red;
-    align-items: center;
-    background: $navbar-bg-color $navbar-bg-image;
-    background-position: center;
-    color: $color-light;
-    display: flex;
-    height: $appbar-height;
-    left: 0;
-    padding: $appbar-padding;
-    position: fixed;
-    right: 0;
-    top: 0;
-    z-index: $z-index-navbar;
-    border-radius: $navbar-border-radius;
+  //border: 2px solid red;
+  align-items: center;
+  background: $navbar-bg-color;
+  background-position: center;
+  color: $color-light;
+  display: flex;
+  height: $appbar-height;
+  left: 0;
+  padding: $appbar-padding;
+  position: fixed;
+  right: 0;
+  top: 0;
+  z-index: $z-index-navbar;
 
-    &.navbar-transparent {
-        background: transparent; // make elements under navbar clickable
-        pointer-events: none;
-
-        .navbar-btn {
-            pointer-events: auto;
-        }
-    }
-
-    .navbar-title {
-        // $navbar-title-back-margin: floor(2 * $navbar-title-margin / 3);
-        color: $white;
-        flex: 1;
-        font-size: $font-size-medium;
-        overflow: hidden;
-        padding: 0 $navbar-title-margin;
-        text-align: center;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-    }
-
-    .navbar-btn-group {
-        position: absolute;
-        #{$opposite-float}: $header-padding;
-
-        .btn {
-            background: transparent;
-            border: 0;
-            cursor: pointer;
-            min-width: auto;
-
-            .icon {
-                top: 0;
-            }
-        }
-
-        .icon {
-            color: $white;
-            cursor: pointer;
-            font-size: floor(1.6 * $font-size-medium);
-            position: relative;
-            top: 3px;
-        }
-    }
+  &.navbar-transparent {
+    background: transparent; // make elements under navbar clickable
+    pointer-events: none;
 
     .navbar-btn {
-        cursor: pointer;
+      pointer-events: auto;
+    }
+  }
+
+  .navbar-title {
+    // $navbar-title-back-margin: floor(2 * $navbar-title-margin / 3);
+    color: $white;
+    flex: 1;
+    font-size: $font-size-medium;
+    overflow: hidden;
+    padding: 0 $navbar-title-margin;
+    text-align: center;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .navbar-btn-group {
+    position: absolute;
+    #{$opposite-float}: $header-padding;
+
+    .btn {
+      background: transparent;
+      border: 0;
+      cursor: pointer;
+      min-width: auto;
+
+      .icon {
+        top: 0;
+      }
     }
 
-    .logo-wrapper {
-        width: 274px;
-        text-align: center;
-        border-#{$opposite-float}: 1px solid #6b728a;
-
-        img {
-            height: 46px;
-        }
+    .icon {
+      color: $white;
+      cursor: pointer;
+      font-size: floor(1.6 * $font-size-medium);
+      position: relative;
+      top: 3px;
     }
+  }
 
-    .navbar-content-wrapper {
-        display: flex;
-        align-items: center;
-        flex: 1;
+  .navbar-btn {
+    cursor: pointer;
+  }
 
-        .navbar-profile {
-            display: flex;
-            align-items: center;
-            margin-#{$float}: 10px;
-            font-size: $font-size-small;
-            color: $white;
+  .logo-wrapper {
+    width: 274px;
+    text-align: center;
+    border-#{$opposite-float}: 1px solid #6b728a;
 
-            img {
-                margin: 0px 10px;
-                width: 33px;
-                height: 33px;
-                border-radius: 50px;
-            }
-        }
+    img {
+      height: 46px;
     }
+  }
+
+  .navbar-content-wrapper {
+    display: flex;
+    align-items: center;
+    flex: 1;
+
+    .navbar-profile {
+      display: flex;
+      align-items: center;
+      margin-#{$float}: 10px;
+      font-size: $font-size-small;
+      color: $white;
+
+      img {
+        margin: 0px 10px;
+        width: 33px;
+        height: 33px;
+        border-radius: 50px;
+      }
+    }
+  }
 }

@@ -1,74 +1,74 @@
-$actionsheet-transition-enter-duration: $transition-duration-default;
-$actionsheet-transition-leave-duration: floor(2 * $transition-duration-default / 3);
-$actionsheet-transition-effect: $transition-effect-default;
-$actionsheet-bg-color: transparentize($color-light, .1);
-$actionsheet-offset: 5%;
-$actionsheet-item-padding: 15px;
+$actionsheet-transition-enter-duration: $transition-duration-default !default;
+$actionsheet-transition-leave-duration: floor(2 * $transition-duration-default / 3) !default;
+$actionsheet-transition-effect: $transition-effect-default !default;
+$actionsheet-bg-color: transparentize($color-light, 0.1) !default;
+$actionsheet-offset: 5% !default;
+$actionsheet-item-padding: 15px !default;
 
 .action-list {
-    background: $actionsheet-bg-color;
-    border-radius: $border-radius $border-radius 0 0;
-    bottom: 0;
-    left: $actionsheet-offset;
-    position: fixed;
-    right: $actionsheet-offset;
-    text-align: center;
-    z-index: $z-index-actionsheet; //border: 1px solid red;
+  background: $actionsheet-bg-color;
+  border-radius: $border-radius $border-radius 0 0;
+  bottom: 0;
+  left: $actionsheet-offset;
+  position: fixed;
+  right: $actionsheet-offset;
+  text-align: center;
+  z-index: $z-index-actionsheet; //border: 1px solid red;
 
-    .action-item {
-        cursor: pointer;
-        padding: $actionsheet-item-padding;
+  .action-item {
+    cursor: pointer;
+    padding: $actionsheet-item-padding;
 
-        &+.action-item {
-            border-top: 1px solid $border-color;
-        }
+    & + .action-item {
+      border-top: 1px solid $border-color;
     }
+  }
 }
 
 .actionsheet-backdrop {
-    background: transparentize($black, .5);
-    bottom: 0;
-    left: 0;
-    opacity: 1;
-    position: fixed;
-    right: 0;
-    top: 0;
-    will-change: opacity;
-    z-index: $z-index-actionsheet - 1;
+  background: transparentize($black, 0.5);
+  bottom: 0;
+  left: 0;
+  opacity: 1;
+  position: fixed;
+  right: 0;
+  top: 0;
+  will-change: opacity;
+  z-index: $z-index-actionsheet - 1;
 }
 
 .actionsheet-enter {
+  .action-list {
+    @include translate3d(0, 100%, 0);
+  }
+
+  .actionsheet-backdrop {
+    opacity: 0.1;
+  }
+
+  &.actionsheet-enter-active {
     .action-list {
-        @include translate3d(0, 100%, 0);
+      @include translate3d(0, 0, 0);
+      transition: transform $actionsheet-transition-enter-duration $actionsheet-transition-effect;
     }
 
     .actionsheet-backdrop {
-        opacity: .1;
+      opacity: 1;
+      transition: opacity $actionsheet-transition-enter-duration $actionsheet-transition-effect;
     }
-
-    &.actionsheet-enter-active {
-        .action-list {
-            @include translate3d(0, 0, 0);
-            transition: transform $actionsheet-transition-enter-duration $actionsheet-transition-effect;
-        }
-
-        .actionsheet-backdrop {
-            opacity: 1;
-            transition: opacity $actionsheet-transition-enter-duration $actionsheet-transition-effect;
-        }
-    }
+  }
 }
 
 .actionsheet-leave {
-    &.actionsheet-leave-active {
-        .action-list {
-            @include translate3d(0, 100%, 0);
-            transition: transform $actionsheet-transition-leave-duration $actionsheet-transition-effect;
-        }
-
-        .actionsheet-backdrop {
-            opacity: .1;
-            transition: opacity $actionsheet-transition-leave-duration $actionsheet-transition-effect;
-        }
+  &.actionsheet-leave-active {
+    .action-list {
+      @include translate3d(0, 100%, 0);
+      transition: transform $actionsheet-transition-leave-duration $actionsheet-transition-effect;
     }
+
+    .actionsheet-backdrop {
+      opacity: 0.1;
+      transition: opacity $actionsheet-transition-leave-duration $actionsheet-transition-effect;
+    }
+  }
 }

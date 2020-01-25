@@ -1,36 +1,36 @@
-$alert-lighten-ratio: 50%;
-$alert-padding: 0 $element-padding;
-$alert-margin: $element-margin;
+$alert-lighten-ratio: 50% !default;
+$alert-padding: 0 $element-padding !default;
+$alert-margin: $element-margin !default;
 
 @mixin alert-style($color) {
-    background-color: lighten($color, $alert-lighten-ratio);
-    border-color: $color;
-    color: $color;
+  background-color: lighten($color, $alert-lighten-ratio);
+  border-color: $color;
+  color: $color;
 }
 
 .alert {
-    border: 1px solid $color-default;
-    border-radius: $border-radius;
-    color: $color-default;
-    font-size: $font-size-small;
-    line-height: $element-height;
-    margin: $alert-margin;
-    min-height: $element-height;
-    padding: $alert-padding;
+  border: 1px solid $color-default;
+  border-radius: $border-radius;
+  color: $color-default;
+  font-size: $font-size-small;
+  line-height: $element-height;
+  margin: $alert-margin;
+  min-height: $element-height;
+  padding: $alert-padding;
 }
 
 .alert-Success {
-    @include alert-style($color-success);
+  @include alert-style($color-success);
 }
 
 .alert-Error {
-    @include alert-style($color-error);
+  @include alert-style($color-error);
 }
 
 .alert-Warning {
-    @include alert-style($color-warning);
+  @include alert-style($color-warning);
 }
 
 .alert-Info {
-    @include alert-style($color-info);
+  @include alert-style($color-info);
 }

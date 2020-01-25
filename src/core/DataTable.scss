@@ -1,85 +1,85 @@
-$dt-bg: $white;
-$dt-border-color: $border-color;
-$dt-border-radius: $border-radius;
-$dt-header-cell-padding: 13px 10px;
-$dt-data-cell-padding: 7px;
+$dt-bg: $white !default;
+$dt-border-color: $border-color !default;
+$dt-border-radius: $border-radius !default;
+$dt-header-cell-padding: 13px 10px !default;
+$dt-data-cell-padding: 7px !default;
 
 @mixin style-table() {
-    background: $dt-bg;
-    border-collapse: collapse;
-    table-layout: auto;
-    width: 100%;
+  background: $dt-bg;
+  border-collapse: collapse;
+  table-layout: auto;
+  width: 100%;
 
-    thead {
-        th {
-            background: none;
-            border: none;
-            border-bottom: 2px solid #ebede7;
-            padding: $dt-header-cell-padding;
-            text-align: center;
-            position: relative;
-            color: #B8BDCC;
-            vertical-align: middle;
-        }
+  thead {
+    th {
+      background: none;
+      border: none;
+      border-bottom: 2px solid #ebede7;
+      padding: $dt-header-cell-padding;
+      text-align: center;
+      position: relative;
+      color: #b8bdcc;
+      vertical-align: middle;
+    }
+  }
+
+  tbody {
+    > tr {
+      //cursor: pointer;
+      //transition: all 200ms linear;
+      //&:nth-child(odd) {
+      //}
+      &:nth-child(even) {
+        background: transparentize($color-light, 0.5);
+      }
+
+      //&:hover {
+      //    background: transparentize($color-dark, .7);
+      //    color: $color-light;
+      //}
+
+      &.selected {
+        background: transparentize($color-primary, 0.8);
+      }
     }
 
-    tbody {
-        >tr {
-
-            //cursor: pointer;
-            //transition: all 200ms linear;
-            //&:nth-child(odd) {
-            //}
-            &:nth-child(even) {
-                background: transparentize($color-light, .5);
-            }
-
-            //&:hover {
-            //    background: transparentize($color-dark, .7);
-            //    color: $color-light;
-            //}
-
-            &.selected {
-                background: transparentize($color-primary, .8);
-            }
-        }
-
-        td, th {
-            border: none;
-            overflow: hidden;
-            padding: $dt-data-cell-padding;
-            position: relative;
-            text-align: center;
-            //white-space: nowrap;
-            //text-overflow: ellipsis;
-        }
-
-        th {
-            text-overflow: ellipsis;
-            white-space: nowrap;
-        }
+    td,
+    th {
+      border: none;
+      overflow: hidden;
+      padding: $dt-data-cell-padding;
+      position: relative;
+      text-align: center;
+      //white-space: nowrap;
+      //text-overflow: ellipsis;
     }
+
+    th {
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+  }
 }
 
 .data-table {
-    border: none;
-    overflow: auto;
+  border: none;
+  overflow: auto;
 
-    >table {
-        @include style-table();
-    }
+  > table {
+    @include style-table();
+  }
 }
 
 .dt-operation-cell {
-    display: flex;
-    flex-wrap: nowrap;
-    justify-content: space-around;
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-around;
 }
 
 .details-table {
-    @include style-table();
+  @include style-table();
 
-    img {
-        max-height: 15vh;
-    }
+  img {
+    max-height: 15vh;
+  }
 }

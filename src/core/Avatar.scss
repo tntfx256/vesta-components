@@ -1,24 +1,24 @@
-$avatar-default-width: 64px;
-$avatar-holder-bg: $color-default;
+$avatar-default-width: 64px !default;
+$avatar-holder-bg: $color-default !default;
 
 .avatar {
-    //align-items: center;
-    border-radius: 50%;
-    display: flex;
-    height: $avatar-default-width;
-    justify-content: center;
-    overflow: hidden;
-    position: relative;
-    width: $avatar-default-width;
+  //align-items: center;
+  border-radius: 50%;
+  display: flex;
+  height: $avatar-default-width;
+  justify-content: center;
+  overflow: hidden;
+  position: relative;
+  width: $avatar-default-width;
 
-    img {
-        height: 100%;
-        width: auto;
-    }
+  img {
+    height: 100%;
+    width: auto;
+  }
 
-    .avatar-holder {
-        background: $avatar-holder-bg;
-        height: 100%;
-        width: 100%;
-    }
+  .avatar-holder {
+    background: $avatar-holder-bg;
+    height: 100%;
+    width: 100%;
+  }
 }

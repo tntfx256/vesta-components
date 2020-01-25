@@ -1,79 +1,79 @@
-$autocomplete-list-top-offset: $element-height;
-$autocomplete-clear-btn-size: 24px;
+$autocomplete-list-top-offset: $element-height !default;
+$autocomplete-clear-btn-size: 24px !default;
 
 .autocomplete-input {
-    position: relative;
+  position: relative;
 
-    &.has-list {
-        input {
-            border-bottom-#{$float}-radius: 0;
-        }
+  &.has-list {
+    input {
+      border-bottom-#{$float}-radius: 0;
+    }
+  }
+
+  // &.is-multi {}
+
+  .list-wrapper {
+    #{$float}: 2px;
+    border: 0;
+    border-radius: 0;
+    padding: 0;
+    position: absolute;
+    top: $autocomplete-list-top-offset;
+    width: 180px;
+    z-index: $z-index-content;
+    height: auto;
+    max-height: 400px;
+    overflow: auto;
+    box-shadow: 0 0 4px #adadad;
+  }
+
+  .list-item {
+    //border: 1px solid blue;
+    background: $element-background;
+    border: 1px solid lighten($border-color, 20);
+    border-bottom: 0;
+    cursor: pointer;
+    display: block;
+    padding: $form-control-padding;
+
+    &.has-hover {
+      background: $color-semidark;
+      color: $white;
     }
 
-    // &.is-multi {}
+    &:last-child {
+      border-bottom: 1px solid $border-color;
+      // border-bottom-left-radius: $border-radius;
+      // border-bottom-right-radius: $border-radius;
+    }
+  }
 
-    .list-wrapper {
-        #{$float}: 2px;
-        border: 0;
-        border-radius: 0;
-        padding: 0;
+  .selected-items {
+    max-width: 50%;
+
+    span {
+      border: 1px solid $border-color;
+      border-radius: $border-radius;
+      cursor: pointer;
+      display: inline-block;
+      margin: 5px;
+      padding: 2px 7px;
+      position: relative;
+      vertical-align: middle;
+
+      &:after {
+        background: $white;
+        border: 1px solid $color-error;
+        border-radius: 50%;
+        color: $color-error;
+        content: "X";
+        height: $autocomplete-clear-btn-size;
+        left: ceil(-$autocomplete-clear-btn-size/2);
         position: absolute;
-        top: $autocomplete-list-top-offset;
-        width: 180px;
-        z-index: $z-index-content;
-        height: auto;
-        max-height: 400px;
-        overflow: auto;
-        box-shadow: 0 0 4px #adadad;
+        text-align: center;
+        top: ceil(-$autocomplete-clear-btn-size/2);
+        width: $autocomplete-clear-btn-size;
+      }
     }
-
-    .list-item {
-        //border: 1px solid blue;
-        background: $element-background;
-        border: 1px solid lighten($border-color, 20);
-        border-bottom: 0;
-        cursor: pointer;
-        display: block;
-        padding: $form-control-padding;
-
-        &.has-hover {
-            background: $color-semidark;
-            color: $white;
-        }
-
-        &:last-child {
-            border-bottom: 1px solid $border-color;
-            // border-bottom-left-radius: $border-radius;
-            // border-bottom-right-radius: $border-radius;
-        }
-    }
-
-    .selected-items {
-        max-width: 50%;
-
-        span {
-            border: 1px solid $border-color;
-            border-radius: $border-radius;
-            cursor: pointer;
-            display: inline-block;
-            margin: 5px;
-            padding: 2px 7px;
-            position: relative;
-            vertical-align: middle;
-
-            &:after {
-                background: $white;
-                border: 1px solid $color-error;
-                border-radius: 50%;
-                color: $color-error;
-                content: 'X';
-                height: $autocomplete-clear-btn-size;
-                left: ceil(-$autocomplete-clear-btn-size/2);
-                position: absolute;
-                text-align: center;
-                top: ceil(-$autocomplete-clear-btn-size/2);
-                width: $autocomplete-clear-btn-size;
-            }
-        }
-    }
+  }
 }

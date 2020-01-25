@@ -1,52 +1,52 @@
-$dialog-background-color: $white;
-$dialog-header-padding: 7px;
-$dialog-padding: 30px;
-$dialog-border-radius: $border-radius;
+$dialog-background-color: $white !default;
+$dialog-header-padding: 7px !default;
+$dialog-padding: 30px !default;
+$dialog-border-radius: $border-radius !default;
 
 .dialog {
-    align-items: center;
-    background: $dialog-background-color;
-    border-radius: $border-radius;
-    min-width: $layout-small-min;
-    overflow: hidden;
-    position: relative;
-    z-index: $z-index-dialog;
+  align-items: center;
+  background: $dialog-background-color;
+  border-radius: $border-radius;
+  min-width: $layout-small-min;
+  overflow: hidden;
+  position: relative;
+  z-index: $z-index-dialog;
 
-    >.dialog-header {
-        border-bottom: 1px solid $border-color;
-        padding: $dialog-header-padding;
+  > .dialog-header {
+    border-bottom: 1px solid $border-color;
+    padding: $dialog-header-padding;
 
-        h3 {
-            font-weight: lighter;
-            white-space: nowrap;
-        }
-
-        .btn {
-            #{$opposite-float}: 0;
-            font-size: $font-size-medium;
-            min-width: 1px;
-            position: absolute;
-            top: 0;
-        }
+    h3 {
+      font-weight: lighter;
+      white-space: nowrap;
     }
 
-    >.dialog-content {
-        flex: 1;
-        padding: $dialog-padding floor($dialog-padding / 2);
+    .btn {
+      #{$opposite-float}: 0;
+      font-size: $font-size-medium;
+      min-width: 1px;
+      position: absolute;
+      top: 0;
     }
+  }
 
-    >.dialog-footer {
-        border-top: 1px solid $border-color;
-            display: flex;
-            justify-content: flex-end;
-        text-align: end;
+  > .dialog-content {
+    flex: 1;
+    padding: $dialog-padding floor($dialog-padding / 2);
+  }
 
-        .btn {
-            border-radius: $border-radius;
-            flex: 1;
-            height: $btn-height-large;
-            margin: $border-radius;
-            max-width: 50%;
-        }
+  > .dialog-footer {
+    border-top: 1px solid $border-color;
+    display: flex;
+    justify-content: flex-end;
+    text-align: end;
+
+    .btn {
+      border-radius: $border-radius;
+      flex: 1;
+      height: $btn-height-large;
+      margin: $border-radius;
+      max-width: 50%;
     }
+  }
 }

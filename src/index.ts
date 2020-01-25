@@ -18,7 +18,6 @@ export * from "./core/Dropdown";
 export * from "./core/FileManager";
 export * from "./core/FloatingButton";
 export * from "./core/FormWrapper";
-export * from "./core/Grid";
 export * from "./core/Html";
 export * from "./core/Icon";
 export * from "./core/Menu";

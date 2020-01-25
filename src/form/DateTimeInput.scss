@@ -1,11 +1,11 @@
 .date-time-input {
-    input {
-        direction: ltr;
-    }
+  input {
+    direction: ltr;
+  }
 
-    .picker-btn {
-        #{$opposite-float}: 4px;
-        position: absolute;
-        top: 4px;
-    }
+  .picker-btn {
+    #{$opposite-float}: 4px;
+    position: absolute;
+    top: 4px;
+  }
 }

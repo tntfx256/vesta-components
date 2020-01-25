@@ -1,130 +1,130 @@
-$btn-padding: $element-padding;
-$btn-border-darken-ratio: 5%;
-$btn-height: $form-components-height;
-$btn-height-large: $form-components-height-large;
-$btn-font-size: $font-size-small;
-$btn-min-width: $element-min-width;
-$btn-border-radius: $border-radius;
-$btn-border-color: $border-color;
-$btn-group-padding: 16px;
-$btn-group-active-bg: lighten($color-primary, 15%);
+$btn-padding: $element-padding !default;
+$btn-border-darken-ratio: 5% !default;
+$btn-height: $form-components-height !default;
+$btn-height-large: $form-components-height-large !default;
+$btn-font-size: $font-size-small !default;
+$btn-min-width: $element-min-width !default;
+$btn-border-radius: $border-radius !default;
+$btn-border-color: $border-color !default;
+$btn-group-padding: 16px !default;
+$btn-group-active-bg: lighten($color-primary, 15%) !default;
 
 @mixin btn-style($color) {
-    color: $color;
+  color: $color;
 
-    &:hover {
-        color: darken($color, $btn-border-darken-ratio);
-        transition: all $transition-duration-short;
-    }
+  &:hover {
+    color: darken($color, $btn-border-darken-ratio);
+    transition: all $transition-duration-short;
+  }
 }
 
 @mixin btn-style-outline($color) {
-    border-color: $color;
-    color: $color;
+  border-color: $color;
+  color: $color;
 
-    &:hover {
-        border-color: darken($color, $btn-border-darken-ratio);
-        color: darken($color, $btn-border-darken-ratio);
-        transition: all $transition-duration-short;
-    }
+  &:hover {
+    border-color: darken($color, $btn-border-darken-ratio);
+    color: darken($color, $btn-border-darken-ratio);
+    transition: all $transition-duration-short;
+  }
 }
 
 @mixin btn-style-contained($background-color, $text-color) {
-    background: $background-color;
-    border-color: darken($background-color, $btn-border-darken-ratio);
-    color: $text-color;
+  background: $background-color;
+  border-color: darken($background-color, $btn-border-darken-ratio);
+  color: $text-color;
 
-    &:hover {
-        $hover-bg: darken($background-color, $btn-border-darken-ratio);
-        background: $hover-bg;
-        border-color: darken($hover-bg, $btn-border-darken-ratio);
-        transition: all $transition-duration-short;
-    }
+  &:hover {
+    $hover-bg: darken($background-color, $btn-border-darken-ratio);
+    background: $hover-bg;
+    border-color: darken($hover-bg, $btn-border-darken-ratio);
+    transition: all $transition-duration-short;
+  }
 }
 
 @mixin btn-size($height, $font-size) {
-    font-size: $font-size;
-    height: $height;
-    line-height: $height;
+  font-size: $font-size;
+  height: $height;
+  line-height: $height;
 }
 
 .btn {
-    @include btn-style($color-default);
-    background: transparent;
-    border: 1px solid transparent;
-    border-radius: $btn-border-radius;
-    color: $color-primary;
-    cursor: pointer;
-    display: flex;
-    font-size: $btn-font-size;
-    height: $btn-height;
-    justify-content: center;
-    min-width: $btn-min-width;
-    outline: 0;
-    padding: 0 $btn-padding;
-    text-align: center;
-    user-select: none;
-    vertical-align: middle;
+  @include btn-style($color-default);
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: $btn-border-radius;
+  color: $color-primary;
+  cursor: pointer;
+  display: flex;
+  font-size: $btn-font-size;
+  height: $btn-height;
+  justify-content: center;
+  min-width: $btn-min-width;
+  outline: 0;
+  padding: 0 $btn-padding;
+  text-align: center;
+  user-select: none;
+  vertical-align: middle;
+  white-space: nowrap;
+
+  a {
+    flex: 1;
+    line-height: $btn-height;
     white-space: nowrap;
+  }
 
-    a {
-        flex: 1;
-        line-height: $btn-height;
-        white-space: nowrap;
-    }
+  .icon {
+    font-size: $font-size-medium;
+    margin-#{$opposite-float}: 5px;
+    cursor: pointer;
+  }
 
-    .icon {
-        font-size: $font-size-medium;
-        margin-#{$opposite-float}: 5px;
-        cursor: pointer;
-    }
+  &.btn-outlined {
+    @include btn-style-outline($color-default);
+  }
+
+  &.btn-contained {
+    @include btn-style-contained($color-default, $color-default-text);
+  }
+
+  &.btn-primary {
+    @include btn-style($color-primary);
 
     &.btn-outlined {
-        @include btn-style-outline($color-default);
+      @include btn-style-outline($color-primary);
     }
 
     &.btn-contained {
-        @include btn-style-contained($color-default, $color-default-text);
+      @include btn-style-contained($color-primary, $color-primary-text);
+    }
+  }
+
+  &.btn-secondary {
+    @include btn-style($color-secondary);
+
+    &.btn-outlined {
+      @include btn-style-outline($color-secondary);
     }
 
-    &.btn-primary {
-        @include btn-style($color-primary);
+    &.btn-contained {
+      @include btn-style-contained($color-secondary, $color-secondary-text);
+    }
+  }
 
-        &.btn-outlined {
-            @include btn-style-outline($color-primary);
-        }
+  &:disabled {
+    @include btn-style($silver);
+    cursor: not-allowed;
 
-        &.btn-contained {
-            @include btn-style-contained($color-primary, $color-primary-text);
-        }
+    &.btn-outlined {
+      @include btn-style-outline($silver);
     }
 
-    &.btn-secondary {
-        @include btn-style($color-secondary);
-
-        &.btn-outlined {
-            @include btn-style-outline($color-secondary);
-        }
-
-        &.btn-contained {
-            @include btn-style-contained($color-secondary, $color-secondary-text);
-        }
+    &.btn-contained {
+      @include btn-style-contained($silver, $grey);
     }
+  }
 
-    &:disabled {
-        @include btn-style($silver);
-        cursor: not-allowed;
-
-        &.btn-outlined {
-            @include btn-style-outline($silver);
-        }
-
-        &.btn-contained {
-            @include btn-style-contained($silver, $grey);
-        }
-    }
-
-    &.btn-lg {
-        @include btn-size($btn-height-large, $font-size-large);
-    }
+  &.btn-lg {
+    @include btn-size($btn-height-large, $font-size-large);
+  }
 }

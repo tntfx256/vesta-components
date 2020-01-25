@@ -9,8 +9,8 @@ $layout-xlarge-min: $layout-large-max !default;
 
 // font
 $font-size-base: 16px !default;
-$font-size-xsmall: floor(.65 * $font-size-base) !default;
-$font-size-small: floor(.85 * $font-size-base) !default;
+$font-size-xsmall: floor(0.65 * $font-size-base) !default;
+$font-size-small: floor(0.85 * $font-size-base) !default;
 $font-size-medium: floor(1.25 * $font-size-base) !default;
 $font-size-large: floor(1.5 * $font-size-base) !default;
 $font-size-xlarge: floor(2 * $font-size-base) !default;
@@ -76,9 +76,9 @@ $shadow-radius: floor(2 * $unit) !default;
 $shadow-default: $shadow-horizontal-offset $shadow-vertical-offset $shadow-radius $shadow-color !default;
 
 // element colors
-$body-background-color: rgba(250, 250, 250, .85) !default;
+$body-background-color: rgba(250, 250, 250, 0.85) !default;
 $border-color: $color-default !default;
-$box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .16), 0 2px 10px 0 rgba(0, 0, 0, .12) !default;
+$box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12) !default;
 
 // basic element
 $element-height: floor(18 * $unit) !default;

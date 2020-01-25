@@ -1,6 +1,6 @@
 @function get-value-by-direction($ltr-value, $rtl-value) {
-    @if ($direction == rtl) {
-        @return $rtl-value;
-    }
-    @return $ltr-value;
+  @if ($direction == rtl) {
+    @return $rtl-value;
+  }
+  @return $ltr-value;
 }

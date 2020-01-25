@@ -1,132 +1,134 @@
-$dp-cell-size: 45px;
-$dp-cell-padding: 5px;
+$dp-cell-size: 45px !default;
+$dp-cell-padding: 5px !default;
 
 .date-picker {
-    align-items: center;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  .picker-wrapper {
+    background: $white;
+    border-radius: $border-radius;
+    overflow: hidden;
+
+    .btn-group {
+      padding: $dp-cell-padding 0;
+    }
+  }
+
+  .month-year-row {
+    background: $color-primary;
+    color: $white;
     display: flex;
-    flex-direction: column;
-    justify-content: center;
+    flex-direction: row;
+    text-align: center;
 
-    .picker-wrapper {
-        background: $white;
-        border-radius: $border-radius;
-        overflow: hidden;
-
-        .btn-group {
-            padding: $dp-cell-padding 0;
-        }
+    > div {
+      //border: 2px solid red;
+      flex: 1;
+      padding: (4 * $dp-cell-padding) $dp-cell-padding;
+      white-space: nowrap;
     }
 
-    .month-year-row {
-        background: $color-primary;
-        color: $white;
-        display: flex;
-        flex-direction: row;
-        text-align: center;
-
-        >div {
-            //border: 2px solid red;
-            flex: 1;
-            padding: (4 * $dp-cell-padding) $dp-cell-padding;
-            white-space: nowrap;
-        }
-
-        h2 {
-            width: 100px;
-        }
-
-        h2, a {
-            cursor: pointer;
-            display: inline-block;
-            user-select: none;
-            vertical-align: middle;
-        }
-
-        h2 {
-            font-weight: lighter;
-            margin: auto 7px;
-        }
+    h2 {
+      width: 100px;
     }
 
-    .time-select {
-        border-bottom: 1px solid $border-color;
-        display: flex;
-
-        >div {
-            display: inline-block;
-            flex: 1;
-            padding: $dp-cell-padding;
-        }
-
-        select {
-            display: inline-block;
-            vertical-align: middle;
-            width: 50%;
-        }
-
-        label {
-            display: inline-block;
-            font-weight: lighter;
-            margin: auto 10px;
-            vertical-align: middle;
-        }
-
-        .min-select {
-            text-align: start;
-        }
-
-        .hour-select {
-            text-align: end;
-        }
+    h2,
+    a {
+      cursor: pointer;
+      display: inline-block;
+      user-select: none;
+      vertical-align: middle;
     }
 
-    table {
-        border: 1px solid $border-color;
-        table-layout: fixed;
+    h2 {
+      font-weight: lighter;
+      margin: auto 7px;
+    }
+  }
+
+  .time-select {
+    border-bottom: 1px solid $border-color;
+    display: flex;
+
+    > div {
+      display: inline-block;
+      flex: 1;
+      padding: $dp-cell-padding;
     }
 
-    th, td {
-        text-align: center;
-        background-color: $white;
+    select {
+      display: inline-block;
+      vertical-align: middle;
+      width: 50%;
     }
 
-    th {
-        border-bottom: 1px solid $border-color;
-        color: $color-primary;
-        font-weight: lighter;
-        min-width: $dp-cell-size;
-        padding: 3 * $dp-cell-padding $dp-cell-padding $dp-cell-padding $dp-cell-padding;
+    label {
+      display: inline-block;
+      font-weight: lighter;
+      margin: auto 10px;
+      vertical-align: middle;
     }
 
-    td {
-        cursor: pointer;
-        height: $dp-cell-size;
-        width: $dp-cell-size;
+    .min-select {
+      text-align: start;
     }
 
+    .hour-select {
+      text-align: end;
+    }
+  }
+
+  table {
+    border: 1px solid $border-color;
+    table-layout: fixed;
+  }
+
+  th,
+  td {
+    text-align: center;
+    background-color: $white;
+  }
+
+  th {
+    border-bottom: 1px solid $border-color;
+    color: $color-primary;
+    font-weight: lighter;
+    min-width: $dp-cell-size;
+    padding: 3 * $dp-cell-padding $dp-cell-padding $dp-cell-padding $dp-cell-padding;
+  }
+
+  td {
+    cursor: pointer;
+    height: $dp-cell-size;
+    width: $dp-cell-size;
+  }
+
+  i {
+    background: $white;
+    border-radius: 50%;
+    display: inline-block;
+    font-style: normal;
+    font-weight: lighter;
+    height: $dp-cell-size;
+    line-height: $dp-cell-size;
+    transition: background-color $transition-duration-short $transition-effect-default;
+    width: $dp-cell-size;
+  }
+
+  .selected {
     i {
-        background: $white;
-        border-radius: 50%;
-        display: inline-block;
-        font-style: normal;
-        font-weight: lighter;
-        height: $dp-cell-size;
-        line-height: $dp-cell-size;
-        transition: background-color $transition-duration-short $transition-effect-default;
-        width: $dp-cell-size;
+      background: $color-primary;
+      color: $white;
     }
+  }
 
-    .selected {
-        i {
-            background: $color-primary;
-            color: $white;
-        }
+  .today {
+    i {
+      background: $color-secondary;
+      color: $white;
     }
-
-    .today {
-        i {
-            background: $color-secondary;
-            color: $white;
-        }
-    }
+  }
 }

@@ -1,109 +1,108 @@
-$sidenav-transition-enter-duration: $transition-duration-default;
-$sidenav-transition-leave-duration: floor(2 * $sidenav-transition-enter-duration / 3);
-$sidenav-transition-effect: $transition-effect-default;
-$sidenav-width: 300px;
+$sidenav-transition-enter-duration: $transition-duration-default !default;
+$sidenav-transition-leave-duration: floor(2 * $sidenav-transition-enter-duration / 3) !default;
+$sidenav-transition-effect: $transition-effect-default !default;
+$sidenav-width: 300px !default;
 
 .sidenav-component {
-    background-color: $color-light;
-    box-shadow: 13px 1px 20px 6px black;
+  background-color: $color-light;
+  box-shadow: 13px 1px 20px 6px black;
 
-    .navbar {
-        z-index: $z-index-sidenav + 1;
+  .navbar {
+    z-index: $z-index-sidenav + 1;
+  }
+
+  &.sidenav-static {
+    position: sticky;
+    padding-top: $appbar-height;
+    max-height: 100vh;
+    top: 0;
+
+    .sidenav-backdrop {
+      display: none;
     }
 
-    &.sidenav-static {
-        position: sticky;
-        padding-top: $appbar-height;
-        max-height: 100vh;
-        top: 0;
-
-        .sidenav-backdrop {
-            display: none;
-        }
-
-        .sidenav {
-            height: 100%;
-            position: relative;
-        }
+    .sidenav {
+      height: 100%;
+      position: relative;
     }
+  }
 }
 
 .sidenav {
-    @include translate3d(0);
+  @include translate3d(0);
 
-    @include media-query-small {
-        max-width: none;
-        width: 100%;
-    }
+  @include media-query-small {
+    max-width: none;
+    width: 100%;
+  }
 
-    background-color: $color-light;
-    #{$float}: 0;
-    bottom: 0;
-    max-width: $sidenav-width;
-    overflow: auto;
-    position: fixed;
-    top: 0;
-    transition: all $transition-duration-medium;
-    width: $sidenav-width;
-    will-change: transform;
-    z-index: $z-index-sidenav+1;
+  background-color: $color-light;
+  #{$float}: 0;
+  bottom: 0;
+  max-width: $sidenav-width;
+  overflow: auto;
+  position: fixed;
+  top: 0;
+  transition: all $transition-duration-medium;
+  width: $sidenav-width;
+  will-change: transform;
+  z-index: $z-index-sidenav + 1;
 }
 
 .sidenav-backdrop {
-    background: transparentize($black, .5);
-    bottom: 0;
-    left: 0;
-    opacity: 1;
-    position: fixed;
-    right: 0;
-    top: 0;
-    will-change: opacity;
-    z-index: $z-index-sidenav - 1;
+  background: transparentize($black, 0.5);
+  bottom: 0;
+  left: 0;
+  opacity: 1;
+  position: fixed;
+  right: 0;
+  top: 0;
+  will-change: opacity;
+  z-index: $z-index-sidenav - 1;
 }
 
 .sidenav-enter {
+  .sidenav {
+    @include translate3d(-$direction-eq * 100%, 0, 0);
+  }
+
+  .sidenav-backdrop {
+    opacity: 0.1;
+  }
+
+  &.sidenav-enter-active {
     .sidenav {
-        @include translate3d(-$direction-eq * 100%, 0, 0);
+      @include translate3d(0, 0, 0);
+      transition: transform $sidenav-transition-enter-duration $sidenav-transition-effect;
     }
 
     .sidenav-backdrop {
-        opacity: .1;
+      opacity: 1;
+      transition: opacity $sidenav-transition-enter-duration $sidenav-transition-effect;
     }
-
-    &.sidenav-enter-active {
-        .sidenav {
-            @include translate3d(0, 0, 0);
-            transition: transform $sidenav-transition-enter-duration $sidenav-transition-effect;
-        }
-
-        .sidenav-backdrop {
-            opacity: 1;
-            transition: opacity $sidenav-transition-enter-duration $sidenav-transition-effect;
-        }
-    }
+  }
 }
 
 .sidenav-leave {
-
-    &.sidenav-leave-active {
-        .sidenav {
-            @include translate3d(-$direction-eq * 100%, 0, 0);
-            transition: transform $sidenav-transition-leave-duration $sidenav-transition-effect;
-        }
-
-        .sidenav-backdrop {
-            opacity: .1;
-            transition: opacity $sidenav-transition-leave-duration $sidenav-transition-effect;
-        }
+  &.sidenav-leave-active {
+    .sidenav {
+      @include translate3d(-$direction-eq * 100%, 0, 0);
+      transition: transform $sidenav-transition-leave-duration $sidenav-transition-effect;
     }
+
+    .sidenav-backdrop {
+      opacity: 0.1;
+      transition: opacity $sidenav-transition-leave-duration $sidenav-transition-effect;
+    }
+  }
 }
 
 html {
-    &.sidenav-open {
-        overflow-y: hidden;
+  &.sidenav-open {
+    overflow-y: hidden;
 
-        .page {
-            overflow-y: hidden;
-        }
+    .page {
+      overflow-y: hidden;
     }
+  }
 }

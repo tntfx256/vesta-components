@@ -1,9 +1,9 @@
-$dd-bg: $color-primary-light;
-$dd-color: $color-primary-text;
+$dd-bg: $color-primary-light !default;
+$dd-color: $color-primary-text !default;
 
 .dropdown {
-    background: $dd-bg;
-    border-radius: $border-radius;
-    color: $dd-color;
-    position: fixed;
+  background: $dd-bg;
+  border-radius: $border-radius;
+  color: $dd-color;
+  position: fixed;
 }

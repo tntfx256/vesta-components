@@ -3,8 +3,8 @@ $opposite-float: right;
 $direction: ltr;
 $opposite-direction: rtl;
 $direction-eq: 1;
-$font-path: '../fonts';
+$font-path: "../fonts";
 
 $base-font-family: Verdana, Geneva, sans-serif;
 
-@import 'common';
+@import "common";

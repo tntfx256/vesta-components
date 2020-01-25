@@ -1,40 +1,40 @@
-$toast-padding: 5px 20px;
-$toast-margin: 10px auto;
-$toast-font-size: $font-size-medium;
-$toast-border-radius: $border-radius;
-$toast-border-color: $border-color;
-$toast-text-color: $white;
+$toast-padding: 5px 20px !default;
+$toast-margin: 10px auto !default;
+$toast-font-size: $font-size-medium !default;
+$toast-border-radius: $border-radius !default;
+$toast-border-color: $border-color !default;
+$toast-text-color: $white !default;
 
 .toast-wrapper {
-    bottom: 0;
-    left: 0;
-    position: fixed;
+  bottom: 0;
+  left: 0;
+  position: fixed;
+  text-align: center;
+  width: 100%;
+  z-index: $z-index-notification;
+
+  .toast {
+    background: transparentize($color-dark, 0.15);
+    border: 2px solid $toast-border-color;
+    border-radius: $toast-border-radius;
+    color: $toast-text-color;
+    display: inline-block;
+    font-size: $toast-font-size;
+    line-height: 2;
+    margin: $toast-margin;
+    padding: $toast-padding;
     text-align: center;
-    width: 100%;
-    z-index: $z-index-notification;
+  }
 
-    .toast {
-        background: transparentize($color-dark, .15);
-        border: 2px solid $toast-border-color;
-        border-radius: $toast-border-radius;
-        color: $toast-text-color;
-        display: inline-block;
-        font-size: $toast-font-size;
-        line-height: 2;
-        margin: $toast-margin;
-        padding: $toast-padding;
-        text-align: center;
-    }
+  .type-error {
+    background: transparentize($color-error, 0.1);
+  }
 
-    .type-error {
-        background: transparentize($color-error, .1);
-    }
+  .type-success {
+    background: transparentize($color-success, 0.1);
+  }
 
-    .type-success {
-        background: transparentize($color-success, .1);
-    }
-
-    .type-warning {
-        background: transparentize($color-warning, .1);
-    }
+  .type-warning {
+    background: transparentize($color-warning, 0.1);
+  }
 }
